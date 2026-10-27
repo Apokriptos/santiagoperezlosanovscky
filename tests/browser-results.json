@@ -7,7 +7,7 @@
     },
     {
       "test": "All desktop routes at 1434 × 913",
-      "routes": 23,
+      "routes": 28,
       "withRail": [
         251,
         1049,
@@ -90,6 +90,39 @@
           "timeline": true
         },
         {
+          "route": "#games/case-studies/case-1/step-5",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-1/step-6",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-1/step-7",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
           "route": "#games/case-studies/case-2",
           "columns": [
             251,
@@ -113,6 +146,28 @@
         },
         {
           "route": "#games/case-studies/case-2/step-2",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-3",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": false
+        },
+        {
+          "route": "#games/case-studies/case-3/step-1",
           "columns": [
             251,
             1049,
@@ -343,6 +398,42 @@
           "overflowY": "visible"
         },
         {
+          "route": "#games/case-studies/case-1/step-5",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1/step-6",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1/step-7",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
           "route": "#games/case-studies/case-2",
           "result": "PASS",
           "columns": [
@@ -368,6 +459,30 @@
         },
         {
           "route": "#games/case-studies/case-2/step-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-3/step-1",
           "result": "PASS",
           "columns": [
             251,
@@ -604,6 +719,42 @@
           "overflowY": "visible"
         },
         {
+          "route": "1920px #games/case-studies/case-1/step-5",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1/step-6",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1/step-7",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
           "route": "1920px #games/case-studies/case-2",
           "result": "PASS",
           "columns": [
@@ -638,6 +789,30 @@
           "clientHeight": 913,
           "scrollHeight": 913,
           "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-3/step-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
         }
       ]
     },
@@ -648,43 +823,43 @@
     {
       "test": "Responsive routes",
       "width": 320,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 360,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 390,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 768,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 1000,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 1200,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 1920,
-      "routes": 23,
+      "routes": 28,
       "overflow": false
     },
     {

@@ -60,6 +60,9 @@ const routes=['#games','#games/projects','#games/roles','#games/case-studies','#
 try {
   await load('#games');
   assert(!doc().querySelector('.right-rail'),'Overview must not have a contextual rail');
+  const mainArtwork=getComputedStyle(doc().querySelector('main')).backgroundImage;
+  assert(mainArtwork.includes('polished_background_final.png') && !mainArtwork.includes('gradient') && !mainArtwork.includes('paper-hd'),'Only approved final Games background');
+  assert(!doc().querySelector('video') && !doc().querySelector('iframe'),'Overview does not initialize project videos');
   const portraitBounds=doc().querySelector('.overview-portrait').getBoundingClientRect();
   assert(Math.abs(portraitBounds.right-1434)<1 && Math.abs(portraitBounds.top)<1 && Math.abs(portraitBounds.bottom-913)<1,'Overview portrait fills top/right/bottom edges');
   const roleLinks=[...doc().querySelectorAll('.overview-roles .cards a')];
@@ -92,6 +95,8 @@ try {
     const right=doc().querySelector('.right-rail');if(right)assert(right.getBoundingClientRect().height===913,'Right height');
     const items={projects:Projects,roles:Roles,'case-studies':CaseStudies}[hash.split('/')[1]];
     if(items) {
+      const railArt=getComputedStyle(right).backgroundImage;
+      assert(railArt.includes('polished_righttab_final.png') && !railArt.includes('gradient') && !railArt.includes('right-rail-hd'),'Final contextual rail without dark overlay');
       assert(right.querySelectorAll('a').length===items.length+1,'Contextual rail data count '+hash);
       assert(right.querySelectorAll('[aria-current="page"]').length===1,'One active contextual entry '+hash);
       assert(doc().querySelector('#context-select').options.length===items.length+1,'Mobile context data count '+hash);
@@ -192,6 +197,7 @@ try {
       await image.decode();assert(image.naturalWidth>0,'Real image decoded '+path);
     }
     await load('#games/projects/'+project.id);
+    assert(!doc().querySelector('video'),'Video loads only after activation');
     const start=doc().querySelector('.video-start');assert(start,'Playable showcase '+project.title);
     start.click();const player=doc().querySelector('video');
     player.muted=true;

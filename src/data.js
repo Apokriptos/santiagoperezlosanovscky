@@ -58,16 +58,27 @@ export const Projects = projectSources.map((source, i) => ({
   buildStatus: 'Build availability forthcoming.', buildUrl: null, buildProvider: null,
   buildNote: 'Evaluation and distribution terms forthcoming.', externalUrl: null, caseStudies: [],
 }));
+// Approved identities and structure; analytical content remains unwritten.
 export const CaseStudies = [
-  { id: 'case-1', title: 'Case Study 01', count: 4 },
-  { id: 'case-2', title: 'Case Study 02', count: 2 },
-].map(({ id, title, count }, index) => ({
-  id, title, subtitle: 'Case study placeholder', projectId: Projects[index].id, roleIds: [], heroMedia: null,
+  { id: 'case-1', title: 'Designing Investigation in Hollow Graves', projectIndex: 0,
+    labels: ['Context', 'Design Problem', 'Investigation Loop', 'GhostSight', 'Clues & Feedback', 'Iteration', 'Outcome'] },
+  { id: 'case-2', title: 'Frenzy & Combat in Reditus Umbrae', projectIndex: 1,
+    labels: ['Step 01', 'Step 02'], structurePending: true },
+  { id: 'case-3', title: 'Exploration in Dreadwoods', projectIndex: 2,
+    labels: ['Steps forthcoming'], structurePending: true },
+].map(({ id, title, projectIndex, labels, structurePending = false }) => ({
+  id, title, subtitle: structurePending ? 'Structure and analysis forthcoming' : 'Analysis forthcoming',
+  projectId: Projects[projectIndex].id, roleIds: [], heroMedia: { ...Projects[projectIndex].heroMedia }, structurePending,
   summary: 'Case summary forthcoming.', centralQuestion: 'The central design question will be supplied here.',
   contribution: ['Contribution and ownership details forthcoming.'],
-  steps: Array.from({ length: count }, (_, i) => ({ id: `step-${i + 1}`, number: i + 1,
-    title: `Step ${String(i + 1).padStart(2, '0')}`, body: 'Reasoning, decisions, iteration, and outcomes forthcoming.',
+  steps: labels.map((title, i) => ({ id: `step-${i + 1}`, number: i + 1,
+    title, body: 'Reasoning, decisions, iteration, and outcomes forthcoming.',
     media: [placeholder('Evidence 01'), placeholder('Evidence 02')], captions: [],
   })),
 }));
+// Confirmed against Aobscura games.config.js (read-only reference).
+Object.assign(Projects[0], { buildStatus: 'Playable build available.', buildProvider: 'Google Drive',
+  buildUrl: 'https://drive.google.com/file/d/16a5fx6jZp_mfh7tM_XKza_Ro3E-bnU9-/view?usp=sharing' });
+Object.assign(Projects[1], { buildStatus: 'Playable build available.', buildProvider: 'Google Drive',
+  buildUrl: 'https://drive.google.com/file/d/1Zc0uigVurvcOhfjpLCnYv9G74CkCa6Nv/view?usp=drive_link' });
 CaseStudies.forEach(c => Projects.find(p => p.id === c.projectId)?.caseStudies.push(c.id));

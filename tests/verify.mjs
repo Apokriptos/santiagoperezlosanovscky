@@ -75,3 +75,13 @@ for (const project of Projects) {
   }
 }
 console.log('All configured project media files exist.');
+
+assert.deepEqual(CaseStudies[0].steps.map(step=>step.title), ['Context','Design Problem','Investigation Loop','GhostSight','Clues & Feedback','Iteration','Outcome']);
+assert.equal(CaseStudies.length,3);
+for (const study of CaseStudies) {
+  const project=Projects.find(p=>p.id===study.projectId);
+  assert.equal(study.heroMedia.src, project.heroMedia.src);
+  assert.ok(project.caseStudies.includes(study.id));
+  assert.ok(study.steps.every(step=>step.media.every(item=>item.src===null)), 'Analytical evidence remains unwritten');
+}
+console.log('Approved case identities, relationships, seven-step sequence and evidence placeholders passed.');

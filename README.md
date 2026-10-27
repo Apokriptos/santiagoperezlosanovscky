@@ -1,6 +1,8 @@
 # Santiago Pérez Losanovscky — portfolio foundation
 
-Latest calibration: [Sharper artwork, portrait framing and real project media](docs/fidelity-media-calibration.md).
+Latest integration: [Approved final Games artwork and real Case Study identities](docs/final-games-integration.md).
+
+Previous calibration: [Sharper artwork, portrait framing and real project media](docs/fidelity-media-calibration.md).
 
 Previous correction: [Global desktop single-screen layouts](docs/desktop-fit.md). All nine required Games page families fit at 1434 × 913 with their sections and controls visible.
 
