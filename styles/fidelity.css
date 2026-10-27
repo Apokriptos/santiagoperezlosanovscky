@@ -1,7 +1,7 @@
 /* Targeted fidelity and media calibration; geometry remains in shell.css. */
 .games-shell .main-content { background-image: url('../assets/polished_background_final.png'); }
 .games-shell .left-rail { background-image: url('../assets/left-rail-hd.png'); }
-.games-shell .right-rail { background-image: url('../assets/polished_righttab_final.png'); }
+/* The rail's single-layer artwork and sizing are owned by games-visual.css. */
 .games-shell .primary-nav [aria-current='page']::before { inset: 0 -3px; background: url('../assets/selected-tab.svg') center / 100% 100% no-repeat; filter: none; }
 .games-shell .right-rail nav { gap: 0; }
 .games-shell .right-rail a { padding: 14px 0 14px 23px; min-height: 64px; background: transparent; border: 0; font-size: 10px; line-height: 1.45; letter-spacing: .025em; color: #e7ddcc; }

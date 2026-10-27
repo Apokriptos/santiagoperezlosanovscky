@@ -96,6 +96,7 @@ try {
     const items={projects:Projects,roles:Roles,'case-studies':CaseStudies}[hash.split('/')[1]];
     if(items) {
       const railArt=getComputedStyle(right).backgroundImage;
+      assert(getComputedStyle(right).backgroundSize==='cover','Final rail artwork fills the rail rather than using native-size crop');
       assert(railArt.includes('polished_righttab_final.png') && !railArt.includes('gradient') && !railArt.includes('right-rail-hd'),'Final contextual rail without dark overlay');
       assert(right.querySelectorAll('a').length===items.length+1,'Contextual rail data count '+hash);
       assert(right.querySelectorAll('[aria-current="page"]').length===1,'One active contextual entry '+hash);

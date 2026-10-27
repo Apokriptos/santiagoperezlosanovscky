@@ -84,7 +84,7 @@
 .games-shell .studio-link:hover { text-decoration: underline; }
 .games-shell .right-rail {
   color: var(--games-paper);
-  background: linear-gradient(#121212b8, #121212b8), url('../assets/right_tab_asset%201.png') center top / cover no-repeat;
+  background: #141414 url('../assets/polished_righttab_final.png') center top / cover no-repeat;
   border-left-color: var(--games-ink);
 }
 .games-shell .right-rail h2 { font-family: Arial, sans-serif; font-weight: 700; font-size: 10px; letter-spacing: .12em; padding-bottom: 18px; border-bottom: 1px solid #8b8170; }
