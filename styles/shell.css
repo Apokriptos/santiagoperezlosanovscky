@@ -21,9 +21,14 @@ button, a, select { touch-action: manipulation; }
 [aria-current="page"] { font-weight: bold; }
 .primary-nav [aria-current="page"] { border-left-color: #202020; background: #dcdcd8; }
 .studio-link { margin-top: auto; padding-top: 28px; font-size: 12px; text-decoration: none; }
-/* Scroll within the content rectangle so OS scrollbars cannot subtract from
-   the canonical shell width on longer pages. Rails retain the viewport height. */
+/* Narrow/short desktop windows retain an accessibility scroll fallback.
+   Full desktop compositions below must fit without relying on this scrolling. */
 .main-content { min-width: 0; height: 100dvh; overflow-y: auto; }
+@media (min-width:1201px) and (min-height:840px) {
+  /* Visible overflow intentionally exposes layout regressions instead of
+     hiding content or creating an inner scrollbar. Geometry stays unchanged. */
+  .main-content:has(> :is(.overview-page,.projects-page,.roles-page,.about-page,.case-studies-page)) { overflow: visible; }
+}
 .right-rail { padding: 36px 12px; border-left: 1px solid #d1d1ce; }
 .right-rail h2 { font-size: 12px; letter-spacing: .07em; margin: 0 0 30px; }
 .right-rail nav { display: grid; gap: 22px; }

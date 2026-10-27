@@ -1,6 +1,8 @@
 # Santiago Pérez Losanovscky — portfolio foundation
 
-Latest follow-up: [Case Studies single-screen corrections and supplied CV integration](docs/case-studies-correction.md). Case Studies now has a dedicated multi-card landing, a viewport-fit cover, and an always-visible desktop step timeline. The CV supplied in `documentation/` now powers the document preview and PDF actions.
+Latest correction: [Global desktop single-screen layouts](docs/desktop-fit.md). All nine required Games page families fit at 1434 × 913 with their sections and controls visible.
+
+Previous follow-up: [Case Studies single-screen corrections and supplied CV integration](docs/case-studies-correction.md). Case Studies now has a dedicated multi-card landing, a viewport-fit cover, and an always-visible desktop step timeline. The CV supplied in `documentation/` now powers the document preview and PDF actions.
 
 The approved Games Overview visual baseline now extends across Projects, Roles, Case Studies, CV, Contact, About, and the root selector. See [the implementation report](docs/games-visual-implementation.md) for screen/reference mapping, verification, and pending content. [The calibration notes](docs/visual-calibration.md) record the original Overview pass. The router and shared shell remain unchanged.
 
@@ -9,7 +11,7 @@ Buildless, semantic HTML, CSS, and vanilla JavaScript. Serve this folder with an
 ## Structure and geometry
 
 - `styles/shell.css` alone owns the approved `251px` left rail and optional `134px` contextual rail. `src/shell.js` renders both variants. At 1434 × 913 the content rectangles measure 1183px and 1049px respectively.
-- Main content scrolls within its desktop rectangle: a document scrollbar must never subtract pixels from the shell. Rails retain viewport height. Page CSS only composes the interior.
+- Required Games views fit a single desktop frame at 1434 × 913, with normal flow available on narrower or shorter windows. Rails retain viewport height. Page CSS only composes the interior.
 - Below or at 1000px the left rail becomes an expandable menu, the contextual rail becomes a native select, and the document scrolls normally. Internal columns stack at 700px. The bottom case step list scrolls within itself for arbitrary counts.
 - `src/router.js` validates hash routes and renders a recoverable not-found page for unknown identifiers. Hash changes provide direct links, refresh persistence, and browser Back/Forward without a server rewrite. Internal overview-video scroll links preserve the active route.
 - `src/app.js` owns route rendering, navigation state, focus, mobile menu, and component binding. `src/pages.js` supplies shared templates. No per-project bespoke pages.
@@ -35,4 +37,4 @@ Supplied visual reference images remain in `references/` and original assets rem
 
 Run `npm test` for router validation, all configured routes, invalid routes, a temporary 11-step case, and CSS ownership assertions. Start the server, then open `/tests/qa.html` to run browser layout and interaction checks under a simulated repository project prefix. The harness uses actual iframe viewports, including exactly 1434 × 913, then 390, 768, 1000, 1200, and 1920px widths. It checks every configured Games route, shell dimensions, overflow, project/gallery controls, keyboard behavior, case covers/steps, mobile menu/Escape, contextual selector, Back/Forward, fresh deep links, and placeholder/contact/root states. `/tests/shell.html?viewport` and `?viewport&context` isolate the neutral shell before pages. `?debug#games/projects` colors the shell regions without changing geometry.
 
-Final artwork, final copy, real project/case evidence, playable builds, portrait, email/LinkedIn, and actual CV are pending. Real video playback, PDF content rendering, downloads of supplied binaries, and production GitHub Pages deployment cannot be verified until their files/hosting exist. Books remains a placeholder.
+Final artwork, final copy, real project/case evidence, playable builds, portrait, and email/LinkedIn remain pending. The supplied CV is implemented with a searchable HTML preview and PDF view/download actions. Real video/build playback and production GitHub Pages deployment remain unverified. Books remains a placeholder.

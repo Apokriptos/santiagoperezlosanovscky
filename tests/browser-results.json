@@ -125,6 +125,523 @@
       ]
     },
     {
+      "test": "Global desktop fit for every required Games page family and configured detail route",
+      "passed": true,
+      "measurements": [
+        {
+          "route": "#games",
+          "result": "PASS",
+          "columns": [
+            251,
+            1183
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/projects",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/about",
+          "result": "PASS",
+          "columns": [
+            251,
+            1183
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/projects/project-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/projects/project-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/projects/project-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles/technical-game-design",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles/level-design",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles/gameplay-development",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles/creative-leadership",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles/technical-animation",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1/step-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1/step-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1/step-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-1/step-4",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-2/step-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/case-studies/case-2/step-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "Populated About fixture",
+          "result": "PASS",
+          "columns": [
+            251,
+            1183
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games",
+          "result": "PASS",
+          "columns": [
+            251,
+            1669
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/projects",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/roles",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/about",
+          "result": "PASS",
+          "columns": [
+            251,
+            1669
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/projects/project-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/projects/project-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/projects/project-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/roles/technical-game-design",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/roles/level-design",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/roles/gameplay-development",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/roles/creative-leadership",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/roles/technical-animation",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1/step-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1/step-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1/step-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-1/step-4",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-2/step-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "1920px #games/case-studies/case-2/step-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        }
+      ]
+    },
+    {
       "test": "Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, 1/2/3 evidence layouts",
       "passed": true
     },

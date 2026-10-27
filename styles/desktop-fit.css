@@ -1,0 +1,101 @@
+/* Desktop publication frames. Each page composes its existing content inside
+   MainContent; shell columns and rail variables remain owned by shell.css.
+   No scale, clipping, line clamping, or global font reduction is used. */
+@media (min-width:1201px) and (min-height:840px) {
+  :is(.overview-page,.projects-page,.roles-page,.about-page) { height: 100%; min-height: 0; padding: 24px; }
+  :is(.projects-page,.roles-page,.about-page) > .page-header { margin: 0; padding-bottom: 14px; }
+  :is(.projects-page,.roles-page,.about-page) > .page-header h1 { font-size: clamp(40px,3.1vw,48px); }
+  :is(.projects-page,.roles-page,.about-page) > .page-header .breadcrumb { margin-bottom: 10px; }
+  :is(.projects-page,.roles-page,.about-page) > .page-header .subtitle { margin-top: 8px; }
+
+  /* Overview: editorial sections and portrait share one full-height interior. */
+  .overview-page .overview-grid { height: 100%; min-height: 0; }
+  .overview-page .overview-editorial { display: grid; grid-template-rows: auto auto auto minmax(0,1fr); gap: 18px; min-height: 0; }
+  .overview-page .page-header { margin: 0; padding-bottom: 14px; }
+  .overview-page h1 { font-size: 64px; }
+  .overview-page .overview-intro { padding-bottom: 16px; }
+  .overview-page .section { margin: 0; min-height: 0; }
+  .overview-page .overview-projects { display: grid; grid-template-rows: auto minmax(0,1fr); }
+  .overview-page .overview-projects .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; min-height: 0; }
+  .overview-page .overview-projects .slide { height: 100%; min-height: 0; }
+  .overview-page .overview-projects .project-slide { height: 100%; align-items: center; }
+  .overview-page .overview-projects .media { min-height: 0; width: min(100%,calc(24dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; justify-self: center; }
+  .overview-page .overview-portrait, .overview-page .portrait-placeholder { min-height: 0; }
+
+  /* Overview screens keep their editorial/video top row and a lower content row. */
+  :is(.projects-page,.roles-page).index-page { display: grid; grid-template-rows: minmax(0,.8fr) minmax(0,1.2fr); gap: 22px; }
+  :is(.projects-page,.roles-page).index-page .split-intro { min-height: 0; padding-bottom: 18px; }
+  :is(.projects-page,.roles-page).index-page .split-intro .video-frame { width: min(100%,calc(32dvh * 16 / 9)); margin-left: auto; height: auto; aspect-ratio: 16 / 9; }
+  :is(.projects-page,.roles-page).index-page > .section { margin: 0; display: grid; grid-template-rows: auto minmax(0,1fr); gap: 14px; min-height: 0; }
+  :is(.projects-page,.roles-page).index-page > .section > h2 { margin: 0; padding-bottom: 10px; }
+  .projects-page.index-page .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; min-height: 0; }
+  .projects-page.index-page .slide { height: 100%; min-height: 0; }
+  .projects-page.index-page .project-slide { height: 100%; align-items: center; }
+  .projects-page.index-page .project-slide .media { width: min(100%,calc(33dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; justify-self: center; }
+
+  /* Both project rows have explicit shares of the space below a compact header. */
+  .projects-page.detail-page { display: grid; grid-template-rows: auto minmax(0,1fr); gap: 16px; }
+  .projects-page.detail-page .project-grid { height: 100%; min-height: 0; grid-template-rows: repeat(2,minmax(0,1fr)); gap: 18px; align-items: stretch; }
+  .projects-page.detail-page .project-grid > * { min-height: 0; }
+  .projects-page.detail-page .project-video { display: grid; place-items: start center; }
+  .projects-page.detail-page .project-video .video-frame { width: min(100%,calc(37dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; }
+  .projects-page.detail-page .print-panel { padding: 18px 20px; }
+  .projects-page.detail-page .print-panel h2 { font-size: 25px; margin-bottom: 12px; }
+  .projects-page.detail-page .project-description .tags { margin-block: 12px; }
+  .projects-page.detail-page .project-gallery .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; gap: 8px; height: 100%; min-height: 0; }
+  .projects-page.detail-page .project-gallery .slide { min-height: 0; }
+  .projects-page.detail-page .project-gallery figure { display: grid; justify-items: center; align-content: start; }
+  .projects-page.detail-page .project-gallery .media { width: min(100%,calc(28dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; }
+  .projects-page.detail-page .project-gallery .carousel-controls { padding-top: 0; }
+  .projects-page.detail-page .build-status { margin-bottom: 12px; }
+  .projects-page.detail-page .provider-note { margin-bottom: 12px; }
+  .projects-page.detail-page .distribution-note { padding-top: 12px; }
+
+  /* Five roles remain visible, with readable summaries rather than tall cards. */
+  .roles-page.index-page .role-cards { min-height: 0; grid-template-columns: repeat(3,minmax(0,1fr)); grid-auto-rows: minmax(0,1fr); gap: 14px; }
+  .roles-page.index-page .role-card { grid-template-columns: 44px minmax(0,1fr); gap: 12px; padding: 14px; }
+  .roles-page.index-page .role-card-media { min-height: 64px; }
+  .roles-page.index-page .role-card h3 { font-size: 19px; margin-bottom: 8px; }
+  .roles-page.index-page .role-card p { margin-bottom: 10px; }
+
+  /* Role detail reserves the final row for the featured-case CTA. */
+  .roles-page.detail-page { display: grid; grid-template-rows: auto minmax(0,1fr) auto; gap: 16px; }
+  .roles-page.detail-page .role-detail-grid { min-height: 0; grid-template-rows: minmax(0,.65fr) minmax(0,1fr); gap: 16px; }
+  .roles-page.detail-page .role-detail-grid > * { min-height: 0; }
+  .roles-page.detail-page .print-panel { padding: 18px 20px; }
+  .roles-page.detail-page h2 { font-size: 25px; margin-bottom: 12px; }
+  .roles-page.detail-page .empty-state { min-height: 0; padding: 14px; gap: 6px; }
+  .roles-page.detail-page .practice-section { display: grid; grid-template-rows: auto minmax(0,1fr); gap: 10px; }
+  .roles-page.detail-page .practice-section > h2 { margin: 0; padding-bottom: 10px; }
+  .roles-page.detail-page .practice-section .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; min-height: 0; }
+  .roles-page.detail-page .practice-section figure { display: grid; justify-items: center; align-content: start; }
+  .roles-page.detail-page .practice-section .media { width: min(100%,calc(24dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; }
+  .roles-page.detail-page .practice-section .carousel-controls { padding-top: 6px; }
+  .roles-page.detail-page .cta-strip { margin: 0; padding: 12px 18px; }
+
+  /* About uses width for a portrait/identity region and a horizontal lower band. */
+  .about-page { display: grid; grid-template-rows: auto minmax(0,1.2fr) minmax(0,.55fr) minmax(0,.65fr); gap: 16px; }
+  .about-page .about-layout { min-height: 0; margin: 0; grid-template-columns: minmax(0,.45fr) minmax(0,1.55fr); gap: 18px; }
+  .about-page .about-portrait { min-height: 0; }
+  .about-page .about-portrait .media { height: 100%; aspect-ratio: auto; }
+  .about-page .about-layout > div:last-child { display: grid; grid-template-rows: minmax(0,.9fr) minmax(0,1fr); gap: 14px; min-height: 0; }
+  .about-page .about-focus { margin: 0; gap: 14px; min-height: 0; }
+  .about-page .print-panel { padding: 18px 20px; min-height: 0; }
+  .about-page .print-panel h2 { font-size: 25px; margin-bottom: 12px; }
+  .about-page .biography-panel h2 { font-size: 30px; }
+  .about-page > .print-panel { display: grid; grid-template-columns: 170px minmax(0,1fr); align-items: center; gap: 20px; }
+  .about-page > .print-panel > h2 { margin: 0; }
+  .about-page .empty-state { min-height: 0; padding: 12px 16px; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 5px 14px; }
+  .about-page .empty-state .empty-mark { grid-row: span 2; align-self: center; }
+  .about-page .timeline { display: flex; gap: 20px; border-left: 0; border-top: 1px solid var(--games-rule); padding: 12px 0 0; }
+  .about-page .timeline li { flex: 1; min-width: 0; padding: 0; }
+  .about-page .timeline h3 { font-size: 18px; }
+  .about-page .timeline p { font-size: 13px; margin: 0; }
+  .about-page .about-facts { min-height: 0; margin: 0; grid-template-columns: minmax(0,1.4fr) minmax(0,.8fr) minmax(0,.8fr); gap: 16px; }
+  .about-page .about-facts > .print-panel:first-child ul { display: grid; grid-template-columns: repeat(auto-fit,minmax(110px,1fr)); gap: 6px 14px; margin: 0; padding-left: 18px; font-size: 13px; }
+
+  /* Wider desktops must not turn the existing Case Studies media into taller
+     regions. Cap image width from viewport height while retaining 16:9. */
+  .case-studies-page .case-index-card .media { width: min(100%,calc(29dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; align-self: center; }
+  .case-studies-page .evidence .media { width: min(100%,calc(30dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; margin-inline: auto; }
+}

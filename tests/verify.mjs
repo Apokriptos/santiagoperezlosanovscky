@@ -25,7 +25,7 @@ const pages=await readFile(new URL('../styles/pages.css',import.meta.url),'utf8'
 assert.equal((shell.match(/--games-left-rail-width:\s*251px/g)||[]).length,1);
 assert.equal((shell.match(/--games-context-rail-width:\s*134px/g)||[]).length,1);
 assert.ok(!/--games-(left|context)-rail-width/.test(pages));
-for (const file of ['games-visual.css','overview.css','publication.css','case-studies.css']) {
+for (const file of ['games-visual.css','overview.css','publication.css','case-studies.css','desktop-fit.css']) {
   const css=await readFile(new URL('../styles/'+file,import.meta.url),'utf8');
   assert.ok(!/--games-(left|context)-rail-width\s*:/.test(css),file+' must not own rail dimensions');
   assert.ok(!/references\//.test(css),file+' must not use screen mockups');

@@ -4,6 +4,7 @@ const pause=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationF
 const assert=(condition,message)=>{if(!condition)throw new Error(message);};
 const doc=()=>frame.contentDocument;
 const caseMeasurements=[];
+const desktopMeasurements=[];
 let loadId=0;
 async function load(hash,width=1434,height=913,path='') {
   frame.width=width;frame.height=height;
@@ -35,6 +36,25 @@ function singleScreen(label) {
     if(panel){const p=panel.getBoundingClientRect();assert(b.top>=p.top-1 && b.bottom<=p.bottom+1,'Content exceeds panel: '+label+' '+item.textContent.trim());}
   }
   const rail=doc().querySelector('.step-nav');if(rail)assert(rail.getBoundingClientRect().bottom<=box.bottom,'Step rail below fold');
+}
+function desktopFrame(label) {
+  const main=doc().querySelector('main'), bounds=main.getBoundingClientRect();
+  assert(main.scrollHeight<=main.clientHeight,'Desktop content scroll: '+label+' '+main.scrollHeight+'/'+main.clientHeight);
+  assert(doc().documentElement.scrollHeight<=913,'Desktop document scroll: '+label);
+  assert(getComputedStyle(main).overflowY==='visible','Canonical main must not depend on scrolling: '+label);
+  for(const item of doc().querySelectorAll('.page h1,.page h2,.page h3,.page p,.page li,.page button,.page a,.page figcaption,.page .media,.page .cta-strip,.page .carousel-controls')) {
+    if(!item.getClientRects().length)continue;
+    const b=item.getBoundingClientRect();assert(b.top>=bounds.top-1 && b.bottom<=bounds.bottom+1,'Below viewport: '+label+' '+item.textContent.trim());
+    const panel=item.closest('.print-panel,.panel,.role-card');
+    if(panel){const p=panel.getBoundingClientRect();assert(b.top>=p.top-1 && b.bottom<=p.bottom+1,'Outside panel: '+label+' '+item.textContent.trim());}
+  }
+  const cta=doc().querySelector('.roles-page.detail-page .cta-strip'), grid=doc().querySelector('.role-detail-grid');
+  if(cta)assert(cta.getBoundingClientRect().top>=grid.getBoundingClientRect().bottom-1,'Featured case CTA overlaps role content');
+  const about=doc().querySelector('.about-layout'), trajectory=doc().querySelector('.about-page > .print-panel');
+  if(about)assert(trajectory.getBoundingClientRect().top>=about.getBoundingClientRect().bottom-1,'About regions overlap');
+  const gallery=doc().querySelector('.project-gallery'), video=doc().querySelector('.project-video');
+  if(gallery)assert(gallery.getBoundingClientRect().top>=video.getBoundingClientRect().bottom-1,'Project rows overlap');
+  desktopMeasurements.push({route:label,result:'PASS',columns:geometry(),clientHeight:main.clientHeight,scrollHeight:main.scrollHeight,overflowY:getComputedStyle(main).overflowY});
 }
 const routes=['#games','#games/projects','#games/roles','#games/case-studies','#games/about','#games/cv','#games/contact',...Projects.map(p=>`#games/projects/${p.id}`),...Roles.map(r=>`#games/roles/${r.id}`),...CaseStudies.flatMap(c=>[`#games/case-studies/${c.id}`,...c.steps.map(s=>`#games/case-studies/${c.id}/${s.id}`)])];
 try {
@@ -83,6 +103,7 @@ try {
       singleScreen(hash);const main=doc().querySelector('main');
       caseMeasurements.push({route:hash,columns:geometry(),viewportHeight:main.clientHeight,scrollHeight:main.scrollHeight,timeline:!!doc().querySelector('.step-nav')});
     }
+    if(!['#games/cv','#games/contact'].includes(hash)) desktopFrame(hash);
     for(const video of doc().querySelectorAll('.video-frame')) {
       const box=video.getBoundingClientRect();assert(Math.abs(box.width/box.height-16/9)<.02,'Video aspect ratio '+hash);
     }
@@ -90,6 +111,10 @@ try {
   }
   results.push({test:'All desktop routes at 1434 × 913',routes:routes.length,withRail:[251,1049,134],withoutRail:[251,1183],overflow:false});
   results.push({test:'Every Case Studies index, cover, and step fits one canonical viewport with no vertical scroll; step rail remains visible',passed:true,measurements:caseMeasurements});
+  results.push({test:'Global desktop fit for every required Games page family and configured detail route',passed:true,measurements:desktopMeasurements});
+  await load('#games/about',1434,913,'tests/stress.html?about=populated');desktopFrame('Populated About fixture');
+  assert(getComputedStyle(doc().querySelector('.timeline')).display==='flex','Horizontal desktop trajectory');
+  assert(getComputedStyle(doc().querySelector('.about-facts .print-panel:first-child ul')).display==='grid','Compact skills grid');
   await load('#games/case-studies');
   assert(doc().querySelectorAll('.case-index-card').length===CaseStudies.length,'Overview case cards from data');
   assert(doc().querySelector('.case-carousel-controls').hidden,'No redundant controls when current cases fit');
@@ -120,7 +145,7 @@ try {
   for(const width of [1001,1200]) {await load('#games/case-studies',width);singleScreen('Case index at '+width);}
   await load('#games/case-studies/case-1/step-1',1434,600);assert(doc().querySelector('main').scrollHeight>doc().querySelector('main').clientHeight,'Short-height accessibility fallback allows content flow');
   for(const width of [320,360,390,768,1000,1200,1920]) {
-    for(const hash of routes) {await load(hash,width);noOverflow(width+' '+hash);}
+    for(const hash of routes) {await load(hash,width);noOverflow(width+' '+hash);if(width===1920 && !['#games/cv','#games/contact'].includes(hash))desktopFrame('1920px '+hash);}
     results.push({test:'Responsive routes',width,routes:routes.length,overflow:false});
   }
   for(const [family,items] of [['projects',Projects],['roles',Roles],['case-studies',CaseStudies]]) {

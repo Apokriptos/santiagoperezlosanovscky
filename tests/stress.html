@@ -6,13 +6,19 @@
 <link rel="stylesheet" href="../styles/games-visual.css"><link rel="stylesheet" href="../styles/overview.css">
 <link rel="stylesheet" href="../styles/publication.css">
 <link rel="stylesheet" href="../styles/case-studies.css">
+<link rel="stylesheet" href="../styles/desktop-fit.css">
 <div id="app"></div>
 <script type="module">
   // Test-only records: production data is never written or changed on disk.
-  import { Projects, Roles, CaseStudies } from '../src/data.js';
+  import { config, Projects, Roles, CaseStudies } from '../src/data.js';
   Projects.push({...Projects[0],id:'stress-project',title:'A deliberately long project title for the contextual index'});
   Roles.push({...Roles[0],id:'stress-role',title:'A deliberately long role title for the contextual index'});
   const params=new URLSearchParams(location.search);
+  if(params.has('about')) {
+    config.about.trajectory=Array.from({length:3},(_,i)=>({date:'Date forthcoming',title:'Timeline fixture '+(i+1),body:'Timeline entry fixture.'}));
+    config.about.skills=Array.from({length:6},(_,i)=>'Skill fixture '+(i+1));
+    config.about.languages=['Language fixture'];
+  }
   const stepCount=Number(params.get('steps') || 12);
   CaseStudies[0].steps=Array.from({length:stepCount},(_,i)=>({...CaseStudies[0].steps[0],id:'stress-step-'+(i+1),number:i+1,title:'Step '+(i+1)}));
   if(params.has('evidence')) for(const step of CaseStudies[0].steps) step.media=Array.from({length:Number(params.get('evidence'))},(_,i)=>({...step.media[0],alt:'Evidence '+(i+1)}));
