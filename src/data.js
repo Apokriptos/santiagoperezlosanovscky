@@ -5,6 +5,8 @@ export const config = {
   studioUrl: 'https://apokriptos.github.io/aobscuragames/',
   overviewVideos: { projects: null, roles: null },
   portrait: null,
+  // Overview is a curated window into Roles[], not a second role definition.
+  overview: { featuredRoleIds: ['technical-game-design', 'level-design', 'creative-leadership'] },
   cv: { url: null, summary: 'Profile and CV summary forthcoming.' },
   contact: { email: null, linkedin: null, github: 'https://github.com/Apokriptos' },
   about: {

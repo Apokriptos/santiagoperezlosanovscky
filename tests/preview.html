@@ -1,1 +1,15 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><title>Canonical portfolio preview</title><style>html,body{margin:0;padding:0}iframe{display:block;border:0;width:1434px;height:913px}</style><iframe title="1434 by 913 portfolio preview"></iframe><script>document.querySelector('iframe').src='../'+(location.hash || '#games/projects/project-1');</script></html>
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Games visual calibration preview</title>
+<style>html,body{margin:0;padding:0}iframe{display:block;border:0}</style>
+<iframe title="Portfolio viewport preview"></iframe>
+<script>
+  const size = new URLSearchParams(location.search).get('viewport');
+  const [width,height] = ({mobile:[390,844],tablet:[768,1024]})[size] || [1434,913];
+  const frame=document.querySelector('iframe');
+  frame.width=width; frame.height=height;
+  frame.title=`${width} by ${height} portfolio preview`;
+  frame.src='../'+(location.hash || '#games');
+</script>
+</html>

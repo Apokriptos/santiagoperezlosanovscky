@@ -14,6 +14,29 @@ function geometry() {
 function noOverflow(label) { const width=Number(frame.width);assert(doc().documentElement.scrollWidth<=width,`Overflow: ${label}; ${[...doc().querySelectorAll('main *')].filter(n=>n.getBoundingClientRect().right>width).map(n=>n.className).join(', ')}`);const main=doc().querySelector('main');assert(main.scrollWidth<=main.clientWidth,'Main horizontal overflow: '+label); }
 const routes=['#games','#games/projects','#games/roles','#games/case-studies','#games/about','#games/cv','#games/contact',...Projects.map(p=>`#games/projects/${p.id}`),...Roles.map(r=>`#games/roles/${r.id}`),...CaseStudies.flatMap(c=>[`#games/case-studies/${c.id}`,...c.steps.map(s=>`#games/case-studies/${c.id}/${s.id}`)])];
 try {
+  await load('#games');
+  assert(!doc().querySelector('.right-rail'),'Overview must not have a contextual rail');
+  const roleLinks=[...doc().querySelectorAll('.overview-roles .cards a')];
+  assert(roleLinks.length===config.overview.featuredRoleIds.length,'Curated roles from config');
+  for (const id of config.overview.featuredRoleIds) {
+    assert(roleLinks.some(a=>a.getAttribute('href')===`#games/roles/${id}`),'Role destination '+id);
+  }
+  const overviewCarousel=doc().querySelector('.overview-projects .carousel');
+  overviewCarousel.querySelector('[data-direction="1"]').click();
+  assert(overviewCarousel.querySelector('.carousel-count').textContent===`2 / ${Projects.length}`,'Overview next');
+  const projectLink=overviewCarousel.querySelector('.slide:not([hidden]) a');
+  assert(projectLink.getAttribute('href')===`#games/projects/${Projects[1].id}`,'Overview selected project link');
+  overviewCarousel.querySelector('[data-direction="-1"]').click();
+  assert(overviewCarousel.querySelector('.carousel-count').textContent===`1 / ${Projects.length}`,'Overview previous');
+  overviewCarousel.querySelector('[data-slide="2"]').click();
+  assert(overviewCarousel.querySelector('.carousel-count').textContent===`3 / ${Projects.length}`,'Overview pagination');
+  overviewCarousel.querySelector('button').dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
+  assert(overviewCarousel.querySelector('.carousel-count').textContent===`2 / ${Projects.length}`,'Overview keyboard');
+  projectLink.click();await pause();assert(doc().querySelector('h1').textContent===Projects[1].title,'Overview project route');
+  await load('#games');
+  doc().querySelector('.overview-roles .cards a').click();await pause();
+  assert(doc().querySelector('h1').textContent===Roles.find(r=>r.id===config.overview.featuredRoleIds[0]).title,'Overview role route');
+  results.push({test:'Overview config-driven roles, role/project links, carousel arrows/pagination/keyboard, no contextual rail',passed:true});
   for(const hash of routes) {
     await load(hash);
     assert(doc().querySelector('h1'),'Missing heading '+hash);

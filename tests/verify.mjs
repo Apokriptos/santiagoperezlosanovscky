@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolveRoute } from '../src/router.js';
-import { Projects, Roles, CaseStudies } from '../src/data.js';
+import { config, Projects, Roles, CaseStudies } from '../src/data.js';
 import { renderPage } from '../src/pages.js';
 const valid=['','#games','#books','#games/about','#games/cv','#games/contact'];
 for (const [family,items] of [['projects',Projects],['roles',Roles],['case-studies',CaseStudies]]) {
@@ -25,4 +25,18 @@ const pages=await readFile(new URL('../styles/pages.css',import.meta.url),'utf8'
 assert.equal((shell.match(/--games-left-rail-width:\s*251px/g)||[]).length,1);
 assert.equal((shell.match(/--games-context-rail-width:\s*134px/g)||[]).length,1);
 assert.ok(!/--games-(left|context)-rail-width/.test(pages));
+for (const file of ['games-visual.css','overview.css']) {
+  const css=await readFile(new URL('../styles/'+file,import.meta.url),'utf8');
+  assert.ok(!/--games-(left|context)-rail-width\s*:/.test(css),file+' must not own rail dimensions');
+  assert.ok(!/references\//.test(css),file+' must not use screen mockups');
+}
+const selectedRole=Roles.find(r=>r.id===config.overview.featuredRoleIds[0]);
+const originalTitle=selectedRole.title;
+selectedRole.title='Data-driven role title';
+assert.ok(renderPage(resolveRoute('#games')).includes('Data-driven role title'));
+selectedRole.title=originalTitle;
+Projects.push({...Projects[0],id:'extra-project',title:'Extra project'});
+assert.ok(renderPage(resolveRoute('#games')).includes('Extra project'));
+assert.ok(renderPage(resolveRoute('#games')).includes('1 / 4'));
+Projects.pop();
 console.log(`${valid.length} valid routes, invalid routes, dynamic 11-step case, and shell ownership checks passed.`);

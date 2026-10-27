@@ -8,10 +8,14 @@ const projectSlide = project => `<article class="project-slide">${media(project.
 const gallery = (items, label) => carousel(items, item => `<figure>${media(item,label)}${item.caption ? `<figcaption>${e(item.caption)}</figcaption>` : ''}</figure>`,label);
 const caseCTA = id => id ? link(route('case-studies',id),titleOf(CaseStudies,id)+' →','button') : '<p class="status">Featured case study forthcoming.</p>';
 function overview() {
-  return `<div class="overview-grid"><div>${heading('OVERVIEW')}<p>${e(config.introduction)}</p>
-  <section class="section"><div class="section-heading"><h2>ROLES</h2>${link(route('roles'),'View all roles →')}</div><div class="cards">${Roles.map(r=>card(r,'roles')).join('')}</div></section>
-  <section class="section"><div class="section-heading"><h2>PROJECTS</h2>${link(route('projects'),'View all projects →')}</div>${carousel(Projects,projectSlide,'featured projects')}</section></div>
-  <aside class="portrait media" aria-label="Identity composition">${config.portrait ? `<img src="${e(assetUrl(config.portrait.src))}" alt="${e(config.portrait.alt)}">` : placeholder('Portrait / identity')}</aside></div>`;
+  const selectedRoles = config.overview?.featuredRoleIds
+    ? config.overview.featuredRoleIds.map(id => Roles.find(role => role.id === id)).filter(Boolean)
+    : Roles;
+  return `<div class="overview-grid"><div class="overview-editorial">${heading('OVERVIEW')}
+  <div class="overview-intro"><p class="eyebrow">${e(config.name)}</p><p>${e(config.introduction)}</p></div>
+  <section class="section overview-roles"><div class="section-heading"><h2>ROLES</h2>${link(route('roles'),'View all roles →')}</div><div class="cards">${selectedRoles.map(r=>card(r,'roles')).join('')}</div></section>
+  <section class="section overview-projects"><div class="section-heading"><h2>PROJECTS</h2>${link(route('projects'),'View all projects →')}</div>${carousel(Projects,projectSlide,'featured projects')}</section></div>
+  <aside class="overview-portrait portrait" aria-label="Identity composition">${config.portrait ? `<img src="${e(assetUrl(config.portrait.src))}" alt="${e(config.portrait.alt)}">` : `<div class="portrait-placeholder"><p class="eyebrow">Portrait / identity</p><div class="portrait-registration" aria-hidden="true"><span>+</span><span>+</span><span>+</span><span>+</span></div><div class="portrait-pending"><span class="print-slashes" aria-hidden="true">//</span><p>Portrait forthcoming</p></div><div class="portrait-caption"><p>${e(config.name)}</p><span class="eyebrow">Media forthcoming</span></div></div>`}</aside></div>`;
 }
 function projects(project) {
   if (!project) return `${heading('GAME PROJECTS')}<div class="intro-grid"><div><p>Project introduction forthcoming.</p>${link('#projects-video','Watch overview ↓','button')}</div><div id="projects-video">${video(config.overviewVideos.projects,'Projects overview')}</div></div>${section('FEATURED PROJECT',carousel(Projects,projectSlide,'featured projects'))}`;
@@ -41,5 +45,5 @@ function contact() {
   return `${heading('CONTACT')}<p>Collaboration and opportunity information forthcoming.</p><div class="contact-links">${entries.map(([label,url])=>url ? `<a href="${e(url)}" ${label==='Download CV' ? 'download' : label!=='Email' ? 'target="_blank" rel="noopener noreferrer"' : ''}>${e(label)} <span aria-hidden="true">↗</span></a>` : `<div><span>${e(label)}</span><small>Forthcoming</small></div>`).join('')}</div>`;
 }
 export function renderPage(r) {
-  return `<div class="page">${({'':overview,projects:()=>projects(r.item),roles:()=>roles(r.item),'case-studies':()=>cases(r.item,r.step),about,cv,contact}[r.section])()}</div>`;
+  return `<div class="page${r.section === '' ? ' overview-page' : ''}">${({'':overview,projects:()=>projects(r.item),roles:()=>roles(r.item),'case-studies':()=>cases(r.item,r.step),about,cv,contact}[r.section])()}</div>`;
 }

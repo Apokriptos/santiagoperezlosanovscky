@@ -2,6 +2,10 @@
   "passed": true,
   "results": [
     {
+      "test": "Overview config-driven roles, role/project links, carousel arrows/pagination/keyboard, no contextual rail",
+      "passed": true
+    },
+    {
       "test": "All desktop routes at 1434 × 913",
       "routes": 23,
       "withRail": [

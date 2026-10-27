@@ -1,0 +1,115 @@
+/* Calibration baseline: Games-only paint and type. The shared shell owns all
+   outer geometry in shell.css. Nothing here defines columns or rail widths. */
+.games-shell {
+  --games-cream: #f5eddf;
+  --games-paper: #fff9ed;
+  --games-ink: #191918;
+  --games-muted: #57534b;
+  --games-red: #bc1118;
+  --games-rule: #b5aa98;
+  --games-heading-font: Impact, 'Arial Narrow', 'Franklin Gothic Medium', sans-serif;
+  color: var(--games-ink);
+  background: var(--games-cream);
+}
+.games-shell .main-content {
+  background-color: var(--games-cream);
+  background-image: linear-gradient(90deg, transparent, #f5eddf55 14%, #f5eddf55 74%, transparent), url('../assets/bg_1424x913.png');
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  scrollbar-color: #777168 var(--games-cream);
+}
+.games-shell :is(h1, h2) {
+  font-family: var(--games-heading-font);
+  font-weight: 400;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+.games-shell :is(.breadcrumb, .eyebrow) { font-weight: 700; }
+.games-shell .page-header { border-color: var(--games-rule); }
+.games-shell :focus-visible { outline: 3px solid var(--games-red); outline-offset: 4px; }
+.games-shell :is(.left-rail, .right-rail) :focus-visible { outline-color: var(--games-paper); }
+.games-shell .left-rail {
+  color: var(--games-paper);
+  background: #141414 url('../assets/left_tab_asset%201.png') center top / cover no-repeat;
+  border-right-color: var(--games-ink);
+  padding-top: 40px;
+}
+.games-shell .left-rail .identity {
+  font-family: var(--games-heading-font);
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: .065em;
+  line-height: 1.13;
+  padding-bottom: 27px;
+  border-bottom: 1px solid #706f67;
+}
+.games-shell .rail-label { color: #ff453e; font-weight: 700; letter-spacing: .2em; margin-top: 25px; }
+.games-shell .primary-nav { gap: 7px; margin-inline: -12px; }
+.games-shell .primary-nav a {
+  position: relative;
+  isolation: isolate;
+  padding: 12px 22px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  background: #141414c9;
+}
+.games-shell .primary-nav a:hover { background-color: #39362fee; }
+.games-shell .primary-nav [aria-current='page'] {
+  border-left-color: transparent;
+  color: #fff9ed;
+  background: transparent;
+  text-shadow: 0 1px 2px #000;
+}
+.games-shell .primary-nav [aria-current='page']::before {
+  content: '';
+  position: absolute;
+  inset: -6px -3px;
+  z-index: -1;
+  background: url('../assets/tabbutton%201.png') center / 100% auto no-repeat;
+  filter: brightness(.72);
+}
+.games-shell .studio-link {
+  color: var(--games-ink);
+  background: var(--games-paper);
+  padding: 14px 9px;
+  margin-top: auto;
+  border-top: 3px solid var(--games-ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.games-shell .studio-link:hover { text-decoration: underline; }
+.games-shell .right-rail {
+  color: var(--games-paper);
+  background: linear-gradient(#121212b8, #121212b8), url('../assets/right_tab_asset%201.png') center top / cover no-repeat;
+  border-left-color: var(--games-ink);
+}
+.games-shell .right-rail h2 { font-family: Arial, sans-serif; font-weight: 700; }
+.games-shell .right-rail a { background: #151515de; padding-block: 8px; border-color: #918779; }
+.games-shell .right-rail [aria-current='page'] { border-color: #ff453e; color: #fff9ed; }
+.games-shell :is(.mobile-header, .context-selector) { background-color: var(--games-ink); color: var(--games-paper); }
+.games-shell .context-selector select { background: var(--games-paper); color: var(--games-ink); border: 1px solid var(--games-rule); }
+.games-shell .mobile-header .identity { font-family: var(--games-heading-font); text-transform: uppercase; font-weight: 400; letter-spacing: .05em; }
+.games-shell .mobile-header button { color: var(--games-paper); background: var(--games-red); border-color: var(--games-red); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+@media (min-width: 1600px) {
+  .games-shell .main-content { background-image: linear-gradient(90deg, transparent, #f5eddf55 14%, #f5eddf55 74%, transparent), url('../assets/bg_1629x917.png'); }
+}
+@media (max-width: 1000px) {
+  /* Keep the original shell/menu breakpoint; only its decorative treatment changes. */
+  .games-shell .main-content { background-size: auto 913px; background-image: linear-gradient(to bottom, transparent 600px, var(--games-cream) 913px), url('../assets/bg_1424x913.png'); }
+  .games-shell.menu-open .left-rail { background-size: cover; background-position: center 25%; }
+  .games-shell .left-rail .identity { display: none; }
+  .games-shell .rail-label { margin-top: 0; }
+  .games-shell .studio-link { margin-top: 20px; }
+}
+@media (forced-colors: active) {
+  .games-shell .primary-nav [aria-current='page'] { outline: 2px solid Highlight; }
+  .games-shell .primary-nav [aria-current='page']::before { display: none; }
+}
+/* Debug regions must remain available after the paint layer loads. */
+.games-shell.debug .left-rail { background: #dde9fa; color: #191918; }
+.games-shell.debug .main-content { background: #edf5e7; }
+.games-shell.debug .right-rail { background: #f7e4d9; color: #191918; }
