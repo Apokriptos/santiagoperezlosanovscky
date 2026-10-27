@@ -1,0 +1,45 @@
+/* APPROVED LAYOUT INVARIANTS. Only the shared Games shell owns these values.
+   At 1434 × 913: 251 | 1183, or 251 | 1049 | 134. Never override in page CSS. */
+:root { --games-left-rail-width: 251px; --games-context-rail-width: 134px; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #202020; background: #f7f7f5; font: 16px/1.5 Arial, sans-serif; }
+a { color: inherit; text-underline-offset: 4px; }
+button, select { font: inherit; }
+button, a, select { touch-action: manipulation; }
+:focus-visible { outline: 3px solid #315b9a; outline-offset: 4px; }
+[hidden] { display: none !important; }
+.skip { position: fixed; top: -100px; left: 12px; z-index: 20; background: white; padding: 10px; }
+.skip:focus { top: 10px; }
+.games-shell { display: grid; grid-template-columns: var(--games-left-rail-width) minmax(0, 1fr); min-height: 100dvh; }
+.games-shell.has-context { grid-template-columns: var(--games-left-rail-width) minmax(0, 1fr) var(--games-context-rail-width); }
+.left-rail, .right-rail { position: sticky; top: 0; height: 100dvh; overflow-y: auto; background: #eeeeec; }
+.left-rail { padding: 36px 24px 24px; border-right: 1px solid #d1d1ce; display: flex; flex-direction: column; }
+.identity { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: .08em; text-decoration: none; overflow-wrap: anywhere; }
+.rail-label { margin: 30px 0 14px; font-size: 12px; letter-spacing: .16em; }
+.primary-nav { display: grid; gap: 5px; }
+.primary-nav a { padding: 11px 12px; text-decoration: none; font-size: 13px; letter-spacing: .07em; border-left: 3px solid transparent; }
+[aria-current="page"] { font-weight: bold; }
+.primary-nav [aria-current="page"] { border-left-color: #202020; background: #dcdcd8; }
+.studio-link { margin-top: auto; padding-top: 28px; font-size: 12px; text-decoration: none; }
+/* Scroll within the content rectangle so OS scrollbars cannot subtract from
+   the canonical shell width on longer pages. Rails retain the viewport height. */
+.main-content { min-width: 0; height: 100dvh; overflow-y: auto; }
+.right-rail { padding: 36px 12px; border-left: 1px solid #d1d1ce; }
+.right-rail h2 { font-size: 12px; letter-spacing: .07em; margin: 0 0 30px; }
+.right-rail nav { display: grid; gap: 22px; }
+.right-rail a { font-size: 12px; overflow-wrap: anywhere; text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid #bdbdb8; }
+.right-rail [aria-current="page"] { border-color: #202020; }
+.mobile-header, .context-selector { display: none; }
+.debug .left-rail { background: #dde9fa; }
+.debug .main-content { background: #edf5e7; }
+.debug .right-rail { background: #f7e4d9; }
+@media (max-width: 1000px) {
+  .games-shell, .games-shell.has-context { display: block; }
+  .main-content { height: auto; overflow: visible; }
+  .left-rail, .right-rail { display: none; }
+  .mobile-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: #eeeeec; border-bottom: 1px solid #ccc; gap: 20px; }
+  .mobile-header .identity { font-size: 14px; }
+  .games-shell.menu-open .left-rail { display: flex; position: relative; height: auto; padding: 20px; }
+  .context-selector { display: grid; gap: 8px; padding: 16px 20px; background: #eeeeec; font-size: 12px; }
+  .context-selector select { width: 100%; min-width: 0; padding: 10px; }
+}

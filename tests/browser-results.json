@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "test": "All desktop routes at 1434 × 913",
+      "routes": 23,
+      "withRail": [
+        251,
+        1049,
+        134
+      ],
+      "withoutRail": [
+        251,
+        1183
+      ],
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
+      "width": 390,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
+      "width": 768,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
+      "width": 1000,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
+      "width": 1200,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
+      "width": 1920,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Carousel next, previous, pagination, keyboard",
+      "passed": true
+    },
+    {
+      "test": "Project media gallery",
+      "passed": true
+    },
+    {
+      "test": "Case cover and generated step navigation",
+      "passed": true
+    },
+    {
+      "test": "Mobile menu, Escape, contextual selector",
+      "passed": true
+    },
+    {
+      "test": "CV/contact states, configured links, Books and minimal root",
+      "passed": true
+    },
+    {
+      "test": "Hash navigation, Back/Forward, fresh deep link under repository prefix",
+      "passed": true
+    },
+    {
+      "test": "Final desktop geometry regression",
+      "passed": true
+    }
+  ]
+}
