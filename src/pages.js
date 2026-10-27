@@ -17,33 +17,107 @@ function overview() {
   <section class="section overview-projects"><div class="section-heading"><h2>PROJECTS</h2>${link(route('projects'),'View all projects →')}</div>${carousel(Projects,projectSlide,'featured projects')}</section></div>
   <aside class="overview-portrait portrait" aria-label="Identity composition">${config.portrait ? `<img src="${e(assetUrl(config.portrait.src))}" alt="${e(config.portrait.alt)}">` : `<div class="portrait-placeholder"><p class="eyebrow">Portrait / identity</p><div class="portrait-registration" aria-hidden="true"><span>+</span><span>+</span><span>+</span><span>+</span></div><div class="portrait-pending"><span class="print-slashes" aria-hidden="true">//</span><p>Portrait forthcoming</p></div><div class="portrait-caption"><p>${e(config.name)}</p><span class="eyebrow">Media forthcoming</span></div></div>`}</aside></div>`;
 }
+const emptyState = (title, body = 'Content forthcoming.') => `<div class="empty-state"><span class="empty-mark" aria-hidden="true">//</span><strong>${e(title)}</strong><p>${e(body)}</p></div>`;
+const printSection = (title, body, cls = '') => `<section class="print-panel ${cls}"><h2>${e(title)}</h2>${body}</section>`;
+const actions = body => `<div class="actions">${body}</div>`;
+const splitIntro = (title, copy, family) => `<div class="split-intro"><div>${heading(title)}<p class="lead">${e(copy)}</p>${link(`#${family}-video`,'Watch overview ↓','button')}</div><section id="${family}-video" aria-label="${family} overview video">${video(config.overviewVideos[family],`${family === 'projects' ? 'Projects' : 'Roles'} overview`)}</section></div>`;
+
 function projects(project) {
-  if (!project) return `${heading('GAME PROJECTS')}<div class="intro-grid"><div><p>Project introduction forthcoming.</p>${link('#projects-video','Watch overview ↓','button')}</div><div id="projects-video">${video(config.overviewVideos.projects,'Projects overview')}</div></div>${section('FEATURED PROJECT',carousel(Projects,projectSlide,'featured projects'))}`;
-  return `${heading(project.title,project.subtitle,'projects')}<div class="project-grid"><section aria-label="Gameplay video">${video(project.video,'Gameplay')}</section><section class="panel"><h2>THE GAME</h2><p>${e(project.longDescription)}</p>${tags([...project.tags,...project.roles.map(id=>titleOf(Roles,id))])}${project.caseStudies.map(id=>caseCTA(id)).join('')}${project.externalUrl ? external(project.externalUrl,'Project website') : ''}</section><section aria-label="Project gallery">${gallery(project.gallery,'project images')}</section><section class="panel"><h2>PLAYABLE BUILD</h2><p>${e(project.buildStatus)}</p>${external(project.buildUrl,'Download build')}</section></div>`;
+  if (!project) return `${splitIntro('GAME PROJECTS',config.copy.projects,'projects')}
+    ${section('FEATURED PROJECT',carousel(Projects,projectSlide,'featured projects'))}`;
+  return `${heading(project.title,project.subtitle,'projects')}
+    <div class="project-grid">
+      <section class="project-video" aria-label="Gameplay video">${video(project.video,'Gameplay')}</section>
+      ${printSection('THE GAME',`<p>${e(project.longDescription)}</p>${tags([...project.tags,...project.roles.map(id=>titleOf(Roles,id))])}
+        ${actions(project.caseStudies.map(id=>caseCTA(id)).join('')+(project.externalUrl ? external(project.externalUrl,'Project website') : ''))}`,'project-description')}
+      <section class="project-gallery" aria-label="Project gallery">${gallery(project.gallery,'project images')}</section>
+      ${printSection('PLAYABLE BUILD',`<p class="build-status">${e(project.buildStatus)}</p>
+        ${external(project.buildUrl,'Download build')}
+        <p class="provider-note">${e(project.buildProvider || 'Provider information forthcoming.')}</p>
+        <p class="distribution-note">${e(project.buildNote || 'Evaluation and distribution terms forthcoming.')}</p>`,'build-panel')}
+    </div>`;
+}
+
+function roleCard(role) {
+  return `<a class="role-card print-panel" href="${route('roles',role.id)}"><div class="role-card-media" aria-hidden="true">+</div><div><h3>${e(role.title)}</h3><p>${e(role.subtitle)}</p><span class="action">View role →</span></div></a>`;
 }
 function roles(role) {
-  if (!role) return `${heading('AREAS OF WORK')}<div class="intro-grid"><div><p>Explore the areas of work below. Selected experience will be added with the final content.</p>${link('#roles-video','Watch overview ↓','button')}</div><div id="roles-video">${video(config.overviewVideos.roles,'Roles overview')}</div></div>${section('MY ROLES',`<div class="cards">${Roles.map(r=>card(r,'roles')).join('')}</div>`)}`;
-  return `${heading(role.title,role.subtitle,'roles')}${section('ROLE & EXPERIENCE',`<p class="prose">${e(role.summary)}</p>`)}${section('SELECTED EXPERIENCE',role.experience.length ? role.experience.map(x=>`<article class="panel"><h3>${e(x.title)}</h3><p>${e(x.body)}</p>${x.projectId ? link(route('projects',x.projectId),'View project →') : ''}</article>`).join('') : '<p class="status">Concrete project examples forthcoming.</p>')}${section('IN PRACTICE',gallery(role.practiceMedia,'practice media'))}${section('MY APPROACH',list(role.approach))}${section('FEATURED CASE STUDY',caseCTA(role.featuredCaseStudy))}`;
+  if (!role) return `${splitIntro('AREAS OF WORK',config.copy.roles,'roles')}${section('MY ROLES',`<div class="role-cards">${Roles.map(roleCard).join('')}</div>`)}`;
+  const experience = role.experience.length
+    ? `<ul class="experience-list">${role.experience.map(x=>`<li><h3>${e(x.title)}</h3><p>${e(x.body)}</p>${x.projectId ? link(route('projects',x.projectId),'View project →','action') : ''}</li>`).join('')}</ul>`
+    : emptyState('Selected experience forthcoming','Concrete project examples will be supplied here.');
+  return `${heading(role.title,role.subtitle,'roles')}
+    <div class="role-detail-grid">
+      ${printSection('ROLE & EXPERIENCE',`<p class="lead">${e(role.summary)}</p>`,'role-summary')}
+      ${printSection('SELECTED EXPERIENCE',experience)}
+      <section class="practice-section"><h2>IN PRACTICE</h2>${gallery(role.practiceMedia,'practice media')}</section>
+      ${printSection('MY APPROACH',list(role.approach),'approach-panel')}
+    </div>
+    <section class="cta-strip"><div><p class="eyebrow">FEATURED CASE STUDY</p>${role.featuredCaseStudy ? `<h3>${e(titleOf(CaseStudies,role.featuredCaseStudy))}</h3>` : '<p class="status">Featured case study forthcoming.</p>'}</div>${role.featuredCaseStudy ? link(route('case-studies',role.featuredCaseStudy),'View case study →','button') : '<span class="cta-pending" aria-hidden="true">//</span>'}</section>`;
+}
+
+function caseIndexCard(study) {
+  return `<article class="case-index-card print-panel">${media(study.heroMedia,'Case study hero')}
+    <div class="case-index-copy"><p class="eyebrow">${e(study.subtitle)}</p><h2>${e(study.title)}</h2>
+    ${study.projectId ? link(route('projects',study.projectId),titleOf(Projects,study.projectId),'project-reference') : ''}
+    ${study.roleIds.length ? tags(study.roleIds.map(id=>titleOf(Roles,id))) : ''}<p>${e(study.summary)}</p>
+    ${link(route('case-studies',study.id),'View case study →','button')}</div></article>`;
 }
 function cases(study, step) {
-  if (!study) return `${heading('CASE STUDIES','Design reasoning, implementation, and evidence — content forthcoming.')}<div class="cards">${CaseStudies.map(c=>card(c,'case-studies')).join('')}</div>`;
+  if (!study) return `${heading('CASE STUDIES','Design reasoning, implementation, and evidence — content forthcoming.')}<div class="case-index">${CaseStudies.map(caseIndexCard).join('')}</div>`;
   const base = route('case-studies',study.id);
-  if (!step) return `${heading(study.title,study.subtitle,'case-studies')}${media(study.heroMedia,'Case study hero')}${tags(study.roleIds.map(id=>titleOf(Roles,id)))}<div class="two-columns"><div>${section('THE CASE',`<p>${e(study.summary)}</p>`)}${section('CENTRAL QUESTION',`<p>${e(study.centralQuestion)}</p>`)}</div><div>${section('MY CONTRIBUTION',list(study.contribution))}${section('WHAT THIS STUDY COVERS',`<ol>${study.steps.map(s=>`<li>${link(base+'/'+s.id,s.title)}</li>`).join('')}</ol>`)}</div></div>${study.steps.length ? link(base+'/'+study.steps[0].id,'Begin case study →','button') : '<p>Steps forthcoming.</p>'} ${study.projectId ? link(route('projects',study.projectId),'View project →','button') : ''}`;
+  const disciplines = study.roleIds.length ? tags(study.roleIds.map(id=>titleOf(Roles,id))) : '';
+  if (!step) return `${heading(study.title,study.subtitle,'case-studies')}${disciplines}
+    <div class="case-hero">${media(study.heroMedia,'Case study hero')}</div>
+    <div class="case-cover-grid">
+      ${printSection('THE CASE',`<p>${e(study.summary)}</p>`)}
+      ${printSection('CENTRAL QUESTION',`<blockquote>${e(study.centralQuestion)}</blockquote>`,'question-panel')}
+      ${printSection('MY CONTRIBUTION',list(study.contribution))}
+      ${printSection('WHAT THIS STUDY COVERS',study.steps.length ? `<ol class="coverage-list">${study.steps.map(s=>`<li>${link(base+'/'+s.id,s.title)}</li>`).join('')}</ol>` : emptyState('Steps forthcoming'))}
+    </div>
+    ${actions((study.steps.length ? link(base+'/'+study.steps[0].id,'Begin case study →','button button-primary') : '')+' '+(study.projectId ? link(route('projects',study.projectId),'View project →','button') : ''))}`;
   const index = study.steps.indexOf(step);
-  return `${heading(study.title,'','case-studies')}<p>${link(base,'Case cover ←')}</p><p class="eyebrow">Step ${e(step.number ?? index + 1)} / ${study.steps.length}</p><h2>${e(step.title)}</h2><p class="prose">${e(step.body)}</p><div class="evidence">${step.media.map((item,i)=>`<figure>${media(item,'Evidence')}<figcaption>${e(step.captions?.[i] || item.caption || '')}</figcaption></figure>`).join('')}</div><nav class="step-nav" aria-label="Case study steps">${study.steps.map((s,i)=>`<a href="${base}/${s.id}" ${s.id===step.id ? 'aria-current="step"' : ''}>${e(s.number ?? i+1)} · ${e(s.title)}</a>`).join('')}</nav>`;
+  const previous = study.steps[index-1], next = study.steps[index+1];
+  return `${heading(study.title,'','case-studies')}
+    <section class="step-prose print-panel"><p class="eyebrow">Step ${e(step.number ?? index + 1)} / ${study.steps.length}</p><h2 class="step-title">${e(step.title)}</h2><p class="lead">${e(step.body)}</p></section>
+    <div class="evidence">${step.media.map((item,i)=>`<figure>${media(item,'Evidence')}<figcaption>${e(step.captions?.[i] || item.caption || '')}</figcaption></figure>`).join('')}</div>
+    <div class="step-actions">${link(previous ? base+'/'+previous.id : base,previous ? '← Previous step' : '← Case cover','action')}${next ? link(base+'/'+next.id,'Next step →','action') : link(base,'Case cover →','action')}</div>
+    <nav class="step-nav" aria-label="Case study steps">${study.steps.map((s,i)=>`<a href="${base}/${s.id}" ${s.id===step.id ? 'aria-current="step"' : ''}><span>${e(s.number ?? i+1)}</span>${e(s.title)}</a>`).join('')}</nav>`;
 }
+
 function about() {
   const a=config.about;
-  return `${heading('ABOUT ME')}<div class="two-columns"><div>${config.portrait ? media(config.portrait,'Portrait') : `<div class="media portrait">${placeholder('Portrait')}</div>`}</div><div><p>${e(a.biography)}</p>${section('FOCUS',`<p>${e(a.focus)}</p>`)}${section('CURRENTLY',`<p>${e(a.currently)}</p>`)}</div></div>${section('TRAJECTORY',a.trajectory.length ? `<ol>${a.trajectory.map(t=>`<li><strong>${e(t.date)}</strong> ${e(t.title)}<p>${e(t.body)}</p></li>`).join('')}</ol>` : '<p class="status">Timeline forthcoming.</p>')}<div class="two-columns"><div>${section('SKILLS',list(a.skills))}</div><div>${section('LOCATION',`<p>${e(a.location || 'Location forthcoming.')}</p>`)}${section('LANGUAGES',list(a.languages))}</div></div>`;
+  return `${heading('ABOUT ME')}
+    <div class="about-layout"><div class="about-portrait">${media(config.portrait,'Portrait')}</div><div>
+      ${printSection(config.name,`<p class="lead">${e(a.biography)}</p>`,'biography-panel')}
+      <div class="about-focus">${printSection('FOCUS',`<p>${e(a.focus)}</p>`)}${printSection('CURRENTLY',`<p>${e(a.currently)}</p>`)}</div>
+    </div></div>
+    ${printSection('TRAJECTORY',a.trajectory.length ? `<ol class="timeline">${a.trajectory.map(t=>`<li><strong>${e(t.date)}</strong><h3>${e(t.title)}</h3><p>${e(t.body)}</p></li>`).join('')}</ol>` : emptyState('Timeline forthcoming','Professional trajectory details will be supplied here.'))}
+    <div class="about-facts">${printSection('SKILLS',list(a.skills))}${printSection('LOCATION',`<p>${e(a.location || 'Location forthcoming.')}</p>`)}${printSection('LANGUAGES',list(a.languages))}</div>`;
 }
+
 function cv() {
   const url=assetUrl(config.cv.url);
-  return `${heading('CV')}<div class="two-columns"><div><p>${e(config.cv.summary)}</p>${external(config.cv.url,'View CV')} ${external(config.cv.url,'Download PDF',true)}</div><div>${url ? `<object class="pdf-viewer" data="${e(url)}" type="application/pdf" aria-label="Curriculum vitae"><p>Your browser cannot embed this PDF. ${external(url,'Open CV')}</p></object>` : `<div class="cv-empty placeholder"><strong>CV document forthcoming</strong><span>A PDF viewer will appear here when the CV is supplied.</span></div>`}</div></div>`;
+  return `${heading('CV')}
+    <div class="cv-layout"><section class="document-stage" aria-label="CV document viewer">
+      <div class="document-toolbar"><span>CURRICULUM VITAE</span><span>PDF</span></div>
+      ${url ? `<object class="pdf-viewer" data="${e(url)}" type="application/pdf" aria-label="Curriculum vitae"><p>Your browser cannot embed this PDF. ${external(url,'Open CV')}</p></object>` : `<div class="cv-empty"><div class="document-sheet"><span class="print-slashes" aria-hidden="true">//</span><strong>CV document forthcoming</strong><p>A PDF viewer will appear here when the CV is supplied.</p></div></div>`}
+    </section><aside class="cv-profile print-panel"><p class="eyebrow">PROFILE</p><h2>${e(config.name)}</h2><p>${e(config.cv.summary)}</p>
+      ${actions(external(config.cv.url,'View CV')+external(config.cv.url,'Download PDF',true))}
+      <p class="distribution-note">${url ? 'Use the actions above if your browser cannot display the document.' : 'CV file forthcoming.'}</p>
+    </aside></div>`;
 }
+
 function contact() {
-  const entries=[['Email',config.contact.email ? 'mailto:'+config.contact.email : null],['LinkedIn',assetUrl(config.contact.linkedin)],['GitHub',assetUrl(config.contact.github)],['Download CV',assetUrl(config.cv.url)]];
-  return `${heading('CONTACT')}<p>Collaboration and opportunity information forthcoming.</p><div class="contact-links">${entries.map(([label,url])=>url ? `<a href="${e(url)}" ${label==='Download CV' ? 'download' : label!=='Email' ? 'target="_blank" rel="noopener noreferrer"' : ''}>${e(label)} <span aria-hidden="true">↗</span></a>` : `<div><span>${e(label)}</span><small>Forthcoming</small></div>`).join('')}</div>`;
+  const entries=[['Email',config.contact.email ? 'mailto:'+config.contact.email : null,'@'],['LinkedIn',assetUrl(config.contact.linkedin),'in'],['GitHub',assetUrl(config.contact.github),'GH'],['Download CV',assetUrl(config.cv.url),'PDF']];
+  return `${heading('CONTACT')}<p class="lead contact-intro">${e(config.copy.contact)}</p>
+    <div class="destination-grid">${entries.map(([label,url,icon])=>{
+      const contents=`<span class="destination-icon" aria-hidden="true">${icon}</span><span><strong>${e(label)}</strong><small>${url ? (label==='Download CV' ? 'Download PDF' : 'Open destination') : 'Forthcoming'}</small></span><span class="destination-arrow" aria-hidden="true">${url ? '↗' : '—'}</span>`;
+      return url ? `<a class="destination-card" href="${e(url)}" ${label==='Download CV' ? 'download' : label!=='Email' ? 'target="_blank" rel="noopener noreferrer"' : ''}>${contents}</a>` : `<div class="destination-card unavailable" aria-disabled="true">${contents}</div>`;
+    }).join('')}</div>
+    ${printSection('COLLABORATION & OPPORTUNITIES',`<p>${e(config.copy.opportunities)}</p>`,'collaboration-panel')}`;
 }
 export function renderPage(r) {
-  return `<div class="page${r.section === '' ? ' overview-page' : ''}">${({'':overview,projects:()=>projects(r.item),roles:()=>roles(r.item),'case-studies':()=>cases(r.item,r.step),about,cv,contact}[r.section])()}</div>`;
+  const pageClass = r.section === '' ? 'overview-page' : `publication-page ${r.section}-page ${r.item ? 'detail-page' : 'index-page'}${r.step ? ' case-step-page' : ''}`;
+  return `<div class="page ${pageClass}">${({'':overview,projects:()=>projects(r.item),roles:()=>roles(r.item),'case-studies':()=>cases(r.item,r.step),about,cv,contact}[r.section])()}</div>`;
 }

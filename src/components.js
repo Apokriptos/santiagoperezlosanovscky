@@ -63,4 +63,12 @@ export function bindComponents(root) {
     player.setAttribute('aria-label',button.dataset.label); player.src=button.dataset.src;
     button.parentElement.replaceChildren(player); player.focus();
   }));
+  // A direct link to a late step must reveal its active entry in the local rail,
+  // without scrolling the page or assuming a particular number of steps.
+  const activeStep = root.querySelector('.step-nav [aria-current="step"]');
+  if (activeStep) {
+    const rail = activeStep.parentElement;
+    rail.scrollLeft += activeStep.getBoundingClientRect().left - rail.getBoundingClientRect().left
+      - (rail.clientWidth - activeStep.offsetWidth) / 2;
+  }
 }

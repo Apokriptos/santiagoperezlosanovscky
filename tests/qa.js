@@ -4,9 +4,19 @@ const pause=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationF
 const assert=(condition,message)=>{if(!condition)throw new Error(message);};
 const doc=()=>frame.contentDocument;
 let loadId=0;
-async function load(hash,width=1434,height=913) {
+async function load(hash,width=1434,height=913,path='') {
   frame.width=width;frame.height=height;
-  await new Promise(resolve=>{frame.onload=resolve;frame.src='/santiagoperezlosanovscky/?qa='+ ++loadId +hash;});await pause();
+  await new Promise(resolve=>{frame.onload=resolve;frame.src='/santiagoperezlosanovscky/'+path+'?qa='+ ++loadId +hash;});
+  // The stress fixture dynamically imports the app after preparing its records.
+  // Its window load can precede that import; wait for actual rendered content.
+  if (!doc().querySelector('#app > *')) await new Promise((resolve,reject)=>{
+    const observer=new MutationObserver(()=>{
+      if(doc().querySelector('#app > *')) {clearTimeout(timer);observer.disconnect();resolve();}
+    });
+    const timer=setTimeout(()=>{observer.disconnect();reject(new Error('App did not render '+hash));},5000);
+    observer.observe(doc().querySelector('#app'),{childList:true});
+  });
+  await pause();
 }
 function geometry() {
   return [...doc().querySelector('.games-shell').children].filter(n=>getComputedStyle(n).display!=='none').filter(n=>!n.classList.contains('mobile-header')).map(n=>n.getBoundingClientRect().width);
@@ -44,13 +54,43 @@ try {
     assert(JSON.stringify(geometry())===JSON.stringify(expected),`Geometry ${hash}: ${geometry()}`);
     assert(doc().querySelector('.left-rail').getBoundingClientRect().height===913,'Left height');
     const right=doc().querySelector('.right-rail');if(right)assert(right.getBoundingClientRect().height===913,'Right height');
+    const items={projects:Projects,roles:Roles,'case-studies':CaseStudies}[hash.split('/')[1]];
+    if(items) {
+      assert(right.querySelectorAll('a').length===items.length+1,'Contextual rail data count '+hash);
+      assert(right.querySelectorAll('[aria-current="page"]').length===1,'One active contextual entry '+hash);
+      assert(doc().querySelector('#context-select').options.length===items.length+1,'Mobile context data count '+hash);
+    }
+    if(hash.startsWith('#games/case-studies/')) {
+      const parts=hash.split('/'), study=CaseStudies.find(c=>c.id===parts[2]);
+      if(parts[3]) assert(doc().querySelectorAll('.step-nav a').length===study.steps.length,'Case step count '+hash);
+      else assert(!doc().querySelector('.step-nav'),'No step rail on case cover '+hash);
+    }
+    for(const video of doc().querySelectorAll('.video-frame')) {
+      const box=video.getBoundingClientRect();assert(Math.abs(box.width/box.height-16/9)<.02,'Video aspect ratio '+hash);
+    }
     noOverflow(hash);
   }
   results.push({test:'All desktop routes at 1434 × 913',routes:routes.length,withRail:[251,1049,134],withoutRail:[251,1183],overflow:false});
-  for(const width of [390,768,1000,1200,1920]) {
+  for(const width of [320,360,390,768,1000,1200,1920]) {
     for(const hash of routes) {await load(hash,width);noOverflow(width+' '+hash);}
     results.push({test:'Responsive routes',width,routes:routes.length,overflow:false});
   }
+  for(const [family,items] of [['projects',Projects],['roles',Roles],['case-studies',CaseStudies]]) {
+    await load(`#games/${family}`,1434,913,'tests/stress.html');
+    assert(doc().querySelectorAll('.right-rail nav a').length===items.length+2,'Added record populates rail '+family);
+    noOverflow('Long contextual labels '+family);
+  }
+  for(const width of [320,390,768,1000,1200,1434]) {
+    await load('#games/case-studies/case-1/stress-step-12',width,913,'tests/stress.html');
+    const stepNav=doc().querySelector('.step-nav');
+    assert(stepNav.querySelectorAll('a').length===12,'Arbitrary 12-step navigation');
+    assert(stepNav.querySelector('[aria-current="step"]').textContent.includes('12'),'Last step active');
+    assert(stepNav.scrollWidth>stepNav.clientWidth,'Step navigation scrolls locally');
+    const active=stepNav.querySelector('[aria-current="step"]').getBoundingClientRect(), rail=stepNav.getBoundingClientRect();
+    assert(active.left>=rail.left && active.right<=rail.right,'Active step revealed on deep link');
+    noOverflow('12 steps '+width);
+  }
+  results.push({test:'Additional project/role/case rail entries, long labels, and visible active entry in 12-step navigation at six widths',passed:true});
   await load('#games/projects');
   const carousel=doc().querySelector('.carousel');carousel.querySelector('[data-direction="1"]').click();
   assert(carousel.querySelector('.carousel-count').textContent==='2 / '+Projects.length,'Carousel next');
@@ -74,6 +114,7 @@ try {
   await load('#games/contact');assert(doc().querySelector('a[href="https://github.com/Apokriptos"]'),'GitHub config link');assert(!doc().querySelector('form'),'No contact form');
   await load('#books');assert(doc().querySelector('h1').textContent==='BOOKS','Books');
   await load('');assert(doc().querySelectorAll('main a').length===2,'Root branches only');
+  for(const width of [320,360,390,768,1000,1200,1434]) {await load('',width);noOverflow('Landing '+width);}
   results.push({test:'CV/contact states, configured links, Books and minimal root',passed:true});
   await load('#games/projects');doc().querySelector('.primary-nav a[href="#games/roles"]').click();await pause();
   assert(doc().querySelector('h1').textContent==='AREAS OF WORK','Navigation');

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data count and wrapping fixture</title>
+<link rel="stylesheet" href="../styles/shell.css"><link rel="stylesheet" href="../styles/pages.css">
+<link rel="stylesheet" href="../styles/games-visual.css"><link rel="stylesheet" href="../styles/overview.css">
+<link rel="stylesheet" href="../styles/publication.css">
+<div id="app"></div>
+<script type="module">
+  // Test-only records: production data is never written or changed on disk.
+  import { Projects, Roles, CaseStudies } from '../src/data.js';
+  Projects.push({...Projects[0],id:'stress-project',title:'A deliberately long project title for the contextual index'});
+  Roles.push({...Roles[0],id:'stress-role',title:'A deliberately long role title for the contextual index'});
+  CaseStudies[0].steps=Array.from({length:12},(_,i)=>({...CaseStudies[0].steps[0],id:'stress-step-'+(i+1),number:i+1,title:'Step '+(i+1)}));
+  CaseStudies.push({...CaseStudies[0],id:'stress-case',title:'A deliberately long case title for the contextual index'});
+  await import('../src/app.js');
+</script>
+</html>

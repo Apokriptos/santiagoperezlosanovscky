@@ -1,6 +1,6 @@
 # Santiago Pérez Losanovscky — portfolio foundation
 
-Games Overview now has a provisional cream/black/red editorial visual baseline. See [the calibration notes](docs/visual-calibration.md) for asset decisions, scope, verification, and pending content. Detailed styling stops at Overview pending review; the router and shared shell are unchanged.
+The approved Games Overview visual baseline now extends across Projects, Roles, Case Studies, CV, Contact, About, and the root selector. See [the implementation report](docs/games-visual-implementation.md) for screen/reference mapping, verification, and pending content. [The calibration notes](docs/visual-calibration.md) record the original Overview pass. The router and shared shell remain unchanged.
 
 Buildless, semantic HTML, CSS, and vanilla JavaScript. Serve this folder with any static server, or run `npm start` and open `http://127.0.0.1:4173/`. No production dependencies or build step. GitHub Pages can serve the repository root; `.nojekyll` preserves static delivery. Hosting settings are not changed by this implementation.
 

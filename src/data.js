@@ -7,6 +7,12 @@ export const config = {
   portrait: null,
   // Overview is a curated window into Roles[], not a second role definition.
   overview: { featuredRoleIds: ['technical-game-design', 'level-design', 'creative-leadership'] },
+  copy: {
+    projects: 'Project introduction forthcoming.',
+    roles: 'Explore the areas of work below. Selected experience will be added with the final content.',
+    contact: 'Collaboration and opportunity information forthcoming.',
+    opportunities: 'Availability and collaboration details forthcoming.',
+  },
   cv: { url: null, summary: 'Profile and CV summary forthcoming.' },
   contact: { email: null, linkedin: null, github: 'https://github.com/Apokriptos' },
   about: {
@@ -36,7 +42,8 @@ export const Projects = Array.from({ length: 3 }, (_, i) => ({
   longDescription: 'Premise, scope, and contribution details will be supplied with the project content.',
   roles: [], tags: ['Content forthcoming'], thumbnail: null, heroMedia: null, video: null,
   gallery: [placeholder('Project media 01'), placeholder('Project media 02'), placeholder('Project media 03')],
-  buildStatus: 'Build availability forthcoming.', buildUrl: null, externalUrl: null, caseStudies: [],
+  buildStatus: 'Build availability forthcoming.', buildUrl: null, buildProvider: null,
+  buildNote: 'Evaluation and distribution terms forthcoming.', externalUrl: null, caseStudies: [],
 }));
 export const CaseStudies = [
   { id: 'case-1', title: 'Case Study 01', count: 4 },

@@ -8,7 +8,7 @@ let initial=true;
 function render() {
   document.querySelectorAll('video').forEach(v=>v.pause());
   const r=resolveRoute(location.hash);
-  if (r.branch==='root') app.innerHTML='<main id="main" class="branch-selector"><a href="#games">GAMES</a><a href="#books">BOOKS</a></main>';
+  if (r.branch==='root') app.innerHTML='<main id="main" class="branch-selector"><a href="#games"><span>GAMES</span><span class="branch-arrow" aria-hidden="true">↗</span></a><a href="#books"><span>BOOKS</span><span class="branch-arrow" aria-hidden="true">↗</span></a></main>';
   else if (r.branch==='books') app.innerHTML='<main id="main" class="books" tabindex="-1"><h1>BOOKS</h1><p>Coming later.</p><a href="#">Return to branch selector</a></main>';
   else if (r.branch==='invalid') app.innerHTML='<main id="main" class="books" tabindex="-1"><h1>Page not found</h1><a href="#games">Games overview</a><a href="#">Branch selector</a></main>';
   else {

@@ -10,6 +10,10 @@
   const frame=document.querySelector('iframe');
   frame.width=width; frame.height=height;
   frame.title=`${width} by ${height} portfolio preview`;
-  frame.src='../'+(location.hash || '#games');
+  function showRoute() {
+    frame.src='../'+(new URLSearchParams(location.search).get('view') === 'root' ? '' : (location.hash || '#games'));
+  }
+  window.addEventListener('hashchange', showRoute);
+  showRoute();
 </script>
 </html>

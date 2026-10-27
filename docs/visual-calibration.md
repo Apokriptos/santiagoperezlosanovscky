@@ -1,5 +1,7 @@
 # Games visual calibration — Overview review baseline
 
+Historical record of the original calibration pass. Overview has since been approved, and its visual language has been propagated as documented in [the continuation report](games-visual-implementation.md). The original pass boundaries below describe that earlier stage.
+
 This is a calibration pass, not a final visual system. Review Overview before applying its detailed card/media treatment to other screens. Other Games screens receive only the shared rail, paper, focus, and heading treatment. Books and the root selector retain the foundation styling.
 
 ## Changes and boundaries

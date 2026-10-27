@@ -21,6 +21,18 @@
     },
     {
       "test": "Responsive routes",
+      "width": 320,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
+      "width": 360,
+      "routes": 23,
+      "overflow": false
+    },
+    {
+      "test": "Responsive routes",
       "width": 390,
       "routes": 23,
       "overflow": false
@@ -48,6 +60,10 @@
       "width": 1920,
       "routes": 23,
       "overflow": false
+    },
+    {
+      "test": "Additional project/role/case rail entries, long labels, and visible active entry in 12-step navigation at six widths",
+      "passed": true
     },
     {
       "test": "Carousel next, previous, pagination, keyboard",
