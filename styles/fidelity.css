@@ -1,0 +1,23 @@
+/* Targeted fidelity and media calibration; geometry remains in shell.css. */
+.games-shell .main-content { background-image: linear-gradient(90deg,transparent,#f5eddf55 14%,#f5eddf55 74%,transparent),url('../assets/paper-hd.png'); }
+.games-shell .left-rail { background-image: url('../assets/left-rail-hd.png'); }
+.games-shell .right-rail { background-image: linear-gradient(#121212b8,#121212b8),url('../assets/right-rail-hd.png'); }
+.games-shell .primary-nav [aria-current='page']::before { inset: 0 -3px; background: url('../assets/selected-tab.svg') center / 100% 100% no-repeat; filter: none; }
+.games-shell .right-rail nav { gap: 0; }
+.games-shell .right-rail a { padding: 14px 0 14px 23px; min-height: 64px; background: transparent; border: 0; font-size: 10px; line-height: 1.45; letter-spacing: .025em; color: #e7ddcc; }
+.games-shell .right-rail a::before { content: ''; position: absolute; left: 2px; top: 18px; width: 10px; height: 10px; border: 1px solid #e7ddcc; border-radius: 50%; background: #181817; z-index: 1; }
+.games-shell .right-rail a::after { content: ''; position: absolute; width: 1px; background: #b4a992; top: 24px; bottom: -20px; left: 7px; }
+.games-shell .right-rail a:last-child::after { display: none; }
+.games-shell .right-rail a:hover { color: white; background: #fff9ed0c; }
+.games-shell .right-rail [aria-current='page'] { box-shadow: none; background: transparent; color: #fff9ed; font-weight: 700; }
+.games-shell .right-rail [aria-current='page']::before { background: #ed302d; border-color: #ff6556; box-shadow: 0 0 0 3px #ed302d26; }
+.video-frame { position: relative; }
+.video-frame > .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-frame > .video-start { position: absolute; inset: auto 12px 12px; width: auto; min-height: 44px; background: #161615e8; color: #fff9ed; border: 1px solid #fff9ed99; }
+@media (min-width:1201px) and (min-height:840px) {
+  .overview-page .overview-portrait { margin: -24px -24px -24px 0; width: auto; height: auto; border-top: 0; border-right: 0; border-bottom: 0; }
+  .overview-page .overview-portrait > img { position: absolute; inset: 0; object-fit: cover; object-position: center; }
+}
+@media (max-width:1000px) {
+  .games-shell .main-content { background-image: linear-gradient(to bottom,transparent 600px,var(--games-cream) 913px),url('../assets/paper-hd.png'); }
+}

@@ -67,3 +67,11 @@ assert.ok((await readFile(new URL('../'+config.cv.url,import.meta.url))).subarra
 assert.ok((await readFile(new URL('../'+config.cv.source,import.meta.url))).length>0);
 assert.ok((await readFile(new URL('../'+config.cv.previewUrl,import.meta.url),'utf8')).includes('PROFESSIONAL SUMMARY'));
 console.log(`${valid.length} valid routes, invalid routes, dynamic 12-step case, configured document/build/experience states, and shell ownership checks passed.`);
+
+// Every configured project media reference must resolve to a real repository file.
+for (const project of Projects) {
+  for (const path of [project.thumbnail,project.heroMedia.src,project.video.src,project.video.poster,...project.gallery.map(item=>item.src)]) {
+    assert.ok((await readFile(new URL('../'+path,import.meta.url))).length>0, 'Missing project media: '+path);
+  }
+}
+console.log('All configured project media files exist.');

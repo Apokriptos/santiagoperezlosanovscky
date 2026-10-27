@@ -708,6 +708,10 @@
       "passed": true
     },
     {
+      "test": "All three project covers and nine gallery images decode; all three showcase videos decode with valid duration and dimensions",
+      "passed": true
+    },
+    {
       "test": "CV/contact states, configured links, Books and minimal root",
       "passed": true
     },

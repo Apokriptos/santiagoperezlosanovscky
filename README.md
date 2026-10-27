@@ -1,6 +1,8 @@
 # Santiago Pérez Losanovscky — portfolio foundation
 
-Latest correction: [Global desktop single-screen layouts](docs/desktop-fit.md). All nine required Games page families fit at 1434 × 913 with their sections and controls visible.
+Latest calibration: [Sharper artwork, portrait framing and real project media](docs/fidelity-media-calibration.md).
+
+Previous correction: [Global desktop single-screen layouts](docs/desktop-fit.md). All nine required Games page families fit at 1434 × 913 with their sections and controls visible.
 
 Previous follow-up: [Case Studies single-screen corrections and supplied CV integration](docs/case-studies-correction.md). Case Studies now has a dedicated multi-card landing, a viewport-fit cover, and an always-visible desktop step timeline. The CV supplied in `documentation/` now powers the document preview and PDF actions.
 

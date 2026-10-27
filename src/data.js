@@ -42,12 +42,19 @@ export const Roles = [
   practiceMedia: [placeholder('Practice example 01'), placeholder('Practice example 02')],
   approach: ['Approach and implementation notes forthcoming.'], featuredCaseStudy: null,
 }));
-export const Projects = Array.from({ length: 3 }, (_, i) => ({
-  id: `project-${i + 1}`, title: `Project ${String(i + 1).padStart(2, '0')}`,
-  subtitle: 'Project placeholder', shortDescription: 'Project description forthcoming.',
+const projectSources = [
+  { title: 'Hollow Graves', folder: 'hollow-graves', cover: 'MainPic.png', video: 'Hollowgravesshowcasenew.mp4', shots: ['ScreenShot00000.png', 'ScreenShot00002.png', 'ScreenShot00005.png'] },
+  { title: 'Reditus Umbrae', folder: 'reditus-umbrae', cover: 'ScreenShot00001.png', video: 'Reditusumbraeshowcasenew.mp4', shots: ['ScreenShot00002.png', 'ScreenShot00004.png', 'ScreenShot00006.png'] },
+  { title: 'Dreadwoods', folder: 'dreadwoods', cover: 'DW_SS11.png', video: 'Dreadwoods - Video - Final.mp4', shots: ['DW_SS2.png', 'DW_SS20.png', 'DW_SS24.png'] },
+];
+export const Projects = projectSources.map((source, i) => ({
+  id: `project-${i + 1}`, title: source.title,
+  subtitle: 'Project showcase', shortDescription: 'Project description forthcoming.',
   longDescription: 'Premise, scope, and contribution details will be supplied with the project content.',
-  roles: [], tags: ['Content forthcoming'], thumbnail: null, heroMedia: null, video: null,
-  gallery: [placeholder('Project media 01'), placeholder('Project media 02'), placeholder('Project media 03')],
+  roles: [], tags: ['Content forthcoming'], thumbnail: `media/${source.folder}/${source.cover}`,
+  heroMedia: { src: `media/${source.folder}/${source.cover}`, alt: `${source.title} — project artwork` },
+  video: { src: `media/${source.folder}/${source.video}`, poster: `media/${source.folder}/${source.cover}` },
+  gallery: source.shots.map((file, index) => ({ src: `media/${source.folder}/${file}`, alt: `${source.title} — screenshot ${index + 1}`, caption: 'Project screenshot. Detailed commentary forthcoming.' })),
   buildStatus: 'Build availability forthcoming.', buildUrl: null, buildProvider: null,
   buildNote: 'Evaluation and distribution terms forthcoming.', externalUrl: null, caseStudies: [],
 }));

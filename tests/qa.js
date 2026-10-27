@@ -60,6 +60,8 @@ const routes=['#games','#games/projects','#games/roles','#games/case-studies','#
 try {
   await load('#games');
   assert(!doc().querySelector('.right-rail'),'Overview must not have a contextual rail');
+  const portraitBounds=doc().querySelector('.overview-portrait').getBoundingClientRect();
+  assert(Math.abs(portraitBounds.right-1434)<1 && Math.abs(portraitBounds.top)<1 && Math.abs(portraitBounds.bottom-913)<1,'Overview portrait fills top/right/bottom edges');
   const roleLinks=[...doc().querySelectorAll('.overview-roles .cards a')];
   assert(roleLinks.length===config.overview.featuredRoleIds.length,'Curated roles from config');
   for (const id of config.overview.featuredRoleIds) {
@@ -181,8 +183,27 @@ try {
   results.push({test:'Case cover and generated step navigation',passed:true});
   await load('#games',390);const button=doc().querySelector('#menu-toggle');button.click();assert(button.getAttribute('aria-expanded')==='true','Menu open');
   doc().dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert(button.getAttribute('aria-expanded')==='false','Escape');
-  await load('#games/projects',390);const select=doc().querySelector('#context-select');select.value='#games/projects/project-2';select.dispatchEvent(new frame.contentWindow.Event('change',{bubbles:true}));await pause();assert(doc().querySelector('h1').textContent==='Project 02','Context selector');
+  await load('#games/projects',390);const select=doc().querySelector('#context-select');select.value='#games/projects/project-2';select.dispatchEvent(new frame.contentWindow.Event('change',{bubbles:true}));await pause();assert(doc().querySelector('h1').textContent===Projects[1].title,'Context selector');
   results.push({test:'Mobile menu, Escape, contextual selector',passed:true});
+  for (const project of Projects) {
+    const paths=[project.heroMedia.src,...project.gallery.map(item=>item.src)];
+    for(const path of paths) {
+      const image=new Image();image.src=new URL('../'+path,import.meta.url).href;
+      await image.decode();assert(image.naturalWidth>0,'Real image decoded '+path);
+    }
+    await load('#games/projects/'+project.id);
+    const start=doc().querySelector('.video-start');assert(start,'Playable showcase '+project.title);
+    start.click();const player=doc().querySelector('video');
+    player.muted=true;
+    await new Promise((resolve,reject)=>{
+      if(player.readyState>=2)return resolve();
+      const timer=setTimeout(()=>reject(new Error('Video decode timeout '+project.title)),15000);
+      player.addEventListener('loadeddata',()=>{clearTimeout(timer);resolve();},{once:true});
+      player.addEventListener('error',()=>{clearTimeout(timer);reject(new Error('Video failed '+project.title));},{once:true});
+    });
+    assert(player.videoWidth>0 && player.duration>0,'Video metadata '+project.title);player.pause();
+  }
+  results.push({test:'All three project covers and nine gallery images decode; all three showcase videos decode with valid duration and dimensions',passed:true});
   await load('#games/cv');assert(doc().querySelector('iframe.cv-document'),'Supplied CV preview integrated');assert(!doc().querySelector('.cv-empty'),'Real CV replaces placeholder');
   const previewResponse=await fetch(doc().querySelector('iframe.cv-document').src);assert(previewResponse.ok && (await previewResponse.text()).includes('PROFESSIONAL SUMMARY'),'Searchable document preview served');
   const pdf=doc().querySelector('a[download]').href, response=await fetch(pdf);assert(response.ok,'CV PDF served');assert(response.headers.get('Content-Type').includes('application/pdf'),'PDF MIME type');

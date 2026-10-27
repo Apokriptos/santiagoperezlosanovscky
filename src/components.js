@@ -17,7 +17,7 @@ export function media(item, label = 'Media') {
 }
 export function video(item, label) {
   const src = assetUrl(item?.src);
-  return `<div class="media video-frame">${src ? `<button class="video-start" data-src="${escape(src)}" data-kind="${item.type === 'embed' ? 'embed' : 'video'}" data-label="${escape(label)}" data-captions="${escape(assetUrl(item.captions))}" data-poster="${escape(assetUrl(item.poster))}">▶ Play ${escape(label)}</button>` : placeholder(`${label} — video`)}</div>`;
+  return `<div class="media video-frame">${item?.poster ? `<img class="video-poster" src="${escape(assetUrl(item.poster))}" alt="${escape(label)} video poster">` : ''}${src ? `<button class="video-start" data-src="${escape(src)}" data-kind="${item.type === 'embed' ? 'embed' : 'video'}" data-label="${escape(label)}" data-captions="${escape(assetUrl(item.captions))}" data-poster="${escape(assetUrl(item.poster))}">▶ Play ${escape(label)}</button>` : placeholder(`${label} — video`)}</div>`;
 }
 export const tags = values => `<ul class="tags">${values.map(v => `<li>${escape(v)}</li>`).join('')}</ul>`;
 export const list = (values, empty = 'Content forthcoming.') => values.length ? `<ul>${values.map(v => `<li>${escape(v)}</li>`).join('')}</ul>` : `<p class="status">${escape(empty)}</p>`;
