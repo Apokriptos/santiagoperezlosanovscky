@@ -1,5 +1,7 @@
 # Santiago Pérez Losanovscky — portfolio foundation
 
+Latest follow-up: [Case Studies single-screen corrections and supplied CV integration](docs/case-studies-correction.md). Case Studies now has a dedicated multi-card landing, a viewport-fit cover, and an always-visible desktop step timeline. The CV supplied in `documentation/` now powers the document preview and PDF actions.
+
 The approved Games Overview visual baseline now extends across Projects, Roles, Case Studies, CV, Contact, About, and the root selector. See [the implementation report](docs/games-visual-implementation.md) for screen/reference mapping, verification, and pending content. [The calibration notes](docs/visual-calibration.md) record the original Overview pass. The router and shared shell remain unchanged.
 
 Buildless, semantic HTML, CSS, and vanilla JavaScript. Serve this folder with any static server, or run `npm start` and open `http://127.0.0.1:4173/`. No production dependencies or build step. GitHub Pages can serve the repository root; `.nojekyll` preserves static delivery. Hosting settings are not changed by this implementation.

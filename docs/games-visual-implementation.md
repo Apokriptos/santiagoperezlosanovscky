@@ -1,5 +1,7 @@
 # Games visual implementation — continuation report
 
+This records the preceding visual propagation pass. Its Case Studies and missing-CV notes are superseded by [the targeted correction and CV integration](case-studies-correction.md).
+
 The approved Overview baseline has been propagated across all requested screens. This completes the visual implementation pass with deliberately provisional portfolio content. It does not claim final content, real project evidence, or production media completion.
 
 ## Screens and reference mapping

@@ -3,7 +3,7 @@ export const config = {
   name: 'Santiago Pérez Losanovscky',
   introduction: 'Professional introduction forthcoming. Explore the portfolio structure by area of work, project, or case study.',
   studioUrl: 'https://apokriptos.github.io/aobscuragames/',
-  overviewVideos: { projects: null, roles: null },
+  overviewVideos: { projects: null, roles: null, 'case-studies': null },
   portrait: null,
   // Overview is a curated window into Roles[], not a second role definition.
   overview: { featuredRoleIds: ['technical-game-design', 'level-design', 'creative-leadership'] },
@@ -12,8 +12,14 @@ export const config = {
     roles: 'Explore the areas of work below. Selected experience will be added with the final content.',
     contact: 'Collaboration and opportunity information forthcoming.',
     opportunities: 'Availability and collaboration details forthcoming.',
+    caseStudies: 'Deep dives into design problems, implementation, iteration, and outcomes. Case content forthcoming.',
   },
-  cv: { url: null, summary: 'Profile and CV summary forthcoming.' },
+  cv: {
+    url: 'documentation/cv-technical-game-designer.pdf',
+    previewUrl: 'documentation/cv-technical-game-designer.html',
+    source: 'documentation/CV — Technical Game Designer — Santiago Perez Losanovscky.docx',
+    summary: 'Game and systems designer with 7+ years of professional experience across game design, level design, gameplay systems, mobile and VR production, product ownership, and design leadership.',
+  },
   contact: { email: null, linkedin: null, github: 'https://github.com/Apokriptos' },
   about: {
     biography: 'Professional biography forthcoming.', focus: 'Focus statement forthcoming.',

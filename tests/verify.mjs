@@ -25,7 +25,7 @@ const pages=await readFile(new URL('../styles/pages.css',import.meta.url),'utf8'
 assert.equal((shell.match(/--games-left-rail-width:\s*251px/g)||[]).length,1);
 assert.equal((shell.match(/--games-context-rail-width:\s*134px/g)||[]).length,1);
 assert.ok(!/--games-(left|context)-rail-width/.test(pages));
-for (const file of ['games-visual.css','overview.css','publication.css']) {
+for (const file of ['games-visual.css','overview.css','publication.css','case-studies.css']) {
   const css=await readFile(new URL('../styles/'+file,import.meta.url),'utf8');
   assert.ok(!/--games-(left|context)-rail-width\s*:/.test(css),file+' must not own rail dimensions');
   assert.ok(!/references\//.test(css),file+' must not use screen mockups');
@@ -41,12 +41,17 @@ assert.ok(renderPage(resolveRoute('#games')).includes('1 / 4'));
 Projects.pop();
 // Configured links must be real actions; missing files remain deliberate empty states.
 const previousCv=config.cv.url;
+const previousPreview=config.cv.previewUrl;
+config.cv.previewUrl=null;
 config.cv.url='https://example.com/test-cv.pdf';
 const cv=renderPage(resolveRoute('#games/cv'));
 assert.ok(cv.includes('<object class="pdf-viewer"'));
 assert.ok(cv.includes('download'));
 assert.ok(!cv.includes('class="cv-empty"'));
+config.cv.url=null;
+assert.ok(renderPage(resolveRoute('#games/cv')).includes('class="cv-empty"'));
 config.cv.url=previousCv;
+config.cv.previewUrl=previousPreview;
 const previousBuild=Projects[0].buildUrl;
 Projects[0].buildUrl='https://example.com/test-build';
 assert.ok(renderPage(resolveRoute('#games/projects/'+Projects[0].id)).includes('href="https://example.com/test-build"'));
@@ -56,4 +61,9 @@ Roles[0].experience=[{title:'Test fixture experience',body:'Test fixture body',p
 assert.ok(renderPage(resolveRoute('#games/roles/'+Roles[0].id)).includes('Test fixture experience'));
 Roles[0].experience=previousExperience;
 assert.ok(!renderPage(resolveRoute('#games/case-studies/case-1')).includes('class="step-nav"'));
+assert.ok(renderPage(resolveRoute('#games/case-studies')).includes('class="case-carousel"'));
+assert.ok(renderPage(resolveRoute('#games/case-studies/case-1/step-1')).includes('class="step-question"'));
+assert.ok((await readFile(new URL('../'+config.cv.url,import.meta.url))).subarray(0,5).toString()==='%PDF-');
+assert.ok((await readFile(new URL('../'+config.cv.source,import.meta.url))).length>0);
+assert.ok((await readFile(new URL('../'+config.cv.previewUrl,import.meta.url),'utf8')).includes('PROFESSIONAL SUMMARY'));
 console.log(`${valid.length} valid routes, invalid routes, dynamic 12-step case, configured document/build/experience states, and shell ownership checks passed.`);

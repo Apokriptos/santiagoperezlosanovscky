@@ -1,5 +1,5 @@
 import { config, Projects, Roles, CaseStudies } from './data.js';
-import { escape as e, link, external, media, video, tags, list, section, carousel, placeholder, assetUrl } from './components.js';
+import { escape as e, link, external, media, video, tags, list, section, carousel, caseCarousel, placeholder, assetUrl } from './components.js';
 const route = (family, id) => `#games/${family}${id ? '/' + id : ''}`;
 const titleOf = (items, id) => items.find(i => i.id === id)?.title || id;
 const heading = (title, subtitle = '', family = '') => `<header class="page-header"><nav class="breadcrumb" aria-label="Breadcrumb">${link('#games','Games')}${family ? `<span>/</span>${link(route(family),family.replaceAll('-',' '))}` : ''}<span>/</span><span>${e(title)}</span></nav><h1>${e(title)}</h1>${subtitle ? `<p class="subtitle">${e(subtitle)}</p>` : ''}</header>`;
@@ -64,10 +64,13 @@ function caseIndexCard(study) {
     ${link(route('case-studies',study.id),'View case study →','button')}</div></article>`;
 }
 function cases(study, step) {
-  if (!study) return `${heading('CASE STUDIES','Design reasoning, implementation, and evidence — content forthcoming.')}<div class="case-index">${CaseStudies.map(caseIndexCard).join('')}</div>`;
+  if (!study) return `<div class="case-index-layout">${heading('CASE STUDIES','Design reasoning · Implementation · Evidence')}
+    <section class="case-index-intro print-panel"><div><h2>DESIGN IN PRACTICE</h2><p>${e(config.copy.caseStudies)}</p>
+      <button data-case-overview ${config.overviewVideos['case-studies']?.src ? '' : 'disabled'}>${config.overviewVideos['case-studies']?.src ? 'Watch overview →' : 'Overview video forthcoming'}</button></div>
+      <div class="case-overview-video">${video(config.overviewVideos['case-studies'],'Case Studies overview')}</div></section>
+    <section class="featured-case-section"><h2>FEATURED CASE STUDIES</h2>${caseCarousel(CaseStudies,caseIndexCard)}</section></div>`;
   const base = route('case-studies',study.id);
-  const disciplines = study.roleIds.length ? tags(study.roleIds.map(id=>titleOf(Roles,id))) : '';
-  if (!step) return `${heading(study.title,study.subtitle,'case-studies')}${disciplines}
+  if (!step) return `<div class="case-cover-layout">${heading(study.title,study.roleIds.map(id=>titleOf(Roles,id)).join(' · ') || study.subtitle,'case-studies')}
     <div class="case-hero">${media(study.heroMedia,'Case study hero')}</div>
     <div class="case-cover-grid">
       ${printSection('THE CASE',`<p>${e(study.summary)}</p>`)}
@@ -75,14 +78,15 @@ function cases(study, step) {
       ${printSection('MY CONTRIBUTION',list(study.contribution))}
       ${printSection('WHAT THIS STUDY COVERS',study.steps.length ? `<ol class="coverage-list">${study.steps.map(s=>`<li>${link(base+'/'+s.id,s.title)}</li>`).join('')}</ol>` : emptyState('Steps forthcoming'))}
     </div>
-    ${actions((study.steps.length ? link(base+'/'+study.steps[0].id,'Begin case study →','button button-primary') : '')+' '+(study.projectId ? link(route('projects',study.projectId),'View project →','button') : ''))}`;
+    ${actions((study.steps.length ? link(base+'/'+study.steps[0].id,'Begin case study →','button button-primary') : '')+' '+(study.projectId ? link(route('projects',study.projectId),'View project →','button') : ''))}</div>`;
   const index = study.steps.indexOf(step);
   const previous = study.steps[index-1], next = study.steps[index+1];
-  return `${heading(study.title,'','case-studies')}
-    <section class="step-prose print-panel"><p class="eyebrow">Step ${e(step.number ?? index + 1)} / ${study.steps.length}</p><h2 class="step-title">${e(step.title)}</h2><p class="lead">${e(step.body)}</p></section>
-    <div class="evidence">${step.media.map((item,i)=>`<figure>${media(item,'Evidence')}<figcaption>${e(step.captions?.[i] || item.caption || '')}</figcaption></figure>`).join('')}</div>
+  return `<div class="case-step-layout">${heading(study.title,'','case-studies')}<div class="case-step-content">
+    <section class="step-prose print-panel"><div class="step-heading"><span class="eyebrow">${e(String(step.number ?? index + 1).padStart(2,'0'))}</span><h2 class="step-title">${e(step.title)}</h2></div>
+      <p class="step-question">${e(step.question || study.centralQuestion)}</p><p class="lead">${e(step.body)}</p></section>
+    <div class="evidence" data-evidence-count="${step.media.length}">${step.media.map((item,i)=>`<figure>${media(item,'Evidence')}<figcaption>${e(step.captions?.[i] || item.caption || '')}</figcaption></figure>`).join('')}</div>
     <div class="step-actions">${link(previous ? base+'/'+previous.id : base,previous ? '← Previous step' : '← Case cover','action')}${next ? link(base+'/'+next.id,'Next step →','action') : link(base,'Case cover →','action')}</div>
-    <nav class="step-nav" aria-label="Case study steps">${study.steps.map((s,i)=>`<a href="${base}/${s.id}" ${s.id===step.id ? 'aria-current="step"' : ''}><span>${e(s.number ?? i+1)}</span>${e(s.title)}</a>`).join('')}</nav>`;
+    </div><nav class="step-nav" aria-label="Case study steps">${study.steps.map((s,i)=>`<a href="${base}/${s.id}" ${s.id===step.id ? 'aria-current="step"' : ''}><span class="step-number">${e(String(s.number ?? i+1).padStart(2,'0'))}</span><span class="step-label">${e(s.title)}</span></a>`).join('')}</nav></div>`;
 }
 
 function about() {
@@ -98,10 +102,11 @@ function about() {
 
 function cv() {
   const url=assetUrl(config.cv.url);
+  const preview=assetUrl(config.cv.previewUrl);
   return `${heading('CV')}
     <div class="cv-layout"><section class="document-stage" aria-label="CV document viewer">
-      <div class="document-toolbar"><span>CURRICULUM VITAE</span><span>PDF</span></div>
-      ${url ? `<object class="pdf-viewer" data="${e(url)}" type="application/pdf" aria-label="Curriculum vitae"><p>Your browser cannot embed this PDF. ${external(url,'Open CV')}</p></object>` : `<div class="cv-empty"><div class="document-sheet"><span class="print-slashes" aria-hidden="true">//</span><strong>CV document forthcoming</strong><p>A PDF viewer will appear here when the CV is supplied.</p></div></div>`}
+      <div class="document-toolbar"><span>CURRICULUM VITAE</span><span>${preview ? 'DOCUMENT PREVIEW' : 'PDF'}</span></div>
+      ${url ? (preview ? `<iframe class="pdf-viewer cv-document" src="${e(preview)}" title="Curriculum vitae document" loading="eager"></iframe>` : `<object class="pdf-viewer" data="${e(url)}" type="application/pdf" aria-label="Curriculum vitae"><p>Your browser cannot embed this PDF. ${external(url,'Open CV')}</p></object>`) : `<div class="cv-empty"><div class="document-sheet"><span class="print-slashes" aria-hidden="true">//</span><strong>CV document forthcoming</strong><p>A PDF viewer will appear here when the CV is supplied.</p></div></div>`}
     </section><aside class="cv-profile print-panel"><p class="eyebrow">PROFILE</p><h2>${e(config.name)}</h2><p>${e(config.cv.summary)}</p>
       ${actions(external(config.cv.url,'View CV')+external(config.cv.url,'Download PDF',true))}
       <p class="distribution-note">${url ? 'Use the actions above if your browser cannot display the document.' : 'CV file forthcoming.'}</p>

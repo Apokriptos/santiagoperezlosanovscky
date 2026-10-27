@@ -20,6 +20,115 @@
       "overflow": false
     },
     {
+      "test": "Every Case Studies index, cover, and step fits one canonical viewport with no vertical scroll; step rail remains visible",
+      "passed": true,
+      "measurements": [
+        {
+          "route": "#games/case-studies",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": false
+        },
+        {
+          "route": "#games/case-studies/case-1",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": false
+        },
+        {
+          "route": "#games/case-studies/case-1/step-1",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-1/step-2",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-1/step-3",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-1/step-4",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-2",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": false
+        },
+        {
+          "route": "#games/case-studies/case-2/step-1",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        },
+        {
+          "route": "#games/case-studies/case-2/step-2",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "viewportHeight": 913,
+          "scrollHeight": 913,
+          "timeline": true
+        }
+      ]
+    },
+    {
+      "test": "Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, 1/2/3 evidence layouts",
+      "passed": true
+    },
+    {
       "test": "Responsive routes",
       "width": 320,
       "routes": 23,

@@ -3,10 +3,12 @@ const frame=document.querySelector('iframe'), report=document.querySelector('#re
 const pause=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
 const assert=(condition,message)=>{if(!condition)throw new Error(message);};
 const doc=()=>frame.contentDocument;
+const caseMeasurements=[];
 let loadId=0;
 async function load(hash,width=1434,height=913,path='') {
   frame.width=width;frame.height=height;
-  await new Promise(resolve=>{frame.onload=resolve;frame.src='/santiagoperezlosanovscky/'+path+'?qa='+ ++loadId +hash;});
+  const [file,query='']=path.split('?');
+  await new Promise(resolve=>{frame.onload=resolve;frame.src='/santiagoperezlosanovscky/'+file+'?qa='+ ++loadId +(query?'&'+query:'')+hash;});
   // The stress fixture dynamically imports the app after preparing its records.
   // Its window load can precede that import; wait for actual rendered content.
   if (!doc().querySelector('#app > *')) await new Promise((resolve,reject)=>{
@@ -22,6 +24,18 @@ function geometry() {
   return [...doc().querySelector('.games-shell').children].filter(n=>getComputedStyle(n).display!=='none').filter(n=>!n.classList.contains('mobile-header')).map(n=>n.getBoundingClientRect().width);
 }
 function noOverflow(label) { const width=Number(frame.width);assert(doc().documentElement.scrollWidth<=width,`Overflow: ${label}; ${[...doc().querySelectorAll('main *')].filter(n=>n.getBoundingClientRect().right>width).map(n=>n.className).join(', ')}`);const main=doc().querySelector('main');assert(main.scrollWidth<=main.clientWidth,'Main horizontal overflow: '+label); }
+function singleScreen(label) {
+  const main=doc().querySelector('main'), box=main.getBoundingClientRect();
+  assert(main.scrollHeight<=main.clientHeight,'Vertical content scroll: '+label+' '+main.scrollHeight+'/'+main.clientHeight);
+  assert(doc().documentElement.scrollHeight<=Number(frame.height),'Document vertical scroll: '+label);
+  for(const item of doc().querySelectorAll('.case-studies-page h1,.case-studies-page h2,.case-studies-page p,.case-studies-page li,.case-studies-page button,.case-studies-page a,.case-studies-page figcaption,.case-studies-page .media')) {
+    if(!item.getClientRects().length) continue;
+    const b=item.getBoundingClientRect();assert(b.top>=box.top-1 && b.bottom<=box.bottom+1,'Element outside desktop viewport: '+label+' '+item.textContent.trim());
+    const panel=item.closest('.print-panel');
+    if(panel){const p=panel.getBoundingClientRect();assert(b.top>=p.top-1 && b.bottom<=p.bottom+1,'Content exceeds panel: '+label+' '+item.textContent.trim());}
+  }
+  const rail=doc().querySelector('.step-nav');if(rail)assert(rail.getBoundingClientRect().bottom<=box.bottom,'Step rail below fold');
+}
 const routes=['#games','#games/projects','#games/roles','#games/case-studies','#games/about','#games/cv','#games/contact',...Projects.map(p=>`#games/projects/${p.id}`),...Roles.map(r=>`#games/roles/${r.id}`),...CaseStudies.flatMap(c=>[`#games/case-studies/${c.id}`,...c.steps.map(s=>`#games/case-studies/${c.id}/${s.id}`)])];
 try {
   await load('#games');
@@ -65,12 +79,46 @@ try {
       if(parts[3]) assert(doc().querySelectorAll('.step-nav a').length===study.steps.length,'Case step count '+hash);
       else assert(!doc().querySelector('.step-nav'),'No step rail on case cover '+hash);
     }
+    if(hash.startsWith('#games/case-studies')) {
+      singleScreen(hash);const main=doc().querySelector('main');
+      caseMeasurements.push({route:hash,columns:geometry(),viewportHeight:main.clientHeight,scrollHeight:main.scrollHeight,timeline:!!doc().querySelector('.step-nav')});
+    }
     for(const video of doc().querySelectorAll('.video-frame')) {
       const box=video.getBoundingClientRect();assert(Math.abs(box.width/box.height-16/9)<.02,'Video aspect ratio '+hash);
     }
     noOverflow(hash);
   }
   results.push({test:'All desktop routes at 1434 × 913',routes:routes.length,withRail:[251,1049,134],withoutRail:[251,1183],overflow:false});
+  results.push({test:'Every Case Studies index, cover, and step fits one canonical viewport with no vertical scroll; step rail remains visible',passed:true,measurements:caseMeasurements});
+  await load('#games/case-studies');
+  assert(doc().querySelectorAll('.case-index-card').length===CaseStudies.length,'Overview case cards from data');
+  assert(doc().querySelector('.case-carousel-controls').hidden,'No redundant controls when current cases fit');
+  const first=doc().querySelector('.case-index-card').getBoundingClientRect(), last=doc().querySelector('.case-index-card:last-child').getBoundingClientRect();
+  const track=doc().querySelector('.case-track').getBoundingClientRect();assert(first.left>=track.left && last.right<=track.right+1,'All current cases simultaneously visible');
+  await load('#games/case-studies',1434,913,'tests/stress.html?cases=7');
+  singleScreen('Seven-case carousel');
+  assert(doc().querySelectorAll('.case-index-card').length===7,'Arbitrary case count');
+  const cases=doc().querySelector('.case-carousel');assert(!cases.querySelector('.case-carousel-controls').hidden,'Overflow cases have controls');
+  cases.querySelector('[data-case-direction="1"]').click();assert(cases.querySelector('.case-carousel-count').textContent==='2 / 3','Case carousel next');
+  cases.querySelector('[data-case-direction="-1"]').click();assert(cases.querySelector('.case-carousel-count').textContent==='1 / 3','Case carousel previous');
+  cases.querySelector('[data-case-page="2"]').click();assert(cases.querySelector('.case-carousel-count').textContent==='3 / 3','Case pagination');
+  cases.querySelector('.case-track').dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert(cases.querySelector('.case-carousel-count').textContent==='1 / 3','Case keyboard');
+  for(const count of [4,7,12]) {
+    await load('#games/case-studies/case-1',1434,913,`tests/stress.html?steps=${count}`);singleScreen(count+'-step cover');
+    assert(!doc().querySelector('.step-nav'),'Cover has no timeline');
+    assert(doc().querySelectorAll('.coverage-list a').length===count,'Coverage count');
+    await load(`#games/case-studies/case-1/stress-step-${count}`,1434,913,`tests/stress.html?steps=${count}`);singleScreen(count+'-step view');
+    assert(doc().querySelectorAll('.step-nav a').length===count,'Timeline count');
+    const active=doc().querySelector('.step-nav [aria-current="step"]'), rail=active.parentElement, a=active.getBoundingClientRect(), r=rail.getBoundingClientRect();
+    assert(a.left>=r.left && a.right<=r.right,'Current timeline entry visible');
+    if(count===12) assert(rail.scrollWidth>rail.clientWidth,'Large timeline scrolls only horizontally');
+    active.focus();active.dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
+    assert(doc().activeElement===rail.querySelectorAll('a')[count-2],'Timeline keyboard focus');
+  }
+  for(const count of [1,2,3]) {await load('#games/case-studies/case-1/stress-step-1',1434,913,`tests/stress.html?evidence=${count}`);singleScreen(count+' evidence items');assert(doc().querySelectorAll('.evidence figure').length===count,'Evidence count');}
+  results.push({test:'Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, 1/2/3 evidence layouts',passed:true});
+  for(const width of [1001,1200]) {await load('#games/case-studies',width);singleScreen('Case index at '+width);}
+  await load('#games/case-studies/case-1/step-1',1434,600);assert(doc().querySelector('main').scrollHeight>doc().querySelector('main').clientHeight,'Short-height accessibility fallback allows content flow');
   for(const width of [320,360,390,768,1000,1200,1920]) {
     for(const hash of routes) {await load(hash,width);noOverflow(width+' '+hash);}
     results.push({test:'Responsive routes',width,routes:routes.length,overflow:false});
@@ -110,7 +158,11 @@ try {
   doc().dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert(button.getAttribute('aria-expanded')==='false','Escape');
   await load('#games/projects',390);const select=doc().querySelector('#context-select');select.value='#games/projects/project-2';select.dispatchEvent(new frame.contentWindow.Event('change',{bubbles:true}));await pause();assert(doc().querySelector('h1').textContent==='Project 02','Context selector');
   results.push({test:'Mobile menu, Escape, contextual selector',passed:true});
-  await load('#games/cv');assert(doc().querySelector('.cv-empty'),'PDF placeholder');assert(!doc().querySelector('object'),'No fake PDF');
+  await load('#games/cv');assert(doc().querySelector('iframe.cv-document'),'Supplied CV preview integrated');assert(!doc().querySelector('.cv-empty'),'Real CV replaces placeholder');
+  const previewResponse=await fetch(doc().querySelector('iframe.cv-document').src);assert(previewResponse.ok && (await previewResponse.text()).includes('PROFESSIONAL SUMMARY'),'Searchable document preview served');
+  const pdf=doc().querySelector('a[download]').href, response=await fetch(pdf);assert(response.ok,'CV PDF served');assert(response.headers.get('Content-Type').includes('application/pdf'),'PDF MIME type');
+  assert((await response.text()).startsWith('%PDF-'),'CV file is a PDF');
+  assert(doc().querySelector('a[download]').href===pdf,'Download uses the same supplied PDF');
   await load('#games/contact');assert(doc().querySelector('a[href="https://github.com/Apokriptos"]'),'GitHub config link');assert(!doc().querySelector('form'),'No contact form');
   await load('#books');assert(doc().querySelector('h1').textContent==='BOOKS','Books');
   await load('');assert(doc().querySelectorAll('main a').length===2,'Root branches only');
