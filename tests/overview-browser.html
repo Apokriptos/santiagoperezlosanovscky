@@ -23,7 +23,7 @@ try {
   for(let i=0;i<Projects.length;i++){carousel.querySelector('[data-slide="'+i+'"]').click();selected(i);}
   const next=carousel.querySelector('[data-direction="1"]');next.focus();assert(w.getComputedStyle(next).outlineWidth==='3px','Keyboard visible focus');next.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));selected(0);
   assert(d.querySelector('.studio-link').href===config.studioUrl,'Aobscura URL');
-  for(const id of config.overview.featuredRoleIds){d.querySelector('.overview-role-card a[href="#games/roles/'+id+'"]').click();await tick();assert(d.querySelector('h1').textContent===Roles.find(r=>r.id===id).title,'Role navigation '+id);w.history.back();await new Promise(r=>w.addEventListener('hashchange',r,{once:true}));await tick();}
+  for(const id of config.overview.featuredRoleIds){d.querySelector('.overview-role-card a[href="#games/roles/'+id+'"]').click();await tick();assert(d.querySelector('h1').textContent===(Roles.find(r=>r.id===id).detailTitle||Roles.find(r=>r.id===id).title),'Role navigation '+id);w.history.back();await new Promise(r=>w.addEventListener('hashchange',r,{once:true}));await tick();}
   results.push({width,passed:true,horizontalOverflow:false,canonicalNoScroll:width===1434?true:null,arrowsTabsWrapKeyboard:true,roleDestinations:true,mediaRatio:true});
  }
  report.textContent=JSON.stringify({passed:true,results},null,2);

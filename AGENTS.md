@@ -78,12 +78,13 @@ Persistent left navigation rail:
 An external Aobscura Games link may live at the bottom.
 
 ## Canonical Role Taxonomy
-Use these five roles unless explicitly changed:
+Use these six roles, as approved in SCREEN_ROLES_OVERVIEW_IMPLEMENTATION.txt:
 1. Technical Game Design
 2. Level Design
 3. Gameplay Development
 4. Creative Leadership
 5. Technical Animation
+6. Product Ownership
 
 Do not create a separate Systems Design role unless explicitly requested.
 Do not rename Technical Animation to Gameplay Animation.

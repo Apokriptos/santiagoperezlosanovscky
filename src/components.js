@@ -139,17 +139,7 @@ export function bindComponents(root) {
     });
   });
   root.querySelectorAll('img').forEach(img => img.addEventListener('error', () => { img.parentElement.innerHTML = placeholder('Image unavailable'); }, {once:true}));
-  root.querySelectorAll('.video-start').forEach(button => button.addEventListener('click', () => {
-    const player = document.createElement(button.dataset.kind === 'embed' ? 'iframe' : 'video');
-    if (player.tagName === 'VIDEO') {
-      player.controls = true; player.playsInline = true; player.preload = 'metadata';
-      if (button.dataset.poster) player.poster = button.dataset.poster;
-      if (button.dataset.captions) { const track=document.createElement('track'); track.kind='captions'; track.srclang='en'; track.label='English'; track.src=button.dataset.captions; player.append(track); }
-      player.addEventListener('error', () => { player.parentElement.innerHTML=placeholder('Video unavailable'); }, {once:true});
-    } else { player.title=button.dataset.label; player.allowFullscreen=true; player.allow='fullscreen; picture-in-picture'; }
-    player.setAttribute('aria-label',button.dataset.label); player.src=button.dataset.src;
-    button.parentElement.replaceChildren(player); player.focus();
-  }));
+  bindMediaPlayback(root);
   // A direct link to a late step must reveal its active entry in the local rail,
   // without scrolling the page or assuming a particular number of steps.
   const activeStep = root.querySelector('.step-nav [aria-current="step"]');
@@ -167,4 +157,18 @@ export function bindComponents(root) {
     const rail=event.currentTarget;
     rail.scrollLeft+=links[next].getBoundingClientRect().left-rail.getBoundingClientRect().left-(rail.clientWidth-links[next].offsetWidth)/2;
   });
+}
+
+export function bindMediaPlayback(root) {
+  root.querySelectorAll('.video-start').forEach(button => button.addEventListener('click', () => {
+    const player = document.createElement(button.dataset.kind === 'embed' ? 'iframe' : 'video');
+    if (player.tagName === 'VIDEO') {
+      player.controls = true; player.playsInline = true; player.preload = 'metadata';
+      if (button.dataset.poster) player.poster = button.dataset.poster;
+      if (button.dataset.captions) { const track=document.createElement('track'); track.kind='captions'; track.srclang='en'; track.label='English'; track.src=button.dataset.captions; player.append(track); }
+      player.addEventListener('error', () => { player.parentElement.innerHTML=placeholder('Video unavailable'); }, {once:true});
+    } else { player.title=button.dataset.label; player.allowFullscreen=true; player.allow='fullscreen; picture-in-picture'; }
+    player.setAttribute('aria-label',button.dataset.label); player.src=button.dataset.src;
+    button.parentElement.replaceChildren(player); player.focus();
+  }));
 }

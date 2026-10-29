@@ -7,7 +7,7 @@
     },
     {
       "test": "All desktop routes at 1434 × 913",
-      "routes": 28,
+      "routes": 29,
       "withRail": [
         251,
         1049,
@@ -327,6 +327,18 @@
         },
         {
           "route": "#games/roles/technical-animation",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "#games/roles/product-ownership",
           "result": "PASS",
           "columns": [
             251,
@@ -659,6 +671,18 @@
           "overflowY": "visible"
         },
         {
+          "route": "1920px #games/roles/product-ownership",
+          "result": "PASS",
+          "columns": [
+            251,
+            1535,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
           "route": "1920px #games/case-studies/case-1",
           "result": "PASS",
           "columns": [
@@ -859,43 +883,43 @@
     {
       "test": "Responsive routes",
       "width": 320,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 360,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 390,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 768,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 1000,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 1200,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {
       "test": "Responsive routes",
       "width": 1920,
-      "routes": 28,
+      "routes": 29,
       "overflow": false
     },
     {

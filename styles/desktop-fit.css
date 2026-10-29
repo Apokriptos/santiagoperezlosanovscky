@@ -8,34 +8,6 @@
   :is(.projects-page,.roles-page,.about-page) > .page-header .breadcrumb { margin-bottom: 10px; }
   :is(.projects-page,.roles-page,.about-page) > .page-header .subtitle { margin-top: 8px; }
 
-  /* Overview screens keep their editorial/video top row and a lower content row. */
-  :is(.projects-page,.roles-page).index-page { display: grid; grid-template-rows: minmax(0,.8fr) minmax(0,1.2fr); gap: 22px; }
-  :is(.projects-page,.roles-page).index-page .split-intro { min-height: 0; padding-bottom: 18px; }
-  :is(.projects-page,.roles-page).index-page .split-intro .video-frame { width: min(100%,calc(32dvh * 16 / 9)); margin-left: auto; height: auto; aspect-ratio: 16 / 9; }
-  :is(.projects-page,.roles-page).index-page > .section { margin: 0; display: grid; grid-template-rows: auto minmax(0,1fr); gap: 14px; min-height: 0; }
-  :is(.projects-page,.roles-page).index-page > .section > h2 { margin: 0; padding-bottom: 10px; }
-  /* Five roles remain visible, with readable summaries rather than tall cards. */
-  .roles-page.index-page .role-cards { min-height: 0; grid-template-columns: repeat(3,minmax(0,1fr)); grid-auto-rows: minmax(0,1fr); gap: 14px; }
-  .roles-page.index-page .role-card { grid-template-columns: 44px minmax(0,1fr); gap: 12px; padding: 14px; }
-  .roles-page.index-page .role-card-media { min-height: 64px; }
-  .roles-page.index-page .role-card h3 { font-size: 19px; margin-bottom: 8px; }
-  .roles-page.index-page .role-card p { margin-bottom: 10px; }
-
-  /* Role detail reserves the final row for the featured-case CTA. */
-  .roles-page.detail-page { display: grid; grid-template-rows: auto minmax(0,1fr) auto; gap: 16px; }
-  .roles-page.detail-page .role-detail-grid { min-height: 0; grid-template-rows: minmax(0,.65fr) minmax(0,1fr); gap: 16px; }
-  .roles-page.detail-page .role-detail-grid > * { min-height: 0; }
-  .roles-page.detail-page .print-panel { padding: 18px 20px; }
-  .roles-page.detail-page h2 { font-size: 25px; margin-bottom: 12px; }
-  .roles-page.detail-page .empty-state { min-height: 0; padding: 14px; gap: 6px; }
-  .roles-page.detail-page .practice-section { display: grid; grid-template-rows: auto minmax(0,1fr); gap: 10px; }
-  .roles-page.detail-page .practice-section > h2 { margin: 0; padding-bottom: 10px; }
-  .roles-page.detail-page .practice-section .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; min-height: 0; }
-  .roles-page.detail-page .practice-section figure { display: grid; justify-items: center; align-content: start; }
-  .roles-page.detail-page .practice-section .media { width: min(100%,calc(24dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; }
-  .roles-page.detail-page .practice-section .carousel-controls { padding-top: 6px; }
-  .roles-page.detail-page .cta-strip { margin: 0; padding: 12px 18px; }
-
   /* About uses width for a portrait/identity region and a horizontal lower band. */
   .about-page { display: grid; grid-template-rows: auto minmax(0,1.2fr) minmax(0,.55fr) minmax(0,.65fr); gap: 16px; }
   .about-page .about-layout { min-height: 0; margin: 0; grid-template-columns: minmax(0,.45fr) minmax(0,1.55fr); gap: 18px; }

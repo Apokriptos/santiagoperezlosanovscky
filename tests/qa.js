@@ -87,7 +87,7 @@ try {
   projectLink.click();await pause();assert(doc().querySelector('h1').textContent===Projects[1].title,'Overview project route');
   await load('#games');
   doc().querySelector('.overview-roles .cards a').click();await pause();
-  assert(doc().querySelector('h1').textContent===Roles.find(r=>r.id===config.overview.featuredRoleIds[0]).title,'Overview role route');
+  assert(doc().querySelector('h1').textContent===(Roles.find(r=>r.id===config.overview.featuredRoleIds[0]).detailTitle||Roles.find(r=>r.id===config.overview.featuredRoleIds[0]).title),'Overview role route');
   results.push({test:'Overview config-driven roles, role/project links, carousel arrows/pagination/keyboard, no contextual rail',passed:true});
   for(const hash of routes) {
     await load(hash);
@@ -102,7 +102,7 @@ try {
       const indexLabel=getComputedStyle(right.querySelector('.index-label'));
       assert(indexLabel.backgroundColor==='rgba(0, 0, 0, 0)' && indexLabel.boxShadow==='none','Rail labels have no dark backing');
       assert(getComputedStyle(right).backgroundBlendMode==='normal','Artwork is not additionally darkened');
-      assert(getComputedStyle(right).backgroundSize==='cover','Final rail artwork fills the rail rather than using native-size crop');
+      assert(getComputedStyle(right).backgroundSize===(right.classList.contains('ui-role-rail')?'auto 150%':'cover'),'Approved rail artwork fills the rail with the role index crop where needed');
       assert(railArt.includes('righttab-black-top-v2.png') && !railArt.includes('gradient') && !railArt.includes('right-rail-hd'),'Final contextual rail without dark overlay');
       assert(right.querySelectorAll('a').length===items.length+1,'Contextual rail data count '+hash);
       assert(right.querySelectorAll('[aria-current="page"]').length===1,'One active contextual entry '+hash);

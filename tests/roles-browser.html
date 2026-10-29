@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Roles implementation checks</title><style>body{font:14px monospace}pre{white-space:pre-wrap}iframe{border:0;display:block}</style><pre id="report">Running…</pre><iframe title="Roles production verification"></iframe><script type="module">
+import {Roles,Projects,CaseStudies,config} from '../src/data.js';
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const assert=(ok,message)=>{if(!ok)throw new Error(message);},tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+let seq=0;
+async function load(route,width,path=''){
+ frame.width=width;frame.height=913;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/'+path+(path.includes('?')?'&':'?')+'role-check='+ ++seq+route;});
+ const d=frame.contentDocument;
+ if(!d.querySelector('#app > *'))await new Promise((resolve,reject)=>{const observer=new MutationObserver(()=>{if(d.querySelector('#app > *')){observer.disconnect();clearTimeout(timer);resolve();}}),timer=setTimeout(()=>{observer.disconnect();reject(new Error('App render timeout'));},5000);observer.observe(d.querySelector('#app'),{childList:true});});
+ await tick();await d.fonts.ready;await tick();return d;
+}
+function fit(d,width){const main=d.querySelector('main');assert(d.documentElement.scrollWidth<=width&&main.scrollWidth<=main.clientWidth,'Horizontal overflow '+width);if(width>=1434)assert(main.scrollHeight<=913,'Desktop scroll '+width+' '+main.scrollHeight);}
+function ratio(node,label){const b=node.getBoundingClientRect();assert(Math.abs(b.width/b.height-16/9)<.02,'Standard ratio '+label);}
+try{
+ for(const width of [1434,1920,768,390,320]){
+  let d=await load('#games/roles',width),w=frame.contentWindow;fit(d,width);
+  const cards=[...d.querySelectorAll('.role-card')],grid=w.getComputedStyle(d.querySelector('.roles-overview__grid'));
+  assert(cards.length===Roles.length&&cards.length===6,'Approved six roles');
+  const expected=width>=1201?3:width>=701?2:1;assert(grid.gridTemplateColumns.split(' ').length===expected,'Responsive role columns');
+  if(width>=1434){const sizes=cards.map(c=>c.getBoundingClientRect().height);assert(Math.max(...sizes)-Math.min(...sizes)<1,'Equal-height role cards');for(const row of [cards.slice(0,3),cards.slice(3,6)]){const baseline=row.map(c=>c.querySelector('a').getBoundingClientRect().bottom);assert(Math.max(...baseline)-Math.min(...baseline)<1,'Aligned role CTAs');}}
+  for(const role of Roles){const card=cards.find(c=>c.querySelector('a').getAttribute('href')==='#games/roles/'+role.id);assert(card&&card.querySelector('.ui-role-icon'),'Canonical icon/destination '+role.id);card.querySelector('a').focus();assert(w.getComputedStyle(card.querySelector('a')).outlineWidth==='3px','Card focus');}
+  assert(d.querySelector('.ui-role-rail a[href="#games/roles/product-ownership"]'),'Product Ownership rail entry');
+  assert(d.querySelector('[data-role-overview]').disabled,'Unavailable overview is honest disabled control');ratio(d.querySelector('.roles-overview-video .video-frame'),'overview video');
+  if(width>=1434)assert(d.querySelector('.roles-overview-video').getBoundingClientRect().width>440,'Overview media uses allocated desktop space');
+  for(const role of Roles){
+   d=await load('#games/roles/'+role.id,width);w=frame.contentWindow;fit(d,width);
+   assert(d.querySelector('h1').textContent===(role.detailTitle||role.title),'Role-specific title');
+   assert(d.querySelectorAll('.role-detail-panel').length===4,'2x2 panel structure');
+   assert(d.querySelector('.ui-role-rail [aria-current="page"]').getAttribute('href')==='#games/roles/'+role.id,'Active role rail');
+   assert(d.querySelector('.role-summary').textContent.includes(role.summary),'Actual summary');
+   assert(!d.querySelector('[data-practice-index]'),'No invented media count');
+   assert(d.querySelector('[data-practice-direction]').disabled,'Unconfigured practice unavailable');
+   assert(d.querySelector('.role-case-study-card button').disabled,'No fabricated featured-case route');
+   ratio(d.querySelector('.role-practice .ui-media-frame__viewport'),'practice viewport');
+  }
+  // Test-only configured content demonstrates integration without changing production claims.
+  d=await load('#games/roles/technical-game-design',width,'tests/stress.html?role-ui=1');w=frame.contentWindow;fit(d,width);
+  const practice=d.querySelector('[data-role-practice]');assert(practice.querySelectorAll('[data-practice-index]').length===4,'Configured real-image fixture count');
+  const panel=practice.closest('.role-detail-panel').getBoundingClientRect();assert(practice.getBoundingClientRect().bottom<=panel.bottom-10,'Configured practice stays inside its panel '+width);assert(d.querySelector('.role-case-study-card').getBoundingClientRect().top>=panel.bottom+10,'Featured strip clears practice panel');
+  practice.querySelector('[data-practice-direction="1"]').click();assert(practice.querySelector('img').src.endsWith(Projects[0].gallery[1].src),'Practice next image');assert(practice.querySelector('.role-practice__caption').textContent==='Test fixture image 2','Practice caption synchronized');
+  practice.querySelector('[data-practice-index="3"]').click();assert(practice.querySelector('[data-practice-index="3"]').getAttribute('aria-pressed')==='true','Practice numbered index');
+  practice.querySelector('.video-start').click();assert(practice.querySelector('video')?.controls,'Later practice selection uses shared native video playback');
+  const arrow=practice.querySelector('button');arrow.focus();assert(w.getComputedStyle(arrow).outlineWidth==='3px','Practice focus');arrow.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert(practice.querySelector('[data-practice-index="0"]').getAttribute('aria-pressed')==='true','Practice keyboard Home');
+  assert(d.querySelector('.role-case-study-card a').getAttribute('href')==='#games/case-studies/'+CaseStudies[0].id,'Configured real case route');
+  assert(d.querySelector('.role-project-link').getAttribute('href')==='#games/projects/'+Projects[0].id,'Configured experience project route');
+  d=await load('#games/roles',width,'tests/stress.html?role-ui=1');d.querySelector('[data-role-overview]').click();assert(d.querySelector('.roles-overview-video video')?.controls,'Configured Watch overview uses native playback');assert(d.querySelector('.roles-overview-video video').src.endsWith(encodeURI(Projects[0].video.src)),'Configured video source');
+  results.push({width,passed:true,sixRoles:true,columns:expected,horizontalOverflow:false,desktopNoScroll:width>=1434,allEntryRoutes:true,fixturePracticeAndCaseLinks:true,watchOverviewConfigured:true});
+ }
+ report.textContent=JSON.stringify({passed:true,results},null,2);
+}catch(error){report.textContent=JSON.stringify({passed:false,error:error.message,results},null,2);}
+</script></html>

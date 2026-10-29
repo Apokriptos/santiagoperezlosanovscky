@@ -98,3 +98,4 @@ console.log('Project Detail prose, numbered gallery generation and current Redit
 
 await import('./ui-foundation.mjs');
 await import('./projects.mjs');
+await import('./roles.mjs');

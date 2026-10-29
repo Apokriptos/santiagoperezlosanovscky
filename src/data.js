@@ -37,6 +37,7 @@ export const Roles = [
   ['gameplay-development', 'Gameplay Development', 'Implementation of gameplay behavior and interactions.'],
   ['creative-leadership', 'Creative Leadership', 'Creative direction, collaboration, and design alignment.'],
   ['technical-animation', 'Technical Animation', 'In-engine state machines, blending, procedural and additive animation, retargeting, runtime character setup, and animation/gameplay integration.'],
+  ['product-ownership', 'Product Ownership', 'Vision, planning, production, and cross-disciplinary coordination.'],
 ].map(([id, title, subtitle]) => ({ id, title, subtitle,
   summary: 'Role and experience summary forthcoming.', experience: [],
   practiceMedia: [placeholder('Practice example 01'), placeholder('Practice example 02')],
@@ -129,3 +130,11 @@ const projectCategories = [
   ['Exploration', 'Survival', 'Folk Horror'],
 ];
 Projects.forEach((project,index)=>{ project.categories=projectCategories[index] || []; });
+
+// Approved occupational labels on entry screens; canonical role IDs/titles stay stable.
+const roleEntryTitles = {
+  'technical-game-design':'Technical Game Designer',
+  'level-design':'Level Designer',
+  'gameplay-development':'Gameplay Developer',
+};
+Roles.forEach(role=>{ role.detailTitle=roleEntryTitles[role.id] || role.title; });

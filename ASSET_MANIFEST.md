@@ -207,3 +207,7 @@ The approved Overview now consumes the shared role/action SVGs, existing paper/r
 ## Pass 04 Projects production use
 
 Projects Overview and Project Detail now use shared surfaces, title/header plates, arrows, numbered indices and actual existing project media. No SVG, raster artwork, media or decorative asset was generated or changed. Illustrated project covers and the shared gothic architectural decoration remain future art; existing real media and paper/rail art are the approved implementation fallback.
+
+## Pass 05 Roles production use
+
+All six approved role SVGs are consumed by the 3×2 Roles Overview board, including Product Ownership. Shared title/header/surface/button/media/index primitives are reused. No authored image, SVG, media or decorative asset was generated or changed. The same right-tab image uses a taller proportional crop for seven role-index entries; no letter backplates were reintroduced. Roles overview reel, practice evidence/captions and selected featured cases remain forthcoming unless configured with actual source content.

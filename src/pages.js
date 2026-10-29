@@ -1,3 +1,4 @@
+import { roleCard, roleDetailPanel, rolePractice, roleCaseStudyCard } from './role-ui.js';
 import { projectSelector, projectDetailPanel } from './project-ui.js';
 import { pageTitle, sectionTitle, surface, button, headerPlate, carouselArrow, indexTabs, mediaFrame } from './ui.js';
 import { icon, roleIcon, iconAssets } from './ui-icons.js';
@@ -46,22 +47,13 @@ function projects(project) {
   </div>`;
 }
 
-function roleCard(role) {
-  return `<a class="role-card print-panel" href="${route('roles',role.id)}"><div class="role-card-media" aria-hidden="true">${iconAssets[role.id]?.includes('/roles/') ? roleIcon(role.id) : '+'}</div><div><h3>${e(role.title)}</h3><p>${e(role.subtitle)}</p><span class="action">View role →</span></div></a>`;
-}
 function roles(role) {
-  if (!role) return `${splitIntro('AREAS OF WORK',config.copy.roles,'roles')}${section('MY ROLES',`<div class="role-cards">${Roles.map(roleCard).join('')}</div>`)}`;
-  const experience = role.experience.length
-    ? `<ul class="experience-list">${role.experience.map(x=>`<li><h3>${e(x.title)}</h3><p>${e(x.body)}</p>${x.projectId ? link(route('projects',x.projectId),'View project →','action') : ''}</li>`).join('')}</ul>`
-    : emptyState('Selected experience forthcoming','Concrete project examples will be supplied here.');
-  return `${heading(role.title,role.subtitle,'roles')}
-    <div class="role-detail-grid">
-      ${printSection('ROLE & EXPERIENCE',`<p class="lead">${e(role.summary)}</p>`,'role-summary')}
-      ${printSection('SELECTED EXPERIENCE',experience)}
-      <section class="practice-section"><h2>IN PRACTICE</h2>${gallery(role.practiceMedia,'practice media')}</section>
-      ${printSection('MY APPROACH',list(role.approach),'approach-panel')}
-    </div>
-    <section class="cta-strip"><div><p class="eyebrow">FEATURED CASE STUDY</p>${role.featuredCaseStudy ? `<h3>${e(titleOf(CaseStudies,role.featuredCaseStudy))}</h3>` : '<p class="status">Featured case study forthcoming.</p>'}</div>${role.featuredCaseStudy ? link(route('case-studies',role.featuredCaseStudy),'View case study →','button') : '<span class="cta-pending" aria-hidden="true">//</span>'}</section>`;
+  const roleHeader=(title,detail=false)=>`<header class="roles-header"><nav class="breadcrumb" aria-label="Breadcrumb">${link('#games','Games')}<span>/</span>${detail?`${link(route('roles'),'Roles')}<span>/</span>`:''}<span>${e(detail?title:'Areas of work')}</span></nav>${pageTitle(title)}${detail?`<p class="roles-positioning">${e(role.positioning||role.subtitle)}</p>`:`<p>${e(config.copy.roles)}</p>${button('Watch overview',{iconName:'play',disabled:!config.overviewVideos.roles?.src,attributes:{'data-role-overview':'true'}})}`}</header>`;
+  if(!role) return `<div class="roles-overview-header">${roleHeader('AREAS OF WORK')}<section class="roles-overview-video" aria-label="Roles overview video">${mediaFrame(video(config.overviewVideos.roles,'Roles overview').replace('class="video-start"','class="video-start ui-btn"'),{label:'Roles overview video',className:'project-media-panel'})}</section></div><section class="roles-overview-section">${sectionTitle('My Roles',{tone:'black'})}<div class="role-cards roles-overview__grid">${Roles.map(roleCard).join('')}</div></section>`;
+  const experience=role.experience.length?`<ul class="role-detail-panel__list">${role.experience.map(item=>`<li><strong>${e(item.title)}</strong>${item.body?` — ${e(item.body)}`:''}${item.projectId?` ${link(route('projects',item.projectId),'View project','role-project-link')}`:''}</li>`).join('')}</ul>`:'<p class="role-content-pending">Selected experience forthcoming. Concrete project examples will be supplied here.</p>';
+  const approach=`${role.approachIntro?`<p class="role-approach-intro">${e(role.approachIntro)}</p>`:''}<ul class="role-detail-panel__list">${role.approach.map(item=>typeof item==='string'?`<li>${e(item)}</li>`:`<li><strong>${e(item.title)}</strong>${item.body?` ${e(item.body)}`:''}</li>`).join('')}</ul>`;
+  const study=CaseStudies.find(item=>item.id===role.featuredCaseStudy);
+  return `${roleHeader(role.detailTitle||role.title,true)}<div class="role-detail-grid">${roleDetailPanel('Role & Experience',`<p>${e(role.summary)}</p>`,{className:'role-summary'})}${roleDetailPanel('Selected Experience',experience)}${rolePractice(role.practiceMedia)}${roleDetailPanel('My Approach',approach,{className:'approach-panel'})}</div>${roleCaseStudyCard(study)}`;
 }
 
 function caseIndexCard(study) {

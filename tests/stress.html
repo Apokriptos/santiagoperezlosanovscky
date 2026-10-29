@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../styles/desktop-fit.css"><link rel="stylesheet" href="../styles/fidelity.css">
 <link rel="stylesheet" href="../styles/overview.css">
 <link rel="stylesheet" href="../styles/project-detail.css">
+<link rel="stylesheet" href="../styles/roles.css">
 <div id="app"></div>
 <script type="module">
   // Test-only records: production data is never written or changed on disk.
@@ -16,6 +17,11 @@
   Projects.push({...Projects[0],id:'stress-project',title:'A deliberately long project title for the contextual index'});
   Roles.push({...Roles[0],id:'stress-role',title:'A deliberately long role title for the contextual index'});
   const params=new URLSearchParams(location.search);
+  if(params.has('role-ui')) {
+    // Test-only playback/evidence plumbing. These are not production role claims/media.
+    config.overviewVideos.roles=Projects[0].video;
+    Object.assign(Roles[0],{summary:'Fixture role summary.',experience:[{title:'Fixture source',body:'Fixture contribution.',projectId:Projects[0].id}],approachIntro:'Fixture approach intro.',approach:[{title:'Fixture principle.',body:'Fixture supporting sentence.'}],practiceMedia:[...Projects[0].gallery.slice(0,3).map((item,i)=>({...item,caption:'Test fixture image '+(i+1)})),{...Projects[0].video,type:'video',caption:'Test fixture video 4'}],featuredCaseStudy:CaseStudies[0].id});
+  }
   if(params.has('about')) {
     config.about.trajectory=Array.from({length:3},(_,i)=>({date:'Date forthcoming',title:'Timeline fixture '+(i+1),body:'Timeline entry fixture.'}));
     config.about.skills=Array.from({length:6},(_,i)=>'Skill fixture '+(i+1));

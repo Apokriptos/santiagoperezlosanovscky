@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1434,
+      "passed": true,
+      "sixRoles": true,
+      "columns": 3,
+      "horizontalOverflow": false,
+      "desktopNoScroll": true,
+      "allEntryRoutes": true,
+      "fixturePracticeAndCaseLinks": true,
+      "watchOverviewConfigured": true
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "sixRoles": true,
+      "columns": 3,
+      "horizontalOverflow": false,
+      "desktopNoScroll": true,
+      "allEntryRoutes": true,
+      "fixturePracticeAndCaseLinks": true,
+      "watchOverviewConfigured": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "sixRoles": true,
+      "columns": 2,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false,
+      "allEntryRoutes": true,
+      "fixturePracticeAndCaseLinks": true,
+      "watchOverviewConfigured": true
+    },
+    {
+      "width": 390,
+      "passed": true,
+      "sixRoles": true,
+      "columns": 1,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false,
+      "allEntryRoutes": true,
+      "fixturePracticeAndCaseLinks": true,
+      "watchOverviewConfigured": true
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "sixRoles": true,
+      "columns": 1,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false,
+      "allEntryRoutes": true,
+      "fixturePracticeAndCaseLinks": true,
+      "watchOverviewConfigured": true
+    }
+  ]
+}

@@ -27,7 +27,7 @@ Buildless, semantic HTML, CSS, and vanilla JavaScript. Serve this folder with an
 
 ## Content and configuration
 
-Edit `src/data.js`: `config`, `navigation`, `Projects`, `Roles`, and `CaseStudies` are the centralized sources. IDs are stable URL segments. Records and step counts are arbitrary; the sample data deliberately contains cases with different step counts. The five approved roles are present. Technical Animation describes in-engine integration, not traditional character animation.
+Edit `src/data.js`: `config`, `navigation`, `Projects`, `Roles`, and `CaseStudies` are the centralized sources. IDs are stable URL segments. Records and step counts are arbitrary; the sample data deliberately contains cases with different step counts. The six approved roles are present, including Product Ownership. Technical Animation describes in-engine integration, not traditional character animation.
 
 Projects support descriptions, role IDs, tags, thumbnail, hero media, video, gallery, build status/URL, external URL, and related case IDs. Roles support summary, experience (`{title,body,projectId}`), practice media, approach, and an optional featured case ID. Cases reference project and role IDs and contain arbitrary steps with body, media, and captions. Empty optional arrays are valid.
 
@@ -46,3 +46,5 @@ Supplied visual reference images remain in `references/` and original assets rem
 Run `npm test` for router validation, all configured routes, invalid routes, a temporary 11-step case, and CSS ownership assertions. Start the server, then open `/tests/qa.html` to run browser layout and interaction checks under a simulated repository project prefix. The harness uses actual iframe viewports, including exactly 1434 × 913, then 390, 768, 1000, 1200, and 1920px widths. It checks every configured Games route, shell dimensions, overflow, project/gallery controls, keyboard behavior, case covers/steps, mobile menu/Escape, contextual selector, Back/Forward, fresh deep links, and placeholder/contact/root states. `/tests/shell.html?viewport` and `?viewport&context` isolate the neutral shell before pages. `?debug#games/projects` colors the shell regions without changing geometry.
 
 Final artwork, final copy, real project/case evidence, playable builds, portrait, and email/LinkedIn remain pending. The supplied CV is implemented with a searchable HTML preview and PDF view/download actions. Real video/build playback and production GitHub Pages deployment remain unverified. Books remains a placeholder.
+
+Roles implementation: see docs/roles-pass-05.md. Entry labels may use detailTitle while canonical IDs and overview titles stay stable. Optional positioning, approachIntro and structured approach items are supported. Practice indices count configured media with a real source; planned null-source examples remain a forthcoming state.
