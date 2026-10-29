@@ -43,9 +43,9 @@ export const Roles = [
   approach: ['Approach and implementation notes forthcoming.'], featuredCaseStudy: null,
 }));
 const projectSources = [
-  { title: 'Hollow Graves', folder: 'hollow-graves', cover: 'MainPic.png', video: 'Hollowgravesshowcasenew.mp4', shots: ['ScreenShot00000.png', 'ScreenShot00002.png', 'ScreenShot00005.png'] },
-  { title: 'Reditus Umbrae', folder: 'reditus-umbrae', cover: 'ScreenShot00001.png', video: 'Reditusumbraeshowcasenew.mp4', shots: ['ScreenShot00002.png', 'ScreenShot00004.png', 'ScreenShot00006.png'] },
-  { title: 'Dreadwoods', folder: 'dreadwoods', cover: 'DW_SS11.png', video: 'Dreadwoods - Video - Final.mp4', shots: ['DW_SS2.png', 'DW_SS20.png', 'DW_SS24.png'] },
+  { title: 'Hollow Graves', folder: 'hollow-graves', cover: 'MainPic.png', video: 'Hollowgravesshowcasenew.mp4', shots: ['ScreenShot00000.png','ScreenShot00001.png','ScreenShot00002.png','ScreenShot00003.png','ScreenShot00005.png','ScreenShot00006.png'] },
+  { title: 'Reditus Umbrae', folder: 'reditus-umbrae', cover: 'ScreenShot00001.png', video: 'Reditusumbraeshowcasenew.mp4', shots: ['ScreenShot00001.png','ScreenShot00002.png','ScreenShot00003.png','ScreenShot00004.png','ScreenShot00005.png','ScreenShot00006.png'] },
+  { title: 'Dreadwoods', folder: 'dreadwoods', cover: 'DW_SS11.png', video: 'Dreadwoods - Video - Final.mp4', shots: ['DW_SS11.png','DW_SS2.png','DW_SS9.png','DW_SS24.png','ScreenShot00007.png','ScreenShot00000.png'] },
 ];
 export const Projects = projectSources.map((source, i) => ({
   id: `project-${i + 1}`, title: source.title,
@@ -54,7 +54,7 @@ export const Projects = projectSources.map((source, i) => ({
   roles: [], tags: ['Content forthcoming'], thumbnail: `media/${source.folder}/${source.cover}`,
   heroMedia: { src: `media/${source.folder}/${source.cover}`, alt: `${source.title} — project artwork` },
   video: { src: `media/${source.folder}/${source.video}`, poster: `media/${source.folder}/${source.cover}` },
-  gallery: source.shots.map((file, index) => ({ src: `media/${source.folder}/${file}`, alt: `${source.title} — screenshot ${index + 1}`, caption: 'Project screenshot. Detailed commentary forthcoming.' })),
+  gallery: source.shots.map((file, index) => ({ src: `media/${source.folder}/${file}`, alt: `${source.title} — gameplay screenshot ${index + 1}` })),
   buildStatus: 'Build availability forthcoming.', buildUrl: null, buildProvider: null,
   buildNote: 'Evaluation and distribution terms forthcoming.', externalUrl: null, caseStudies: [],
 }));
@@ -80,5 +80,44 @@ export const CaseStudies = [
 Object.assign(Projects[0], { buildStatus: 'Playable build available.', buildProvider: 'Google Drive',
   buildUrl: 'https://drive.google.com/file/d/16a5fx6jZp_mfh7tM_XKza_Ro3E-bnU9-/view?usp=sharing' });
 Object.assign(Projects[1], { buildStatus: 'Playable build available.', buildProvider: 'Google Drive',
-  buildUrl: 'https://drive.google.com/file/d/1Zc0uigVurvcOhfjpLCnYv9G74CkCa6Nv/view?usp=drive_link' });
+  buildUrl: 'https://drive.google.com/drive/folders/1db4vGlSh1NJghHg6os328QoY0oEfYDyK?usp=sharing' });
 CaseStudies.forEach(c => Projects.find(p => p.id === c.projectId)?.caseStudies.push(c.id));
+
+// Project Detail copy and genre taken verbatim from the read-only Aobscura config.
+const projectDetailCopy = [
+  {
+    "id": "hollow-graves",
+    "subtitle": "Sci-fi investigation ghost horror.",
+    "genre": "Sci-Fi Horror",
+    "paragraphs": [
+      "Take the role of a Thaumaturge aboard the space station Belerofonte III — face tormented spirits and visitors of dark realities as you uncover the truth before all is lost.",
+      "The specialized space station Belerofonte III has fallen silent. Only a fragmented S.O.S. broadcast was received. A novice thaumaturge named Cástor is sent to investigate, under suspicion of supernatural causes."
+    ]
+  },
+  {
+    "id": "reditus-umbrae",
+    "subtitle": "DARK FANTASY ROGUELITE",
+    "genre": "Action RPG",
+    "paragraphs": [
+      "A dark fantasy roguelite focused on visceral combat, physics-based mechanics, and relentless action.",
+      "Pain. Suffering. Sorrow. Torment. Blinded by duty, a nameless knight brought bloodshed and misery to a remote, foreign land, all in the name of faith. But the sins he committed seeped into the murky earth, and a curse was cast upon him."
+    ]
+  },
+  {
+    "id": "dreadwoods",
+    "subtitle": "Narrative-driven dark folkloric adventure.",
+    "genre": "Survival Horror",
+    "paragraphs": [
+      "Lost in a mysterious forest, you are hunted by a dark and terrible Beast. It is your fate to never see it out, yet, perhaps fate can be changed.",
+      "Amidst barbed vines and obscure blossoms, a dark, twisted shape lurks. Wide, hollow white eyes. Razor-sharp teeth. The terror of the Dreadwoods, its name spoken only as a horrid whisper: the Beast."
+    ]
+  }
+];
+const projectSecondaryCopy = ["Make your way through the station as reality collapses into madness, facing an ever-evolving supernatural ecosystem determined to break you.", "Cut your way through a nightmarish realm of eternal torment, find the architect of your cursed punishment, and pay for your sins.", "Explore the woods while dealing with its trickeries. Meet and gain the favor of its inhabitants. Find the Witch of the Dread."];
+projectDetailCopy.forEach((copy,index) => {
+  Object.assign(Projects[index], { subtitle: copy.subtitle, description: [copy.paragraphs[0], projectSecondaryCopy[index], copy.paragraphs[1]],
+    metadata: [{label: 'Genre', value: copy.genre}], decorativeArt: null,
+    buildNote: 'Provided solely for private evaluation. Redistribution, resale, public hosting or reuse of project materials without permission is prohibited.' });
+});
+// Current overrides in Aobscura media-update-20261023.js supersede its base config.
+Object.assign(Projects[2], {buildStatus:'Playable build available.', buildProvider:'Google Drive',buildUrl:'https://drive.google.com/file/d/1yjH6Oi-ztkgb1dWLLasjnNVkFZPQVwDr/view?usp=sharing'});

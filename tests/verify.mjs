@@ -85,3 +85,15 @@ for (const study of CaseStudies) {
   assert.ok(study.steps.every(step=>step.media.every(item=>item.src===null)), 'Analytical evidence remains unwritten');
 }
 console.log('Approved case identities, relationships, seven-step sequence and evidence placeholders passed.');
+
+assert.equal(Projects[1].buildUrl,'https://drive.google.com/drive/folders/1db4vGlSh1NJghHg6os328QoY0oEfYDyK?usp=sharing');
+for (const project of Projects) {
+ const html=renderPage(resolveRoute('#games/projects/'+project.id));
+ assert.ok(html.includes('data-project-gallery'));
+ assert.equal((html.match(/data-gallery-index=/g)||[]).length,project.gallery.length);
+ assert.ok(!html.includes('class="tags"'));
+ assert.ok(project.description.every(paragraph=>html.includes(paragraph.replaceAll('&','&amp;'))));
+}
+console.log('Project Detail prose, contact-sheet generation and current Reditus folder checks passed.');
+
+await import('./ui-foundation.mjs');

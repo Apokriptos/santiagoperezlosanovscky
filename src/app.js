@@ -13,7 +13,7 @@ function render() {
   else if (r.branch==='invalid') app.innerHTML='<main id="main" class="books" tabindex="-1"><h1>Page not found</h1><a href="#games">Games overview</a><a href="#">Branch selector</a></main>';
   else {
     const data={projects:Projects,roles:Roles,'case-studies':CaseStudies}[r.section];
-    const context=data ? {title:r.section.replaceAll('-',' ').toUpperCase(),items:[{title:'Overview',href:`#games/${r.section}`,active:!r.id},...data.map(i=>({title:i.title,href:`#games/${r.section}/${i.id}`,active:r.id===i.id}))]} : null;
+    const context=data ? {kind:r.section,title:r.section.replaceAll('-',' ').toUpperCase(),items:[{title:'Overview',href:`#games/${r.section}`,active:!r.id},...data.map(i=>({title:i.title,href:`#games/${r.section}/${i.id}`,active:r.id===i.id}))]} : null;
     const left=`<a class="identity" href="#">${e(config.name)}</a><p class="rail-label">GAMES</p><nav class="primary-nav" aria-label="Games">${navigation.map(n=>`<a href="${n.href}" ${n.id===r.section ? 'aria-current="page"' : ''}>${n.title}</a>`).join('')}</nav><a class="studio-link" href="${e(config.studioUrl)}" target="_blank" rel="noopener noreferrer">AOBSCURA GAMES ↗</a>`;
     app.innerHTML=gamesShell({left,main:renderPage(r)},context);
     document.querySelector('#menu-toggle').addEventListener('click',event=>{

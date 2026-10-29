@@ -1,4 +1,6 @@
-export const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+import { escape } from './html.js';
+import { icon } from './ui-icons.js';
+export { escape } from './html.js';
 const root = new URL('../', import.meta.url);
 export function assetUrl(value) {
   if (!value) return '';
@@ -13,11 +15,11 @@ export function external(value, label, download = false) {
 export const placeholder = label => `<div class="placeholder"><strong>${escape(label)}</strong><span>Media forthcoming</span></div>`;
 export function media(item, label = 'Media') {
   const src = assetUrl(item?.src);
-  return `<div class="media">${src ? `<img src="${escape(src)}" alt="${escape(item.alt || label)}" loading="lazy">` : placeholder(item?.alt || label)}</div>`;
+  return `<div class="media ui-media-frame ui-media-frame--plain">${src ? `<img src="${escape(src)}" alt="${escape(item.alt || label)}" loading="lazy">` : placeholder(item?.alt || label)}</div>`;
 }
 export function video(item, label) {
   const src = assetUrl(item?.src);
-  return `<div class="media video-frame">${item?.poster ? `<img class="video-poster" src="${escape(assetUrl(item.poster))}" alt="${escape(label)} video poster">` : ''}${src ? `<button class="video-start" data-src="${escape(src)}" data-kind="${item.type === 'embed' ? 'embed' : 'video'}" data-label="${escape(label)}" data-captions="${escape(assetUrl(item.captions))}" data-poster="${escape(assetUrl(item.poster))}">▶ Play ${escape(label)}</button>` : placeholder(`${label} — video`)}</div>`;
+  return `<div class="media video-frame ui-media-frame ui-media-frame--plain">${item?.poster ? `<img class="video-poster" src="${escape(assetUrl(item.poster))}" alt="${escape(label)} video poster">` : ''}${src ? `<button class="video-start" data-src="${escape(src)}" data-kind="${item.type === 'embed' ? 'embed' : 'video'}" data-label="${escape(label)}" data-captions="${escape(assetUrl(item.captions))}" data-poster="${escape(assetUrl(item.poster))}">▶ Play ${escape(label)}</button>` : placeholder(`${label} — video`)}</div>`;
 }
 export const tags = values => `<ul class="tags">${values.map(v => `<li>${escape(v)}</li>`).join('')}</ul>`;
 export const list = (values, empty = 'Content forthcoming.') => values.length ? `<ul>${values.map(v => `<li>${escape(v)}</li>`).join('')}</ul>` : `<p class="status">${escape(empty)}</p>`;
@@ -29,6 +31,11 @@ export function carousel(items, render, label) {
     <span class="carousel-count" aria-live="polite" aria-atomic="true">${items.length ? `1 / ${items.length}` : 'No media yet'}</span>
     <button data-direction="1" aria-label="Next ${escape(label)}" ${items.length < 2 ? 'disabled' : ''}>→</button>
     <div class="pagination">${items.map((_, i) => `<button data-slide="${i}" aria-label="Show ${escape(label)} ${i + 1}" aria-pressed="${!i}">${i + 1}</button>`).join('')}</div></div></section>`;
+}
+export function projectGallery(items) {
+  return `<section class="contact-sheet" data-project-gallery data-items="${escape(JSON.stringify(items))}" aria-label="Project images" aria-roledescription="carousel">
+    <header class="gallery-heading"><h2>Media Gallery</h2><span class="gallery-count" aria-live="polite">${items.length ? 1 : 0} / ${items.length}</span><button data-gallery-direction="-1" aria-label="Previous project image" ${items.length<2?'disabled':''}>←</button><button data-gallery-direction="1" aria-label="Next project image" ${items.length<2?'disabled':''}>→</button></header>
+    <div class="contact-sheet-body"><div class="selected-image">${media(items[0],'Project image')}</div><div class="gallery-thumbnails" aria-label="Select project image">${items.map((item,i)=>`<button data-gallery-index="${i}" aria-label="Show project image ${i+1}" aria-pressed="${i===0}"><img src="${escape(assetUrl(item.src))}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div></div></section>`;
 }
 export function caseCarousel(items, render) {
   return `<section class="case-carousel" aria-label="Featured case studies" aria-roledescription="carousel">
@@ -100,6 +107,30 @@ export function bindComponents(root) {
     node.addEventListener('keydown', event => {
       if (!['ArrowLeft','ArrowRight'].includes(event.key) || event.target.closest('video,iframe')) return;
       event.preventDefault(); show(current + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+  });
+  root.querySelectorAll('[data-project-gallery]').forEach(node=>{
+    const items=JSON.parse(node.dataset.items), buttons=[...node.querySelectorAll('[data-gallery-index]')];let current=0;
+    function select(index) {
+      if(!items.length)return;
+      current=(index+items.length)%items.length;
+      const image=node.querySelector('.selected-image img');
+      if(image){image.src=assetUrl(items[current].src);image.alt=items[current].alt || 'Project image';}
+      node.querySelector('.gallery-count').textContent=`${current+1} / ${items.length}`;
+      buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===current)));
+      const active=buttons[current], rail=node.querySelector('.gallery-thumbnails');
+      const a=active.getBoundingClientRect(),r=rail.getBoundingClientRect();
+      rail.scrollTop+=Math.min(0,a.top-r.top)+Math.max(0,a.bottom-r.bottom);
+      rail.scrollLeft+=Math.min(0,a.left-r.left)+Math.max(0,a.right-r.right);
+    }
+    node.addEventListener('click',event=>{
+      const button=event.target.closest('button');if(!button)return;
+      if(button.hasAttribute('data-gallery-index'))select(Number(button.dataset.galleryIndex));
+      if(button.hasAttribute('data-gallery-direction'))select(current+Number(button.dataset.galleryDirection));
+    });
+    node.addEventListener('keydown',event=>{
+      if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+      event.preventDefault();select(event.key==='Home'?0:event.key==='End'?items.length-1:current+(event.key==='ArrowRight'?1:-1));
     });
   });
   root.querySelectorAll('img').forEach(img => img.addEventListener('error', () => { img.parentElement.innerHTML = placeholder('Image unavailable'); }, {once:true}));

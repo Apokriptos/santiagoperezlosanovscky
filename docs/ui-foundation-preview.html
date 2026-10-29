@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shared UI foundations — Pass 02</title>
+<link rel="stylesheet" href="../styles/ui-tokens.css"><link rel="stylesheet" href="../styles/ui-primitives.css">
+<style>
+*{box-sizing:border-box}body{margin:0;padding:28px;background:var(--ui-cream-bg);color:var(--ui-black);font:16px/1.5 var(--ui-font-body)}main{max-width:1250px;margin:auto}header{margin-bottom:28px}h1{font-size:28px;margin:0}h2{font-size:21px}p{margin:0 0 16px}.row{display:flex;align-items:center;flex-wrap:wrap;gap:20px;margin:24px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin:24px 0}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.sample{padding:22px;border:1px solid var(--ui-rule);background:var(--ui-surface)}.wide{grid-column:1/-1}.meta{font:12px/1.5 monospace}.demo-rail{width:100%;max-width:250px}.viewport-sample{width:100%;height:100%;display:grid;place-content:center;color:var(--ui-surface);text-align:center;background:var(--ui-black)}.demo-icon{display:flex;align-items:center;gap:10px;padding:12px;background:var(--ui-black);color:var(--ui-surface)}.demo-head{margin-bottom:16px}.badge{display:inline-block;padding:4px 8px;background:var(--ui-black);color:var(--ui-surface);font-size:12px}a{color:inherit}#result{white-space:pre-wrap;font:12px/1.6 monospace;overflow-wrap:anywhere}.ui-section-title{margin-top:32px}@media(max-width:750px){body{padding:18px}.grid,.three{grid-template-columns:1fr}}
+</style></head><body><main><header><span class="badge">FOUNDATIONS ONLY · NOT A SCREEN IMPLEMENTATION</span><h1>Shared UI review · Pass 02</h1><p>Real HTML labels, opt-in material primitives, canonical SVG masks, no new artwork.</p></header><div id="examples"></div><section class="sample"><h2>Review checks</h2><pre id="result">Running…</pre></section></main>
+<script type="module">
+import {pageTitle,sectionTitle,headerPlate,surface,button,carouselArrow,indexTabs,contextRail,mediaFrame,icon,roleIcon} from '../src/ui.js';
+import {iconAssets,iconAsset} from '../src/ui-icons.js';
+const examples=document.querySelector('#examples');
+const roles=Object.keys(iconAssets).filter(id=>iconAssets[id].includes('/roles/'));
+const railItems=[{title:'Overview',href:'#overview',active:true},{title:'Sample entry with a longer label',href:'#entry',active:false},{title:'Another entry',href:'#another',active:false}];
+examples.innerHTML=`${pageTitle('Reusable interface foundation')}${sectionTitle('Titles and surfaces')}
+<div class="grid">${surface(headerPlate('Internal panel heading')+'<p>Opaque cream surface with clipped corners and compact physical depth.</p>',{accent:true})}${surface(headerPlate('Component-sized header')+'<p>Components own their own width and type size. No fixed screen geometry is imposed.</p>',{square:true})}<div class="wide">${pageTitle('A much longer title can wrap cleanly without shrinking the entire interface',{level:2,slash:false})}</div></div>
+${sectionTitle('Action family',{tone:'black'})}<div class="row" id="controls">${button('Neutral action')}${button('Primary download',{variant:'primary',iconName:'download'})}${button('Integrated arrow',{arrowHousing:true})}${button('Compact action',{compact:true})}${button('Disabled button',{disabled:true})}${button('Disabled link',{href:'#disabled',disabled:true})}</div>
+<div class="row">${carouselArrow('previous',{label:'Previous review item'})}${carouselArrow('next',{label:'Next review item'})}${button('Play sample',{iconName:'play'})}${button('External action',{href:'https://example.com',iconName:'external-link'})}${button('Information',{iconName:'info',iconOnly:true})}</div>
+${indexTabs(Array.from({length:5},(_,i)=>({label:String(i+1),active:i===0})),{label:'Controlled review index'})}
+${sectionTitle('Approved icon lookup')}<div class="grid three">${roles.map(id=>`<div class="demo-icon">${roleIcon(id)}<span>${id.replaceAll('-',' ')}</span></div>`).join('')}</div>
+${sectionTitle('Media foundation')}<div class="grid"><div>${mediaFrame('<div class="viewport-sample">Passive 16:9 media viewport<br>No interaction is implied</div>',{label:'Passive frame'})}</div><div>${mediaFrame('<div class="viewport-sample">Optional side controls<br>Independent of media playback</div>',{label:'Controlled frame',controls:carouselArrow('previous',{label:'Previous media sample'})+carouselArrow('next',{label:'Next media sample'})})}</div></div>
+${sectionTitle('Contextual rail foundation')}<div class="grid three">${['projects','roles','case-studies'].map(kind=>contextRail({kind,title:kind.replaceAll('-',' '),items:railItems})).join('')}</div>`;
+examples.querySelectorAll('.ui-index-tab').forEach(button=>button.addEventListener('click',()=>{examples.querySelectorAll('.ui-index-tab').forEach(tab=>tab.setAttribute('aria-pressed',String(tab===button)));}));
+const result={passed:false,checks:[]};
+try {
+ const assert=(value,message)=>{if(!value)throw new Error(message);result.checks.push(message);};
+ const urls=[...new Set(Object.keys(iconAssets).map(iconAsset))];
+ for(const url of urls){const response=await fetch(url);assert(response.ok && (await response.text()).includes('<svg'),'Canonical icon served: '+url.split('/').pop());}
+ assert(examples.querySelectorAll('.ui-context-rail').length===3,'Three independent semantic rails render');
+ assert(examples.querySelectorAll('.ui-context-rail [aria-current="page"]').length===3,'Each rail keeps its own active entry');
+ assert(examples.querySelector('.ui-btn[aria-disabled="true"]').getAttribute('href')===null,'Disabled links cannot navigate');
+ assert([...examples.querySelectorAll('.ui-carousel-arrow')].every(node=>node.getAttribute('aria-label')),'Arrow controls have accessible labels');
+ const passive=examples.querySelector('.ui-media-frame');assert(!passive.querySelector('button'),'Passive media remains noninteractive');
+ const plate=examples.querySelector('.ui-surface__body');assert(getComputedStyle(plate).backgroundColor==='rgb(255, 249, 237)','Cream surfaces are opaque');
+ const viewport=examples.querySelector('.ui-media-frame__viewport').getBoundingClientRect();assert(Math.abs(viewport.width/viewport.height-16/9)<.02,'Media viewport preserves 16:9');
+ assert(viewport.width>=passive.getBoundingClientRect().width-24,'Physical media frame fills its allocated width');
+ assert(document.documentElement.scrollWidth<=innerWidth,'Foundation review has no horizontal overflow');
+ result.passed=true;
+} catch(error){result.error=error.message;}
+document.querySelector('#result').textContent=JSON.stringify(result,null,2);
+</script></body></html>

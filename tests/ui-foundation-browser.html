@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>UI foundation browser checks</title><style>body{font:14px monospace}iframe{border:0;display:block}pre{white-space:pre-wrap}</style><h1>UI foundation browser checks</h1><pre id="report">Running…</pre><iframe title="Foundation test viewport"></iframe><script type="module">
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const assert=(value,message)=>{if(!value)throw new Error(message);};
+try{
+ for(const width of [1434,768,390,320]){
+  frame.width=width;frame.height=913;
+  await new Promise(resolve=>{frame.onload=resolve;frame.src='/santiagoperezlosanovscky/docs/ui-foundation-preview.html?width='+width;});
+  const doc=frame.contentDocument;
+  await new Promise((resolve,reject)=>{
+   const check=()=>{try{const r=JSON.parse(doc.querySelector('#result').textContent);if(r.passed){observer?.disconnect();clearTimeout(timer);resolve();return;}if(r.error)throw new Error(r.error);}catch(error){if(error instanceof SyntaxError)return;observer?.disconnect();clearTimeout(timer);reject(error);}};
+   const observer=new MutationObserver(check),timer=setTimeout(()=>{observer.disconnect();reject(new Error('Foundation did not finish'));},10000);
+   observer.observe(doc.querySelector('#result'),{childList:true,subtree:true});check();
+  });
+  const sheetResult=JSON.parse(doc.querySelector('#result').textContent);
+  assert(doc.documentElement.scrollWidth<=width,'No horizontal overflow at '+width);
+  const tabs=doc.querySelectorAll('.ui-index-tab');tabs[2].click();
+  assert(tabs[2].getAttribute('aria-pressed')==='true' && [...tabs].filter(t=>t.getAttribute('aria-pressed')==='true').length===1,'Controlled index selection');
+  const disabled=doc.querySelector('button:disabled');let clicked=false;disabled.addEventListener('click',()=>clicked=true);disabled.click();assert(!clicked,'Native disabled button blocks activation');
+  const button=doc.querySelector('#controls button');button.focus();
+  assert(doc.activeElement===button,'Native button can receive keyboard focus');
+  const style=frame.contentWindow.getComputedStyle(button);assert(style.outlineStyle==='solid' && style.outlineWidth==='3px','Visible focus outline');
+  results.push({width,passed:true,iconFiles:13,sheetChecks:sheetResult.checks.length,indexSelection:true,disabledActivationBlocked:true,focusOutline:style.outlineWidth,horizontalOverflow:false});
+ }
+ report.textContent=JSON.stringify({passed:true,results},null,2);
+}catch(error){report.textContent=JSON.stringify({passed:false,error:error.message,results},null,2);}
+</script></html>

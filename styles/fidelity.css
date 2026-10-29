@@ -3,14 +3,6 @@
 .games-shell .left-rail { background-image: url('../assets/left-rail-hd.png'); }
 /* The rail's single-layer artwork and sizing are owned by games-visual.css. */
 .games-shell .primary-nav [aria-current='page']::before { inset: 0 -3px; background: url('../assets/selected-tab.svg') center / 100% 100% no-repeat; filter: none; }
-.games-shell .right-rail nav { gap: 0; }
-.games-shell .right-rail a { padding: 14px 0 14px 23px; min-height: 64px; background: transparent; border: 0; font-size: 10px; line-height: 1.45; letter-spacing: .025em; color: #e7ddcc; }
-.games-shell .right-rail a::before { content: ''; position: absolute; left: 2px; top: 18px; width: 10px; height: 10px; border: 1px solid #e7ddcc; border-radius: 50%; background: #181817; z-index: 1; }
-.games-shell .right-rail a::after { content: ''; position: absolute; width: 1px; background: #b4a992; top: 24px; bottom: -20px; left: 7px; }
-.games-shell .right-rail a:last-child::after { display: none; }
-.games-shell .right-rail a:hover { color: white; background: #fff9ed0c; }
-.games-shell .right-rail [aria-current='page'] { box-shadow: none; background: transparent; color: #fff9ed; font-weight: 700; }
-.games-shell .right-rail [aria-current='page']::before { background: #ed302d; border-color: #ff6556; box-shadow: 0 0 0 3px #ed302d26; }
 .video-frame { position: relative; }
 .video-frame > .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .video-frame > .video-start { position: absolute; inset: auto 12px 12px; width: auto; min-height: 44px; background: #161615e8; color: #fff9ed; border: 1px solid #fff9ed99; }
@@ -21,5 +13,5 @@
 @media (max-width:1000px) {
   .games-shell .main-content { background-image: url('../assets/polished_background_final.png'); }
 }
-/* Text-only contrast treatment leaves the approved rail artwork unfiltered. */
-.games-shell .right-rail :is(h2,a) { text-shadow: 0 1px 2px #000, 0 0 3px #000; }
+/* The approved black-top artwork supplies label contrast directly. */
+.games-shell .right-rail { background-blend-mode: normal; }

@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1434,
+      "passed": true,
+      "iconFiles": 13,
+      "sheetChecks": 22,
+      "indexSelection": true,
+      "disabledActivationBlocked": true,
+      "focusOutline": "3px",
+      "horizontalOverflow": false
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "iconFiles": 13,
+      "sheetChecks": 22,
+      "indexSelection": true,
+      "disabledActivationBlocked": true,
+      "focusOutline": "3px",
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "passed": true,
+      "iconFiles": 13,
+      "sheetChecks": 22,
+      "indexSelection": true,
+      "disabledActivationBlocked": true,
+      "focusOutline": "3px",
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "iconFiles": 13,
+      "sheetChecks": 22,
+      "indexSelection": true,
+      "disabledActivationBlocked": true,
+      "focusOutline": "3px",
+      "horizontalOverflow": false
+    }
+  ]
+}

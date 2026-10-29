@@ -1,0 +1,16 @@
+/* Shared Games vocabulary. Legacy --games-* names alias these in games-visual.css. */
+:root {
+  --ui-cream-bg:#f5eddf; --ui-surface:#fff9ed; --ui-black:#191918;
+  --ui-red:#bc1118; --ui-red-dark:#930d13; --ui-muted:#57534b; --ui-rule:#b5aa98;
+  --ui-rail-bg:#141414; --ui-rail-text:#e7ddcc; --ui-rail-rule:#8b8170;
+  --ui-active-node:#ed302d; --ui-active-node-edge:#ff6556;
+  --ui-shadow-compact:3px 4px 0 var(--ui-black);
+  --ui-shadow-elevated:5px 6px 0 var(--ui-black);
+  --ui-underslab-offset:3px;
+  --ui-outline:1px solid var(--ui-black); --ui-outline-strong:2px solid var(--ui-black);
+  --ui-space-compact:8px; --ui-space-standard:16px; --ui-space-panel:24px; --ui-space-section:32px;
+  --ui-cut:10px; --ui-hover-lift:-2px; --ui-pressed-offset:1px;
+  --ui-duration:120ms; --ui-ease:cubic-bezier(.2,.7,.3,1);
+  --ui-font-display:Impact,'Arial Narrow','Franklin Gothic Medium',sans-serif;
+  --ui-font-body:Arial,sans-serif;
+}

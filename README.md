@@ -1,6 +1,10 @@
 # Santiago Pérez Losanovscky — portfolio foundation
 
-Latest integration: [Approved final Games artwork and real Case Study identities](docs/final-games-integration.md).
+Latest Project Detail refinement: [Approved four-panel layout and thumbnail gallery](docs/project-detail-refinement.md).
+
+Previous rail refinement: [Approved black-top rail artwork](docs/approved-black-top-rail.md).
+
+Previous integration: [Approved final Games artwork and real Case Study identities](docs/final-games-integration.md).
 
 Previous calibration: [Sharper artwork, portrait framing and real project media](docs/fidelity-media-calibration.md).
 

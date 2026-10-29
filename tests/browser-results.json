@@ -813,6 +813,42 @@
           "clientHeight": 913,
           "scrollHeight": 913,
           "overflowY": "visible"
+        },
+        {
+          "route": "Project Detail interactions project-1",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "Project Detail interactions project-2",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
+        },
+        {
+          "route": "Project Detail interactions project-3",
+          "result": "PASS",
+          "columns": [
+            251,
+            1049,
+            134
+          ],
+          "clientHeight": 913,
+          "scrollHeight": 913,
+          "overflowY": "visible"
         }
       ]
     },
@@ -871,7 +907,7 @@
       "passed": true
     },
     {
-      "test": "Project media gallery",
+      "test": "Three project contact-sheet galleries: thumbnail selection, active state, previous/next, End, keyboard wrap, real prose/current build links and desktop fit",
       "passed": true
     },
     {
@@ -883,7 +919,7 @@
       "passed": true
     },
     {
-      "test": "All three project covers and nine gallery images decode; all three showcase videos decode with valid duration and dimensions",
+      "test": "All three project covers and configured gallery images decode; all three showcase videos decode with valid duration and dimensions",
       "passed": true
     },
     {

@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "viewBox": "0 0 24 24",
+  "strokeWidth": 2.25,
+  "entries": [
+    {
+      "id": "technical-game-design",
+      "family": "roles",
+      "label": "Technical Game Design",
+      "path": "assets/ui/roles/ui_role_icon_technical-game-design.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "level-design",
+      "family": "roles",
+      "label": "Level Design",
+      "path": "assets/ui/roles/ui_role_icon_level-design.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "gameplay-development",
+      "family": "roles",
+      "label": "Gameplay Development",
+      "path": "assets/ui/roles/ui_role_icon_gameplay-development.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "creative-leadership",
+      "family": "roles",
+      "label": "Creative Leadership",
+      "path": "assets/ui/roles/ui_role_icon_creative-leadership.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "technical-animation",
+      "family": "roles",
+      "label": "Technical Animation",
+      "path": "assets/ui/roles/ui_role_icon_technical-animation.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "product-ownership",
+      "family": "roles",
+      "label": "Product Ownership",
+      "path": "assets/ui/roles/ui_role_icon_product-ownership.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "arrow-right",
+      "family": "actions",
+      "label": "Arrow right / Next",
+      "path": "assets/ui/actions/ui_action_arrow-right.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "arrow-left",
+      "family": "actions",
+      "label": "Arrow left / Previous",
+      "path": "assets/ui/actions/ui_action_arrow-left.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "play",
+      "family": "actions",
+      "label": "Play",
+      "path": "assets/ui/actions/ui_action_play.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "download",
+      "family": "actions",
+      "label": "Download",
+      "path": "assets/ui/actions/ui_action_download.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "external-link",
+      "family": "actions",
+      "label": "External link",
+      "path": "assets/ui/actions/ui_action_external-link.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "info",
+      "family": "actions",
+      "label": "Information",
+      "path": "assets/ui/actions/ui_action_info.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "folder",
+      "family": "actions",
+      "label": "Folder / generic provider destination",
+      "path": "assets/ui/actions/ui_action_folder.svg",
+      "viewBox": "0 0 24 24"
+    }
+  ],
+  "aliases": {
+    "previous": "arrow-left",
+    "next": "arrow-right",
+    "controller": "technical-game-design",
+    "gamepad": "technical-game-design"
+  },
+  "usage": "Inline SVG inherits CSS color. External img does not inherit host CSS color; roles have a cream fallback. Use inline SVG or CSS mask for themeable actions."
+}

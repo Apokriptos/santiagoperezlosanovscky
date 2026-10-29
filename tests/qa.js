@@ -44,10 +44,13 @@ function desktopFrame(label) {
   assert(getComputedStyle(main).overflowY==='visible','Canonical main must not depend on scrolling: '+label);
   for(const item of doc().querySelectorAll('.page h1,.page h2,.page h3,.page p,.page li,.page button,.page a,.page figcaption,.page .media,.page .cta-strip,.page .carousel-controls')) {
     if(!item.getClientRects().length)continue;
+    if(item.closest('.gallery-thumbnails'))continue; // The compact thumbnail strip intentionally scrolls locally.
     const b=item.getBoundingClientRect();assert(b.top>=bounds.top-1 && b.bottom<=bounds.bottom+1,'Below viewport: '+label+' '+item.textContent.trim());
     const panel=item.closest('.print-panel,.panel,.role-card');
     if(panel){const p=panel.getBoundingClientRect();assert(b.top>=p.top-1 && b.bottom<=p.bottom+1,'Outside panel: '+label+' '+item.textContent.trim());}
   }
+  const thumbs=doc().querySelector('.gallery-thumbnails');
+  if(thumbs){const r=thumbs.getBoundingClientRect();assert(r.top>=bounds.top && r.bottom<=bounds.bottom,'Thumbnail rail remains inside desktop viewport');}
   const cta=doc().querySelector('.roles-page.detail-page .cta-strip'), grid=doc().querySelector('.role-detail-grid');
   if(cta)assert(cta.getBoundingClientRect().top>=grid.getBoundingClientRect().bottom-1,'Featured case CTA overlaps role content');
   const about=doc().querySelector('.about-layout'), trajectory=doc().querySelector('.about-page > .print-panel');
@@ -96,8 +99,11 @@ try {
     const items={projects:Projects,roles:Roles,'case-studies':CaseStudies}[hash.split('/')[1]];
     if(items) {
       const railArt=getComputedStyle(right).backgroundImage;
+      const indexLabel=getComputedStyle(right.querySelector('.index-label'));
+      assert(indexLabel.backgroundColor==='rgba(0, 0, 0, 0)' && indexLabel.boxShadow==='none','Rail labels have no dark backing');
+      assert(getComputedStyle(right).backgroundBlendMode==='normal','Artwork is not additionally darkened');
       assert(getComputedStyle(right).backgroundSize==='cover','Final rail artwork fills the rail rather than using native-size crop');
-      assert(railArt.includes('polished_righttab_final.png') && !railArt.includes('gradient') && !railArt.includes('right-rail-hd'),'Final contextual rail without dark overlay');
+      assert(railArt.includes('righttab-black-top-v2.png') && !railArt.includes('gradient') && !railArt.includes('right-rail-hd'),'Final contextual rail without dark overlay');
       assert(right.querySelectorAll('a').length===items.length+1,'Contextual rail data count '+hash);
       assert(right.querySelectorAll('[aria-current="page"]').length===1,'One active contextual entry '+hash);
       assert(doc().querySelector('#context-select').options.length===items.length+1,'Mobile context data count '+hash);
@@ -180,8 +186,40 @@ try {
   carousel.querySelector('button').dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
   assert(carousel.querySelector('.carousel-count').textContent==='2 / '+Projects.length,'Carousel keyboard');
   results.push({test:'Carousel next, previous, pagination, keyboard',passed:true});
-  await load('#games/projects/project-1');const gallery=doc().querySelector('.carousel');gallery.querySelector('[data-direction="1"]').click();assert(gallery.querySelector('.carousel-count').textContent==='2 / 3','Gallery');
-  results.push({test:'Project media gallery',passed:true});
+  for (const project of Projects) {
+    await load('#games/projects/'+project.id);
+    const gallery=doc().querySelector('[data-project-gallery]');
+    assert(gallery.querySelectorAll('[data-gallery-index]').length===project.gallery.length,'All thumbnails generated');
+    assert(gallery.querySelector('.gallery-count').textContent==='1 / '+project.gallery.length,'Initial gallery index');
+    gallery.querySelector('[data-gallery-direction="1"]').click();assert(gallery.querySelector('.gallery-count').textContent==='2 / '+project.gallery.length,'Gallery next');
+    gallery.querySelector('[data-gallery-index="4"]').click();assert(gallery.querySelector('.selected-image img').src.endsWith(project.gallery[4].src),'Thumbnail selection');
+    assert(gallery.querySelector('[data-gallery-index="4"]').getAttribute('aria-pressed')==='true','Selected thumbnail state');
+    gallery.querySelector('[data-gallery-direction="-1"]').click();assert(gallery.querySelector('.gallery-count').textContent==='4 / '+project.gallery.length,'Gallery previous');
+    gallery.querySelector('button').dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert(gallery.querySelector('.gallery-count').textContent===project.gallery.length+' / '+project.gallery.length,'Gallery End');
+    const selected=gallery.querySelector('[aria-pressed="true"]').getBoundingClientRect(), strip=gallery.querySelector('.gallery-thumbnails').getBoundingClientRect();
+    assert(selected.top>=strip.top-1 && selected.bottom<=strip.bottom+1,'Selected last thumbnail is revealed');
+    gallery.querySelector('button').dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert(gallery.querySelector('.gallery-count').textContent==='1 / '+project.gallery.length,'Gallery keyboard wraps');
+    assert(!doc().querySelector('.project-description .tags'),'No feature bullets in The Game');
+    assert(doc().querySelector('.project-prose').textContent.includes(project.description[0]),'Real descriptive copy');
+    assert(doc().querySelector('.build-overview a').href===project.buildUrl,'Current build URL');
+    desktopFrame('Project Detail interactions '+project.id);
+    assert(doc().querySelector('.video-start').dataset.src===new URL(project.video.src,frame.contentWindow.location.origin+'/santiagoperezlosanovscky/').href,'Correct project showcase');
+    assert(doc().querySelector('.project-case-actions a').getAttribute('href')==='#games/case-studies/'+project.caseStudies[0],'Correct case CTA');
+    const caseAction=doc().querySelector('.project-case-link'), caseText=caseAction.querySelector('span').getBoundingClientRect(), caseArrow=caseAction.querySelector('.project-ui-icon').getBoundingClientRect();
+    assert(getComputedStyle(caseAction).display==='flex' && caseArrow.left>caseText.right,'Case button text and arrow share a horizontal row');
+    const descriptionPanel=doc().querySelector('.project-description').getBoundingClientRect();
+    assert(descriptionPanel.bottom-caseAction.getBoundingClientRect().bottom>=12,'Case CTA has a clear bottom inset');
+    const buildTop=doc().querySelector('.build-overview').getBoundingClientRect(), buildNote=doc().querySelector('.build-panel .distribution-note').getBoundingClientRect();
+    assert(buildNote.top-buildTop.bottom<=25,'Build evaluation note follows the action block without a large spacer');
+    await load('#games/projects/'+project.id,390,844);
+    const mobileGallery=doc().querySelector('[data-project-gallery]');
+    mobileGallery.querySelector('[data-gallery-index="5"]').click();
+    assert(mobileGallery.querySelector('.gallery-count').textContent==='6 / '+project.gallery.length,'Mobile thumbnail selection');
+    const mobileActive=mobileGallery.querySelector('[aria-pressed="true"]').getBoundingClientRect(), mobileStrip=mobileGallery.querySelector('.gallery-thumbnails').getBoundingClientRect();
+    assert(mobileActive.left>=mobileStrip.left-1 && mobileActive.right<=mobileStrip.right+1,'Mobile selected thumbnail revealed');
+    noOverflow('Mobile project gallery '+project.id);
+  }
+  results.push({test:'Three project contact-sheet galleries: thumbnail selection, active state, previous/next, End, keyboard wrap, real prose/current build links and desktop fit',passed:true});
   await load('#games/roles/technical-animation');assert(doc().body.textContent.includes('retargeting'),'Technical animation scope');
   await load('#games/case-studies/case-1');assert(!doc().querySelector('.step-nav'),'Cover step rail');
   doc().querySelector('a[href="#games/case-studies/case-1/step-1"]').click();await pause();
@@ -210,7 +248,7 @@ try {
     });
     assert(player.videoWidth>0 && player.duration>0,'Video metadata '+project.title);player.pause();
   }
-  results.push({test:'All three project covers and nine gallery images decode; all three showcase videos decode with valid duration and dimensions',passed:true});
+  results.push({test:'All three project covers and configured gallery images decode; all three showcase videos decode with valid duration and dimensions',passed:true});
   await load('#games/cv');assert(doc().querySelector('iframe.cv-document'),'Supplied CV preview integrated');assert(!doc().querySelector('.cv-empty'),'Real CV replaces placeholder');
   const previewResponse=await fetch(doc().querySelector('iframe.cv-document').src);assert(previewResponse.ok && (await previewResponse.text()).includes('PROFESSIONAL SUMMARY'),'Searchable document preview served');
   const pdf=doc().querySelector('a[download]').href, response=await fetch(pdf);assert(response.ok,'CV PDF served');assert(response.headers.get('Content-Type').includes('application/pdf'),'PDF MIME type');
