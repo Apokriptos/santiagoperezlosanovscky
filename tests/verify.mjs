@@ -94,6 +94,7 @@ for (const project of Projects) {
  assert.ok(!html.includes('class="tags"'));
  assert.ok(project.description.every(paragraph=>html.includes(paragraph.replaceAll('&','&amp;'))));
 }
-console.log('Project Detail prose, contact-sheet generation and current Reditus folder checks passed.');
+console.log('Project Detail prose, numbered gallery generation and current Reditus folder checks passed.');
 
 await import('./ui-foundation.mjs');
+await import('./projects.mjs');

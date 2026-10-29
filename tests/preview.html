@@ -10,6 +10,12 @@
   const frame=document.querySelector('iframe');
   frame.width=width; frame.height=height;
   frame.title=`${width} by ${height} portfolio preview`;
+  // Preview-only fitting keeps the production iframe at its actual test dimensions.
+  if(new URLSearchParams(location.search).has('fit')) {
+    frame.style.transformOrigin='top left';
+    frame.style.transform=`scale(${Math.min(1,innerWidth/width,innerHeight/height)})`;
+    document.body.style.overflow='hidden';
+  }
   function showRoute() {
     frame.src='../'+(new URLSearchParams(location.search).get('view') === 'root' ? '' : (location.hash || '#games'));
   }

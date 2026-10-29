@@ -203,3 +203,7 @@ No six-icon set or standalone functional family already existed. Existing inline
 ## Pass 03 production use
 
 The approved Overview now consumes the shared role/action SVGs, existing paper/rail decoration and actual project hero media. No image or SVG asset was generated or modified. The identity portrait is still forthcoming, per its required real-source-photo fallback. CSS supplies halftone accents and functional geometry. See `docs/overview-pass-03.md`.
+
+## Pass 04 Projects production use
+
+Projects Overview and Project Detail now use shared surfaces, title/header plates, arrows, numbered indices and actual existing project media. No SVG, raster artwork, media or decorative asset was generated or changed. Illustrated project covers and the shared gothic architectural decoration remain future art; existing real media and paper/rail art are the approved implementation fallback.

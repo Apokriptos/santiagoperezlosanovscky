@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Projects implementation checks</title><style>body{margin:0;font:14px monospace}pre{white-space:pre-wrap;margin:8px}iframe{display:block;border:0;transform-origin:top left}body.preview{height:100vh;overflow:hidden}body.preview pre{display:none}</style><pre id="report">Running…</pre><iframe title="Projects production verification"></iframe><script type="module">
+import {Projects,config} from '../src/data.js';
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const assert=(ok,message)=>{if(!ok)throw new Error(message);},tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+let seq=0;
+async function load(route,width,path=''){frame.width=width;frame.height=913;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/'+path+'?project-check='+ ++seq+route;});await tick();await frame.contentDocument.fonts.ready;await tick();return frame.contentDocument;}
+function fit(d,width){const main=d.querySelector('main');assert(d.documentElement.scrollWidth<=width && main.scrollWidth<=main.clientWidth,'Horizontal overflow '+width);if(width>=1434)assert(main.scrollHeight<=913,'Desktop scroll '+width+' '+main.scrollHeight);}
+function ratio(node,label){const b=node.getBoundingClientRect();assert(Math.abs(b.width/b.height-16/9)<.02,'Standard media ratio '+label);}
+try{
+ for(const width of [1434,1920,768,390,320]){
+  let d=await load('#games/projects',width),w=frame.contentWindow;fit(d,width);
+  const selector=d.querySelector('[data-project-selector]'),cards=[...d.querySelectorAll('.project-card')];
+  assert(cards.length===Projects.length,'Data-driven project count');
+  assert(cards.every(card=>!card.hidden),'All three projects visible');
+  assert(!d.querySelector('.video-frame,.split-intro,.carousel-count,.project-slide'),'Old featured overview removed');
+  for(let i=0;i<Projects.length;i++){
+   assert(cards[i].getAttribute('href')==='#games/projects/'+Projects[i].id,'Card destination');
+   assert(cards[i].querySelector('.project-card__categories').textContent===Projects[i].categories.join(' · '),'Approved category data');
+   assert(cards[i].querySelectorAll('a,button').length===0,'Single semantic card anchor');
+   assert(cards[i].querySelectorAll('p').length===1,'No descriptive card paragraph');
+   selector.querySelector('[data-ui-index="'+i+'"]').click();assert(cards[i].classList.contains('is-selected'),'Card/index selection');
+  }
+  selector.querySelector('[data-project-direction="1"]').click();assert(cards[0].classList.contains('is-selected'),'Selector wraps');
+  selector.querySelector('button').dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert(cards.at(-1).classList.contains('is-selected'),'Selector keyboard End');
+  assert(d.querySelector('.ui-project-rail [aria-current="page"]').getAttribute('href')==='#games/projects','Rail remains route-aware on overview');
+  cards[0].focus();assert(w.getComputedStyle(cards[0]).outlineWidth==='3px','Card focus visible');
+  for(const project of Projects){
+   d=await load('#games/projects/'+project.id,width);w=frame.contentWindow;fit(d,width);
+   assert(d.querySelectorAll('.project-detail-panel').length===2,'Shared detail panel count');
+   assert(!d.querySelector('.projects-header > p,.projects-header .subtitle'),'No title subtitle');
+   assert(project.description.every(p=>d.querySelector('.project-prose').textContent.includes(p)),'Actual project prose');
+   assert(d.querySelector('.project-build-link').href===project.buildUrl,'Exact build URL');
+   assert(d.querySelector('.project-provider').textContent===project.buildProvider,'Provider metadata');
+   assert(w.getComputedStyle(d.querySelector('.project-build-link')).backgroundColor==='rgb(188, 17, 24)','Primary action red');
+   assert(d.querySelector('.ui-project-rail [aria-current="page"]').getAttribute('href')==='#games/projects/'+project.id,'Current project rail');
+   ratio(d.querySelector('.video-frame'),'video');ratio(d.querySelector('.selected-image .media'),'screenshot');
+   const gallery=d.querySelector('[data-project-gallery]');
+   assert(!gallery.querySelector('.gallery-count,.gallery-thumbnails,.carousel-controls'),'No old gallery controls');
+   assert(gallery.querySelectorAll('[data-gallery-index]').length===project.gallery.length,'Real screenshot count');
+   gallery.querySelector('[data-gallery-direction="-1"]').click();assert(gallery.querySelector('[data-gallery-index="'+(project.gallery.length-1)+'"]').getAttribute('aria-pressed')==='true','Gallery wrap');
+   for(let i=0;i<project.gallery.length;i++){gallery.querySelector('[data-gallery-index="'+i+'"]').click();assert(gallery.querySelector('.selected-image img').src.endsWith(project.gallery[i].src),'Real screenshot selected');}
+   const button=gallery.querySelector('button');button.focus();assert(w.getComputedStyle(button).outlineWidth==='3px','Gallery focus visible');button.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert(gallery.querySelector('[data-gallery-index="0"]').getAttribute('aria-pressed')==='true','Gallery Home');
+   const panel=gallery.querySelector('.project-media-panel').getBoundingClientRect();for(const [cls,edge]of [['prev','left'],['next','right']]){const a=gallery.querySelector('.ui-carousel-arrow--'+cls).getBoundingClientRect();assert(a.left<=panel[edge]&&a.right>=panel[edge],'Gallery side arrow '+edge);assert(Math.abs((a.top+a.bottom-panel.top-panel.bottom)/2)<2,'Gallery centered arrow');}
+   const caseLink=d.querySelector('.project-case-link');assert(caseLink.getAttribute('href')==='#games/case-studies/'+project.caseStudies[0],'Real case link');
+  }
+  results.push({width,passed:true,allProjects:true,horizontalOverflow:false,desktopNoScroll:width>=1434,selectionGalleryKeyboard:true,media16by9:true,actualLinksAndCopy:true});
+ }
+ // Additional projects are paged without hiding any canonical project from the first group.
+ let d=await load('#games/projects',1434,'tests/stress.html');
+ assert(d.querySelectorAll('.project-card').length===Projects.length+1,'Additional project generated');
+ d.querySelector('[data-ui-index="3"]').click();assert(d.querySelector('.project-card.is-selected').getAttribute('href').endsWith('stress-project'),'Additional project selectable');fit(d,1434);
+ results.push({test:'Additional project selection/page at canonical width',passed:true});
+ report.textContent=JSON.stringify({passed:true,results},null,2);
+ const preview=new URLSearchParams(location.search).get('preview');if(preview){document.body.className='preview';await load(preview==='detail'?'#games/projects/project-1':'#games/projects',1434);window.scrollTo(0,0);frame.style.transform='scale('+Math.min(1,innerWidth/1434,innerHeight/913)+')';}
+}catch(error){report.textContent=JSON.stringify({passed:false,error:error.message,results},null,2);}
+</script></html>

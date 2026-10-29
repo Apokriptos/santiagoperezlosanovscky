@@ -1,4 +1,5 @@
-import { pageTitle, sectionTitle, surface, button, carouselArrow, indexTabs, mediaFrame } from './ui.js';
+import { projectSelector, projectDetailPanel } from './project-ui.js';
+import { pageTitle, sectionTitle, surface, button, headerPlate, carouselArrow, indexTabs, mediaFrame } from './ui.js';
 import { icon, roleIcon, iconAssets } from './ui-icons.js';
 import { config, Projects, Roles, CaseStudies } from './data.js';
 import { escape as e, link, external, media, video, tags, list, section, carousel, projectGallery, caseCarousel, placeholder, assetUrl } from './components.js';
@@ -30,19 +31,19 @@ const splitIntro = (title, copy, family) => `<div class="split-intro"><div>${hea
 
 const projectIcon = name => icon(name,{className:'project-ui-icon'});
 function projects(project) {
-  if (!project) return `${splitIntro('GAME PROJECTS',config.copy.projects,'projects')}
-    ${section('FEATURED PROJECT',carousel(Projects,projectSlide,'featured projects'))}`;
+  const projectHeader=(title,detail=false)=>`<header class="projects-header"><nav class="breadcrumb" aria-label="Breadcrumb">${link('#games','Games')}<span>/</span>${detail?`${link(route('projects'),'Projects')}<span>/</span>`:''}<span>${e(detail?title:'Projects')}</span></nav>${pageTitle(title,{slash:!detail})}${detail?'':`<p>${e(config.copy.projects)}</p>`}</header>`;
+  if (!project) return `${projectHeader('GAME PROJECTS')}${projectSelector(Projects)}`;
   const related=project.caseStudies.map(id=>CaseStudies.find(study=>study.id===id)).filter(Boolean);
-  const metadata=(project.metadata || []).filter(item=>item.value);
-  return `${heading(project.title,'','projects').replace('</header>',`<div class="project-header-details"><p class="subtitle">${e(project.subtitle)}</p>${metadata.length?`<ul class="project-metadata" aria-label="Project information">${metadata.map(item=>`<li><span>${e(item.label)}</span> ${e(item.value)}</li>`).join('')}</ul>`:''}</div></header>`)}
-    <div class="project-grid">
-      <section class="project-video" aria-label="Gameplay video">${video(project.video,'Gameplay')}</section>
-      ${printSection('THE GAME',`${project.decorativeArt?`<img class="project-decoration" src="${e(assetUrl(project.decorativeArt.src))}" alt="" aria-hidden="true">`:''}<div class="project-prose">${(project.description || [project.longDescription]).map(text=>`<p>${e(text)}</p>`).join('')}</div>
-        ${related.length?`<div class="project-case-actions">${related.map(study=>`<a class="button project-case-link" href="${route('case-studies',study.id)}"><span>${e(study.title)}</span>${projectIcon('arrow-right')}</a>`).join('')}</div>`:''}`,'project-description')}
-      <section class="project-gallery print-panel" aria-label="Project gallery">${projectGallery(project.gallery)}</section>
-      ${printSection('PLAYABLE BUILD',`<div class="build-overview"><div class="build-primary"><p class="build-status">${project.buildUrl?`Open the current build of ${e(project.title)} for private evaluation.`:e(project.buildStatus)}</p>${external(project.buildUrl,'Download build').replace('Download build',projectIcon('download')+'<span>Download build</span>')}</div><dl class="build-metadata">${project.buildProvider?`<div>${projectIcon('folder')}<dt>Provider</dt><dd>${e(project.buildProvider)}</dd></div>`:''}${project.buildUrl?`<div>${projectIcon('info')}<dt>Access</dt><dd>Private evaluation</dd></div>`:''}</dl></div>
-        ${project.buildUrl?`<div class="distribution-note"><p><strong>Evaluation build — not for redistribution.</strong></p><p>${e(project.buildNote)}</p></div>`:''}`,'build-panel').replace('<h2>PLAYABLE BUILD</h2>',`<h2>${projectIcon('controller')}<span>PLAYABLE BUILD</span></h2>`)}
-    </div>`;
+  const prose=`<div class="project-prose">${(project.description||[project.longDescription]).map(text=>`<p>${e(text)}</p>`).join('')}</div>`;
+  const caseActions=related.length?`<div class="project-case-actions">${related.map(study=>button(study.title,{href:route('case-studies',study.id),arrowHousing:true,className:'project-case-link'})).join('')}</div>`:'';
+  const build=`<div class="build-overview"><p class="project-detail-panel__status">${icon('controller')}<span>${e(project.buildStatus)}</span></p>${button('Download build',{href:project.buildUrl,disabled:!project.buildUrl,variant:'primary',iconName:'download',arrowHousing:true,className:'project-build-link',attributes:project.buildUrl?{'data-external-build':'true'}:{}}).replace('data-external-build="true"','target="_blank" rel="noopener noreferrer"')}${project.buildProvider?`<p class="project-provider">${icon('folder')}<span>${e(project.buildProvider)}</span></p>`:''}</div>`;
+  const note=project.buildNote?`<div class="distribution-note">${icon('info')}<p>${project.buildUrl?'<strong>Evaluation build — not for redistribution.</strong> ':''}${e(project.buildNote)}</p></div>`:'';
+  return `${projectHeader(project.title,true)}<div class="project-grid">
+    <section class="project-video" aria-label="Gameplay video">${mediaFrame(video(project.video,'Gameplay').replace('class="video-start"','class="video-start ui-btn"'),{label:project.title+' gameplay',className:'project-media-panel ui-project-media-frame'})}</section>
+    ${projectDetailPanel('The Game',prose+caseActions,{className:'project-description'})}
+    <section class="project-gallery" aria-label="Project gallery">${projectGallery(project.gallery)}</section>
+    ${projectDetailPanel('Playable Build',build,{className:'build-panel',footer:note})}
+  </div>`;
 }
 
 function roleCard(role) {

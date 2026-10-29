@@ -1,3 +1,4 @@
+import { mediaFrame, carouselArrow, indexTabs } from './ui.js';
 import { escape } from './html.js';
 import { icon } from './ui-icons.js';
 export { escape } from './html.js';
@@ -33,9 +34,9 @@ export function carousel(items, render, label) {
     <div class="pagination">${items.map((_, i) => `<button data-slide="${i}" aria-label="Show ${escape(label)} ${i + 1}" aria-pressed="${!i}">${i + 1}</button>`).join('')}</div></div></section>`;
 }
 export function projectGallery(items) {
-  return `<section class="contact-sheet" data-project-gallery data-items="${escape(JSON.stringify(items))}" aria-label="Project images" aria-roledescription="carousel">
-    <header class="gallery-heading"><h2>Media Gallery</h2><span class="gallery-count" aria-live="polite">${items.length ? 1 : 0} / ${items.length}</span><button data-gallery-direction="-1" aria-label="Previous project image" ${items.length<2?'disabled':''}>←</button><button data-gallery-direction="1" aria-label="Next project image" ${items.length<2?'disabled':''}>→</button></header>
-    <div class="contact-sheet-body"><div class="selected-image">${media(items[0],'Project image')}</div><div class="gallery-thumbnails" aria-label="Select project image">${items.map((item,i)=>`<button data-gallery-index="${i}" aria-label="Show project image ${i+1}" aria-pressed="${i===0}"><img src="${escape(assetUrl(item.src))}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div></div></section>`;
+  const controls=carouselArrow('previous',{label:'Previous project image',disabled:items.length<2,attributes:{'data-gallery-direction':-1}})+carouselArrow('next',{label:'Next project image',disabled:items.length<2,attributes:{'data-gallery-direction':1}});
+  const index=indexTabs(items.map((item,i)=>({label:String(i+1),active:i===0})),{label:'Project screenshot index'}).replaceAll('data-ui-index','data-gallery-index');
+  return `<div class="project-media-panel__gallery" data-project-gallery data-items="${escape(JSON.stringify(items))}" aria-label="Project images" aria-roledescription="carousel">${mediaFrame(`<div class="selected-image">${media(items[0],'Project image')}</div>`,{label:'Project screenshot',className:'project-media-panel ui-project-media-frame',controls})}${index}<p class="gallery-announcement project-selection-status" aria-live="polite" aria-atomic="true">${escape(items[0]?.alt||'Gallery forthcoming')}</p></div>`;
 }
 export function caseCarousel(items, render) {
   return `<section class="case-carousel" aria-label="Featured case studies" aria-roledescription="carousel">
@@ -119,12 +120,13 @@ export function bindComponents(root) {
       current=(index+items.length)%items.length;
       const image=node.querySelector('.selected-image img');
       if(image){image.src=assetUrl(items[current].src);image.alt=items[current].alt || 'Project image';}
-      node.querySelector('.gallery-count').textContent=`${current+1} / ${items.length}`;
+      const count=node.querySelector('.gallery-count');if(count)count.textContent=`${current+1} / ${items.length}`;
+      const announcement=node.querySelector('.gallery-announcement');if(announcement)announcement.textContent=items[current].alt || `Image ${current+1}`;
       buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===current)));
       const active=buttons[current], rail=node.querySelector('.gallery-thumbnails');
-      const a=active.getBoundingClientRect(),r=rail.getBoundingClientRect();
+      if(rail){const a=active.getBoundingClientRect(),r=rail.getBoundingClientRect();
       rail.scrollTop+=Math.min(0,a.top-r.top)+Math.max(0,a.bottom-r.bottom);
-      rail.scrollLeft+=Math.min(0,a.left-r.left)+Math.max(0,a.right-r.right);
+      rail.scrollLeft+=Math.min(0,a.left-r.left)+Math.max(0,a.right-r.right);}
     }
     node.addEventListener('click',event=>{
       const button=event.target.closest('button');if(!button)return;

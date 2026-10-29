@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1434,
+      "passed": true,
+      "allProjects": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": true,
+      "selectionGalleryKeyboard": true,
+      "media16by9": true,
+      "actualLinksAndCopy": true
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "allProjects": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": true,
+      "selectionGalleryKeyboard": true,
+      "media16by9": true,
+      "actualLinksAndCopy": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "allProjects": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false,
+      "selectionGalleryKeyboard": true,
+      "media16by9": true,
+      "actualLinksAndCopy": true
+    },
+    {
+      "width": 390,
+      "passed": true,
+      "allProjects": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false,
+      "selectionGalleryKeyboard": true,
+      "media16by9": true,
+      "actualLinksAndCopy": true
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "allProjects": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false,
+      "selectionGalleryKeyboard": true,
+      "media16by9": true,
+      "actualLinksAndCopy": true
+    },
+    {
+      "test": "Additional project selection/page at canonical width",
+      "passed": true
+    }
+  ]
+}

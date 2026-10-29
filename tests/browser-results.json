@@ -903,11 +903,11 @@
       "passed": true
     },
     {
-      "test": "Carousel next, previous, pagination, keyboard",
+      "test": "Three-card Projects selection: arrows, numbered index, keyboard and route context",
       "passed": true
     },
     {
-      "test": "Three project contact-sheet galleries: thumbnail selection, active state, previous/next, End, keyboard wrap, real prose/current build links and desktop fit",
+      "test": "Three project galleries: shared side arrows and numbered tabs, End/keyboard wrap, actual copy/current build links and desktop fit",
       "passed": true
     },
     {

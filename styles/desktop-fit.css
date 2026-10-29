@@ -14,29 +14,6 @@
   :is(.projects-page,.roles-page).index-page .split-intro .video-frame { width: min(100%,calc(32dvh * 16 / 9)); margin-left: auto; height: auto; aspect-ratio: 16 / 9; }
   :is(.projects-page,.roles-page).index-page > .section { margin: 0; display: grid; grid-template-rows: auto minmax(0,1fr); gap: 14px; min-height: 0; }
   :is(.projects-page,.roles-page).index-page > .section > h2 { margin: 0; padding-bottom: 10px; }
-  .projects-page.index-page .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; min-height: 0; }
-  .projects-page.index-page .slide { height: 100%; min-height: 0; }
-  .projects-page.index-page .project-slide { height: 100%; align-items: center; }
-  .projects-page.index-page .project-slide .media { width: min(100%,calc(33dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; justify-self: center; }
-
-  /* Both project rows have explicit shares of the space below a compact header. */
-  .projects-page.detail-page { display: grid; grid-template-rows: auto minmax(0,1fr); gap: 16px; }
-  .projects-page.detail-page .project-grid { height: 100%; min-height: 0; grid-template-rows: repeat(2,minmax(0,1fr)); gap: 18px; align-items: stretch; }
-  .projects-page.detail-page .project-grid > * { min-height: 0; }
-  .projects-page.detail-page .project-video { display: grid; place-items: start center; }
-  .projects-page.detail-page .project-video .video-frame { width: min(100%,calc(37dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; }
-  .projects-page.detail-page .print-panel { padding: 18px 20px; }
-  .projects-page.detail-page .print-panel h2 { font-size: 25px; margin-bottom: 12px; }
-  .projects-page.detail-page .project-description .tags { margin-block: 12px; }
-  .projects-page.detail-page .project-gallery .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; gap: 8px; height: 100%; min-height: 0; }
-  .projects-page.detail-page .project-gallery .slide { min-height: 0; }
-  .projects-page.detail-page .project-gallery figure { display: grid; justify-items: center; align-content: start; }
-  .projects-page.detail-page .project-gallery .media { width: min(100%,calc(28dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; }
-  .projects-page.detail-page .project-gallery .carousel-controls { padding-top: 0; }
-  .projects-page.detail-page .build-status { margin-bottom: 12px; }
-  .projects-page.detail-page .provider-note { margin-bottom: 12px; }
-  .projects-page.detail-page .distribution-note { padding-top: 12px; }
-
   /* Five roles remain visible, with readable summaries rather than tall cards. */
   .roles-page.index-page .role-cards { min-height: 0; grid-template-columns: repeat(3,minmax(0,1fr)); grid-auto-rows: minmax(0,1fr); gap: 14px; }
   .roles-page.index-page .role-card { grid-template-columns: 44px minmax(0,1fr); gap: 12px; padding: 14px; }

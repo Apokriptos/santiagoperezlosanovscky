@@ -24,8 +24,8 @@
 .publication-page .print-panel p { max-width: 70ch; }
 .publication-page .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 .publication-page .actions:empty { display: none; }
-.publication-page :is(button, .button) { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 9px 15px; border: 1px solid var(--games-ink); background: var(--games-paper); color: var(--games-ink); font-size: 11px; line-height: 1.5; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-align: center; }
-.publication-page :is(button, .button):hover { background: var(--games-ink); color: var(--games-paper); }
+.publication-page :is(button, .button):not(.ui-btn) { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 9px 15px; border: 1px solid var(--games-ink); background: var(--games-paper); color: var(--games-ink); font-size: 11px; line-height: 1.5; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-align: center; }
+.publication-page :is(button, .button):not(.ui-btn):hover { background: var(--games-ink); color: var(--games-paper); }
 .publication-page :is(button:disabled, button:disabled:hover) { background: #e5ded1; color: #59534a; opacity: 1; border-color: var(--games-rule); cursor: default; }
 .publication-page .button-primary { background: var(--games-red); border-color: var(--games-red); color: var(--games-paper); }
 .publication-page .button-primary:hover { background: var(--games-ink); border-color: var(--games-ink); }

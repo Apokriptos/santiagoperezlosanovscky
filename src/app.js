@@ -1,3 +1,4 @@
+import { bindProjectSelector } from './project-ui.js';
 import { config, navigation, Projects, Roles, CaseStudies } from './data.js';
 import { resolveRoute } from './router.js';
 import { gamesShell } from './shell.js';
@@ -23,6 +24,7 @@ function render() {
     document.querySelector('#context-select')?.addEventListener('change',event=>location.hash=event.target.value);
     document.querySelector('.games-shell').classList.toggle('debug',new URLSearchParams(location.search).has('debug'));
     bindComponents(app);
+    bindProjectSelector(app);
   }
   document.title=`${r.item?.title || navigation.find(n=>n.id===r.section)?.title || (r.branch==='books' ? 'Books' : 'Portfolio')} — ${config.name}`;
   if (!initial) { document.querySelector('#main')?.focus({preventScroll:true}); window.scrollTo(0,0); }

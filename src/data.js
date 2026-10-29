@@ -121,3 +121,11 @@ projectDetailCopy.forEach((copy,index) => {
 });
 // Current overrides in Aobscura media-update-20261023.js supersede its base config.
 Object.assign(Projects[2], {buildStatus:'Playable build available.', buildProvider:'Google Drive',buildUrl:'https://drive.google.com/file/d/1yjH6Oi-ztkgb1dWLLasjnNVkFZPQVwDr/view?usp=sharing'});
+
+// Approved Projects Overview taxonomy, kept with project identities rather than UI markup.
+const projectCategories = [
+  ['Horror', 'Exploration', 'Sci-Fi'],
+  ['Action', 'Combat', 'Dark Fantasy'],
+  ['Exploration', 'Survival', 'Folk Horror'],
+];
+Projects.forEach((project,index)=>{ project.categories=projectCategories[index] || []; });
