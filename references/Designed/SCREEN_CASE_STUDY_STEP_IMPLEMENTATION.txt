@@ -1,0 +1,545 @@
+PORTFOLIO SITE — SCREEN IMPLEMENTATION SPEC
+SCREEN: GAMES / CASE STUDY STEP
+REFERENCE CASE: DESIGNING INVESTIGATION IN HOLLOW GRAVES
+REFERENCE STEP: 01 CONTEXT
+STATUS: APPROVED FOR IMPLEMENTATION
+DOCUMENT TYPE: CODEX IMPLEMENTATION CONTRACT
+VERSION: 1.0
+
+0. PURPOSE
+
+This file defines the approved Case Study Step screen family.
+
+Reference:
+DESIGNING INVESTIGATION IN HOLLOW GRAVES
+STEP 01 — CONTEXT
+
+The same structural system must support every step of every case study.
+
+Inherit the shared visual system and nomenclature from:
+SCREEN_OVERVIEW_IMPLEMENTATION.txt
+SCREEN_PROJECTS_OVERVIEW_IMPLEMENTATION.txt
+SCREEN_PROJECT_DETAIL_IMPLEMENTATION.txt
+SCREEN_ROLES_OVERVIEW_IMPLEMENTATION.txt
+SCREEN_ROLE_DETAIL_IMPLEMENTATION.txt
+SCREEN_CASE_STUDIES_OVERVIEW_IMPLEMENTATION.txt
+
+This is NOT a redesign request.
+This is NOT permission to invent case-study reasoning, evidence, conclusions, claims, screenshots, or project contributions.
+
+Use the approved Case Study Step mockup as the primary visual reference together with this file.
+
+1. SCREEN PURPOSE
+
+Case Study Step is the internal chapter screen for a single case study.
+
+It has two distinct navigation levels:
+
+CASE-LEVEL NAVIGATION:
+right-side ui-case-study-rail
+switches between different case studies
+
+STEP-LEVEL NAVIGATION:
+bottom horizontal case-study-step-rail
+switches between chapters/steps inside the current case study
+
+These two navigation systems must remain conceptually and visually separate.
+
+The screen should:
+- make the current case unmistakable
+- make the current step unmistakable
+- provide one strong evidence image
+- provide enough room for actual explanatory text
+- expose the complete internal step structure without leaving the page
+- remain dense but readable on desktop
+
+2. REFERENCE CASE STRUCTURE
+
+Reference case:
+DESIGNING INVESTIGATION IN HOLLOW GRAVES
+
+Reference disciplines:
+GAME DESIGN · SYSTEMS DESIGN · TECHNICAL DESIGN
+
+Current approved internal steps:
+01 CONTEXT
+02 DESIGN PROBLEM
+03 INVESTIGATION LOOP
+04 GHOSTSIGHT
+05 CLUES & FEEDBACK
+06 ITERATION
+07 OUTCOME
+
+The step list must come from case-study data where possible.
+Do not assume all future case studies necessarily use the exact same labels or number of steps.
+
+3. PAGE STRUCTURE
+
+Canonical desktop hierarchy:
+
+ui-shell
+|-- left navigation rail
+|-- main content
+|   |-- case-study header
+|   |   |-- breadcrumb
+|   |   |-- ui-page-title
+|   |   |-- discipline line
+|   |-- case-study-step-shell
+|       |-- current-step header plate
+|       |-- case-study-step__content
+|       |   |-- evidence image panel
+|       |   |-- step explanation panel
+|       |-- CASE COVER label
+|       |-- case-study-step-rail
+|-- ui-case-study-rail
+
+4. CASE STUDY HEADER
+
+Breadcrumb:
+GAMES / CASE STUDIES / [CASE STUDY TITLE]
+
+Reference:
+GAMES / CASE STUDIES / DESIGNING INVESTIGATION IN HOLLOW GRAVES
+
+Title:
+DESIGNING INVESTIGATION IN HOLLOW GRAVES
+
+Discipline line:
+GAME DESIGN · SYSTEMS DESIGN · TECHNICAL DESIGN
+
+Approved visual:
+- reuse shared ui-page-title family
+- black angular plate
+- cream title
+- restrained red slash accents
+- project-specific gothic decorative artwork may occupy the upper-right header area without obscuring text
+- discipline line stays clean and readable below title
+- horizontal rule separates header from step content
+
+5. NEW SHARED COMPONENT — CASE STUDY STEP SHELL
+
+COMPONENT:
+case-study-step-shell
+
+Purpose:
+large tactile container that holds one internal case-study chapter and its bottom step navigation.
+
+Suggested classes:
+.case-study-step-shell
+.case-study-step-shell__header
+.case-study-step-shell__content
+.case-study-step-shell__footer
+
+Visual:
+- large cream/off-white surface
+- strong dark outline
+- selective clipped corners
+- compact black shadow
+- restrained red accents
+- wide enough to contain evidence + explanation side by side
+- bottom step rail contained as part of the same chapter object
+
+Implementation:
+HTML/CSS
+
+6. CURRENT STEP HEADER
+
+Reference:
+01 CONTEXT
+
+Approved:
+- black angular header plate
+- cream condensed type
+- numeric step prefix + step title
+- narrow red slash accent
+- compact, not oversized
+
+The step title comes from the current case-study step data.
+
+7. APPROVED CONTENT COMPOSITION
+
+The current step content uses TWO columns:
+
+LEFT:
+one evidence image
+
+RIGHT:
+step explanation text
+
+No second image.
+No video.
+No media carousel.
+
+This is intentionally different from gallery/media screens.
+
+The explanatory side needs enough width and height to contain actual design reasoning.
+
+8. EVIDENCE IMAGE
+
+Use one real evidence image per step where available.
+
+Preferred implementation:
+reuse project-media-panel geometry with a static-image modifier
+OR create a lightweight case-study-evidence-panel modifier if needed
+
+Media rules:
+- standard landscape image geometry
+- no distortion
+- no video controls
+- no carousel arrows
+- no dot indicators
+- no image caption beneath the frame in this approved composition
+
+The approved screen intentionally REMOVES:
+- “Evidence and caption forthcoming.”
+- any redundant image caption line under the media frame
+
+Evidence must come from real project/case-study material.
+Do not fabricate evidence screenshots in implementation.
+
+9. STEP EXPLANATION PANEL
+
+NEW COMPONENT:
+case-study-step-panel
+
+Suggested classes:
+.case-study-step-panel
+.case-study-step-panel__header
+.case-study-step-panel__body
+.case-study-step-panel__key-points
+
+Header:
+STEP EXPLANATION
+
+Approved construction:
+- cream tactile body
+- compact black header label
+- restrained red slash accent
+- dark outline
+- compact physical shadow
+- controlled clipped corners
+- clean reading interior
+
+Body:
+- continuous explanatory paragraphs
+- enough space for actual reasoning, constraints, decisions and outcomes
+- do not reduce this to a tiny summary
+- no decorative subcards required
+
+Optional structured subsection:
+KEY POINTS
+
+Key points:
+- short scannable bullets
+- restrained red dash / bullet
+- used only when the step content benefits from structured takeaways
+
+Implementation:
+HTML/CSS
+
+10. APPROVED REMOVALS
+
+The final approved composition REMOVES the earlier placeholder text above the main two-column content.
+
+Do NOT include:
+- “The central design question will be supplied here.”
+- “Reasoning, decisions, iteration, and outcomes forthcoming.”
+- a separate pre-content question/status strip
+- a separate pre-content explanatory paragraph
+- an evidence caption under the image
+
+The step explanation panel itself is now the primary reading surface.
+
+11. NEW SHARED COMPONENT — INTERNAL STEP RAIL
+
+COMPONENT:
+case-study-step-rail
+
+Purpose:
+horizontal internal chapter navigation for the CURRENT case study.
+
+This is separate from:
+ui-case-study-rail
+
+Suggested classes:
+.case-study-step-rail
+.case-study-step-rail__track
+.case-study-step-rail__item
+.case-study-step-rail__marker
+.case-study-step-rail__number
+.case-study-step-rail__label
+
+Reference section label above rail:
+CASE COVER
+
+Approved visual:
+- horizontal line across the bottom of the chapter shell
+- one circular marker per step
+- active marker filled red
+- inactive markers cream/light with dark outline
+- number above or near label
+- active step label receives a compact black plate
+- all step labels remain visible on canonical desktop
+
+Behavior:
+- clicking a step loads/navigates directly to that chapter
+- current item is clearly selected
+- navigation remains synchronized with route/state
+- data-driven from current case-study structure
+
+Accessibility:
+- semantic navigation
+- links/buttons keyboard operable
+- aria-current on active step
+- full accessible names include number + title
+
+12. RIGHT CASE STUDY RAIL
+
+Reuse:
+ui-case-study-rail
+
+IMPORTANT:
+The right rail navigates BETWEEN CASE STUDIES, not between steps.
+
+Current rail items:
+OVERVIEW
+DESIGNING INVESTIGATION IN HOLLOW GRAVES
+FRENZY & COMBAT IN REDITUS UMBRAE
+EXPLORATION IN DREADWOODS
+
+When inside any step of the Hollow Graves case:
+DESIGNING INVESTIGATION IN HOLLOW GRAVES remains the active rail item.
+
+Do NOT populate the right rail with:
+Context
+Design Problem
+Investigation Loop
+GhostSight
+Clues & Feedback
+Iteration
+Outcome
+
+Those belong exclusively to the bottom case-study-step-rail.
+
+13. NAVIGATION MODEL
+
+LEVEL 1:
+Left global rail — site section navigation
+
+LEVEL 2:
+Right ui-case-study-rail — case study selection
+
+LEVEL 3:
+Bottom case-study-step-rail — internal chapter selection
+
+This hierarchy is intentional and must remain clear.
+Do not duplicate the same information on both rails.
+
+14. SPACE / DENSITY
+
+Canonical desktop should remain a composed interface.
+
+The large chapter shell uses most of the central content area.
+
+Within the main two-column content:
+- evidence image roughly 45–50%
+- text explanation roughly 50–55%
+
+The explanation panel must NOT collide with or sit excessively close to the bottom step rail.
+
+Maintain deliberate vertical breathing room between:
+evidence/explanation row
+CASE COVER label
+horizontal step rail
+
+The final approved iteration specifically corrects the earlier cramped relationship between the text panel and the lower navigation line.
+
+15. TACTILE / VISUAL LANGUAGE
+
+Inherit the approved system:
+- aggressive/editorial shell
+- clean cream reading surfaces
+- black raised title/header plates
+- compact shadows
+- strong outlines
+- restrained red accents
+- selective clipped corners
+- clear active states
+
+The chapter screen should feel like a designed game-analysis interface, not a plain article and not a fighting-game selection screen.
+
+16. IMPLEMENTATION SPLIT
+
+BUILD IN HTML/CSS/SVG:
+- chapter shell
+- current-step header
+- explanation panel
+- bottom step rail
+- markers
+- labels
+- right case-study rail
+- title plate
+- outlines
+- shadows
+- red accents
+- responsive geometry
+- accessibility states
+
+USE REAL IMAGE ASSETS FOR:
+- evidence image
+- case/project-specific decorative gothic header artwork
+- global paper / brush / halftone textures where asset-backed
+
+DO NOT rasterize:
+- chapter shell
+- explanation panel
+- step rail
+- markers
+- titles
+- navigation states
+
+17. INTERACTION STATES
+
+BOTTOM STEP ITEMS:
+REST:
+outlined marker + readable label
+
+HOVER:
+stronger edge / subtle emphasis
+
+FOCUS:
+obvious keyboard-visible state
+
+SELECTED:
+red marker + black compact title plate
+
+PRESSED:
+slight physical compression if implemented as tactile controls
+
+RIGHT CASE STUDY RAIL:
+reuse existing ui-case-study-rail behavior
+
+Avoid decorative motion that slows chapter navigation.
+
+18. RESPONSIVE BEHAVIOR
+
+Desktop:
+image + explanation side-by-side
+full horizontal internal step rail
+
+Tablet:
+side-by-side where readable
+rail may horizontally scroll if labels no longer fit
+
+Mobile:
+stack:
+step header
+evidence image
+explanation
+internal step navigation
+
+For mobile internal step navigation:
+- allow horizontal scroll / compact tabs if needed
+- preserve clear current step
+- do not shrink labels into unreadability
+
+The right case-study rail may collapse/simplify according to the site's established responsive behavior.
+
+19. APPROVED SCREEN DECISIONS
+
+LOCKED:
+
+1. Case Study Step is a dedicated chapter screen inside one case study.
+2. Header uses the case-study title plus discipline line.
+3. Current step is identified by a black numbered step plate such as “01 CONTEXT”.
+4. Main chapter content is a two-column layout: one evidence image + one explanatory text panel.
+5. Use ONE image only in the main content.
+6. No video and no image carousel on this screen.
+7. No caption line beneath the evidence image.
+8. Remove the earlier central-design-question placeholder strip.
+9. Remove the earlier generic “Reasoning, decisions…” placeholder paragraph.
+10. The explanatory panel is the main text surface and may include KEY POINTS.
+11. Bottom horizontal rail navigates between the steps INSIDE the current case.
+12. The bottom rail currently contains: Context, Design Problem, Investigation Loop, GhostSight, Clues & Feedback, Iteration, Outcome.
+13. Active bottom step uses a red marker and compact black label plate.
+14. Right ui-case-study-rail remains present.
+15. Right ui-case-study-rail navigates BETWEEN case studies, not between steps.
+16. The current case remains highlighted in the right rail regardless of which internal step is active.
+17. Maintain clear breathing room between the explanation panel and bottom rail.
+18. Use real evidence and real case-study reasoning only.
+
+20. SHARED COMPONENT REGISTRY — ADDITIONS
+
+NEW:
+case-study-step-shell
+case-study-step-panel
+case-study-step-rail
+
+REUSED:
+ui-case-study-rail
+ui-page-title
+project-media-panel or a static-image modifier
+existing shell/navigation system
+
+21. DO NOT BREAK
+
+[ ] Current case-study route loads correctly.
+[ ] Current step route/state loads correctly.
+[ ] Bottom internal step links work.
+[ ] Active internal step state is correct.
+[ ] Right case-study rail navigates between case studies.
+[ ] Right rail does not switch to step labels.
+[ ] Evidence image keeps standard ratio.
+[ ] No carousel controls appear on evidence image.
+[ ] No caption line appears beneath evidence image.
+[ ] Explanation content remains readable.
+[ ] Bottom rail does not collide with text panel.
+[ ] Keyboard navigation works.
+[ ] Responsive behavior remains usable.
+
+22. ACCEPTANCE CHECKLIST
+
+VISUAL:
+[ ] Case title matches shared page-title family.
+[ ] Discipline line is clean and readable.
+[ ] Current step plate is obvious.
+[ ] One evidence image occupies left content column.
+[ ] Step explanation occupies right content column.
+[ ] Explanation panel has enough real reading space.
+[ ] No obsolete placeholder strip appears above content.
+[ ] No evidence caption appears below image.
+[ ] Bottom step rail is clearly separated from content.
+[ ] Active bottom step is immediately visible.
+[ ] Right rail still represents cases, not steps.
+[ ] Decorative art stays peripheral.
+
+FUNCTION:
+[ ] Step navigation works.
+[ ] Case navigation works.
+[ ] Active states stay synchronized.
+[ ] Evidence loads correctly.
+[ ] Responsive stacking works.
+[ ] Keyboard focus visible.
+
+ARCHITECTURE:
+[ ] case-study-step-shell is reusable.
+[ ] case-study-step-panel is reusable.
+[ ] case-study-step-rail is data-driven.
+[ ] ui-case-study-rail is reused unchanged in purpose.
+[ ] No duplicate step information in right rail.
+[ ] No unnecessary raster UI geometry.
+
+23. FINAL IMPLEMENTATION INTENT
+
+The Case Study Step screen should behave like a readable chapter in an interactive design breakdown.
+
+The right rail answers:
+“Which case study am I in?”
+
+The bottom rail answers:
+“Which step of this case study am I reading?”
+
+The center answers:
+“What happened in this step, and what evidence supports it?”
+
+END OF SPEC

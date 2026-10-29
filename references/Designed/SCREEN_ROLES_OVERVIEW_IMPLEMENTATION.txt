@@ -1,0 +1,500 @@
+PORTFOLIO SITE — SCREEN IMPLEMENTATION SPEC
+SCREEN: GAMES / ROLES OVERVIEW
+STATUS: APPROVED FOR IMPLEMENTATION
+DOCUMENT TYPE: CODEX IMPLEMENTATION CONTRACT
+VERSION: 1.0
+
+===============================================================================
+0. PURPOSE
+===============================================================================
+
+This file defines the approved Roles Overview screen.
+
+Inherit the shared design system and nomenclature from:
+    SCREEN_OVERVIEW_IMPLEMENTATION.txt
+    SCREEN_PROJECTS_OVERVIEW_IMPLEMENTATION.txt
+    SCREEN_PROJECT_DETAIL_IMPLEMENTATION.txt
+
+This is NOT a redesign request.
+This is NOT permission to invent new role content or restructure the site.
+
+Use the approved Roles Overview mockup as the primary visual reference together
+with this document.
+
+===============================================================================
+1. SCREEN PURPOSE
+===============================================================================
+
+Roles Overview presents Santiago's main areas of work in one readable, visual
+selection screen.
+
+The screen should:
+- clearly communicate six roles
+- make each role immediately scannable
+- preserve the right-side contextual role rail
+- preserve the overview video block at top-right
+- provide direct entry into each Role Detail page
+- maintain the shared tactile UI system
+
+===============================================================================
+2. APPROVED ROLE SET
+===============================================================================
+
+1. TECHNICAL GAME DESIGN
+2. LEVEL DESIGN
+3. GAMEPLAY DEVELOPMENT
+4. CREATIVE LEADERSHIP
+5. TECHNICAL ANIMATION
+6. PRODUCT OWNERSHIP
+
+Approved Product Ownership summary:
+    Vision, planning, production, and cross-disciplinary coordination.
+
+Use real/finalized copy from site data if it has been updated elsewhere.
+
+===============================================================================
+3. PAGE STRUCTURE
+===============================================================================
+
+Canonical desktop hierarchy:
+
+ui-shell
+|
+|-- left navigation rail
+|
+|-- main content
+|   |
+|   |-- roles overview header
+|   |   |-- breadcrumb
+|   |   |-- ui-page-title
+|   |   |-- intro copy
+|   |   |-- watch overview CTA
+|   |   |-- overview video panel
+|   |
+|   |-- MY ROLES section header
+|   |
+|   |-- roles-overview__grid
+|       |-- role-card x6
+|
+|-- ui-role-rail
+
+===============================================================================
+4. PAGE TITLE / HEADER
+===============================================================================
+
+Breadcrumb:
+    GAMES / AREAS OF WORK
+
+Title:
+    AREAS OF WORK
+
+Intro:
+    Explore the areas of work below. Selected experience will be added with the
+    final content.
+or current real/finalized copy.
+
+Approved:
+- reuse shared ui-page-title family
+- black title plate
+- cream title text
+- restrained red accent
+- strong but compact scale
+- intro copy beneath
+- WATCH OVERVIEW button below copy
+- overview video at upper-right
+
+The header occupies the upper region without forcing the role cards too high.
+
+===============================================================================
+5. OVERVIEW VIDEO
+===============================================================================
+
+This screen DOES retain the Roles Overview video panel.
+
+Use:
+    project-media-panel OR equivalent shared media-panel family if already
+    generalized in implementation.
+
+Behavior:
+- standard landscape media geometry
+- real media when available
+- current placeholder if media is not yet available
+- clear play affordance
+- no distorted crop
+
+Approved visual:
+- tactile cream frame
+- black outline
+- compact shadow
+- restrained red accents
+- gothic / project-style placeholder artwork may remain decorative
+
+Do not remove this video block.
+
+===============================================================================
+6. MY ROLES SECTION
+===============================================================================
+
+Section title:
+    MY ROLES
+
+Reuse shared section-title language.
+
+Approved layout:
+    3 columns × 2 rows
+
+IMPORTANT:
+The role-card section should sit lower on the page than in the first iteration.
+Use the available vertical space efficiently so the composition feels balanced
+and does not leave excessive empty area beneath the header.
+
+The final layout should visually read as:
+    top header / video
+    deliberate spacing
+    MY ROLES
+    3×2 card grid
+
+===============================================================================
+7. ROLE CARD — SHARED FAMILY
+===============================================================================
+
+Reuse and refine the existing shared:
+    role-card
+
+Do NOT create a separate unrelated card family.
+
+Suggested structure:
+
+    .role-card
+        .role-card__icon
+        .role-card__header
+        .role-card__title
+        .role-card__description
+        .role-card__cta
+
+Approved visual language:
+- tactile cream body
+- black header plate
+- role icon in a black square/plate at left
+- cream/white title text on black
+- narrow red accent on header edge
+- clear body copy
+- full-width VIEW ROLE action strip near bottom
+- red arrow housing on CTA right side
+- strong outline
+- compact black shadow
+- restrained red underslab / corner accents
+- coherent clipped-corner treatment
+
+Cards should feel like Nintendo-like tactile menu objects inside the broader
+Guilty Gear/editorial shell.
+
+===============================================================================
+8. ROLE CARD CONTENT
+===============================================================================
+
+TECHNICAL GAME DESIGN
+Description:
+    Design and implementation of gameplay systems.
+
+LEVEL DESIGN
+Description:
+    Spatial design, pacing, and player navigation.
+
+GAMEPLAY DEVELOPMENT
+Description:
+    Implementation of gameplay behavior and interactions.
+
+CREATIVE LEADERSHIP
+Description:
+    Creative direction, collaboration, and design alignment.
+
+TECHNICAL ANIMATION
+Description:
+    In-engine state machines, blending, procedural and additive animation,
+    retargeting, runtime character setup, and animation/gameplay integration.
+
+PRODUCT OWNERSHIP
+Description:
+    Vision, planning, production, and cross-disciplinary coordination.
+
+Use finalized source copy if later updated.
+
+===============================================================================
+9. ROLE ICONS
+===============================================================================
+
+Use one icon per role.
+
+Existing role icons may be reused where already established.
+
+Suggested semantic names:
+
+    ui_role_icon_technical-game-design
+    ui_role_icon_level-design
+    ui_role_icon_gameplay-development
+    ui_role_icon_creative-leadership
+    ui_role_icon_technical-animation
+    ui_role_icon_product-ownership
+
+Preferred:
+    SVG / vector
+
+The final approved Product Ownership visual uses a simple planning/ownership
+symbol. Keep the icon clean and geometric.
+
+Do not rasterize icons unless the icon system later becomes intentionally
+painterly.
+
+===============================================================================
+10. ROLE CTA
+===============================================================================
+
+Label:
+    VIEW ROLE
+
+Approved construction:
+- wide light/cream button surface
+- integrated red arrow block on right
+- consistent across all six cards
+- large click target
+- whole card may also be clickable if implementation remains semantically clean
+
+Interaction:
+REST:
+    compact depth
+HOVER:
+    slight lift / stronger edge / arrow emphasis
+PRESSED:
+    slight compression
+FOCUS:
+    obvious keyboard-visible state
+
+===============================================================================
+11. NEW SHARED COMPONENT — ROLE CONTEXT RAIL
+===============================================================================
+
+COMPONENT:
+    ui-role-rail
+
+Purpose:
+    Persistent contextual navigation for Roles Overview and Role Detail.
+
+Suggested classes:
+    .ui-role-rail
+    .ui-role-rail__title
+    .ui-role-rail__track
+    .ui-role-rail__item
+    .ui-role-rail__marker
+
+Items:
+    OVERVIEW
+    TECHNICAL GAME DESIGN
+    LEVEL DESIGN
+    GAMEPLAY DEVELOPMENT
+    CREATIVE LEADERSHIP
+    TECHNICAL ANIMATION
+    PRODUCT OWNERSHIP
+
+Selected:
+- red marker
+- stronger text
+- vertical track remains visible
+
+Implementation:
+    HTML/CSS
+
+Do not rasterize.
+
+===============================================================================
+12. GRID REGULARIZATION
+===============================================================================
+
+The final approved card arrangement must be a clean 3×2 grid.
+
+Row 1:
+    Technical Game Design
+    Level Design
+    Gameplay Development
+
+Row 2:
+    Creative Leadership
+    Technical Animation
+    Product Ownership
+
+All six cards:
+- equal width
+- consistent height
+- aligned CTA baseline
+- coherent header height
+- consistent icon block size
+- consistent internal spacing
+
+Technical Animation may require denser body copy, but do not let that card
+break the grid height.
+
+===============================================================================
+13. DEPTH / MATERIAL
+===============================================================================
+
+Inherit the approved tactile system:
+
+- opaque cream surfaces
+- black header plates
+- compact shadows
+- narrow red accents
+- clear layered grouping
+- no flat wireframe boxes
+- no glassmorphism
+- no huge blurred elevation
+
+Cards should feel physical but not bulky.
+
+===============================================================================
+14. IMPLEMENTATION SPLIT
+===============================================================================
+
+BUILD IN HTML/CSS/SVG:
+- ui-page-title
+- section title
+- role cards
+- role header plates
+- CTA buttons
+- shadows
+- clipped corners
+- ui-role-rail
+- role icons if SVG
+- spacing/layout
+- hover/focus/pressed states
+- responsive behavior
+
+USE IMAGE ASSETS FOR:
+- paper texture
+- brush / halftone / distressed shell decoration
+- overview video poster art if asset-backed
+
+DO NOT rasterize role-card geometry.
+
+===============================================================================
+15. RESPONSIVE BEHAVIOR
+===============================================================================
+
+Desktop:
+    3×2 grid
+
+Tablet:
+    2 columns × 3 rows
+
+Mobile:
+    1 column × 6 rows
+
+Preserve:
+- role title
+- icon
+- short description
+- VIEW ROLE action
+- readable spacing
+
+Right role rail may collapse/simplify according to existing responsive behavior.
+
+===============================================================================
+16. ACCESSIBILITY
+===============================================================================
+
+Role cards / CTAs:
+- semantic links
+- keyboard accessible
+- visible focus
+- no hover-only information
+
+Role rail:
+- semantic navigation
+- current item exposed with aria-current where appropriate
+
+Icons:
+- decorative icons may be aria-hidden
+- do not rely on icons alone to communicate role identity
+
+===============================================================================
+17. APPROVED SCREEN DECISIONS
+===============================================================================
+
+LOCKED:
+
+1. AREAS OF WORK remains the page title.
+2. Roles Overview retains the top-right overview video.
+3. WATCH OVERVIEW remains.
+4. MY ROLES section uses a 3×2 grid.
+5. Six roles are shown.
+6. PRODUCT OWNERSHIP is added as the sixth role.
+7. Bottom row is regularized to three cards.
+8. All six cards share one consistent role-card family.
+9. Role cards use black title bars, icon blocks, cream bodies, and red-arrow CTAs.
+10. Card section is positioned lower to reduce awkward leftover space and improve
+    vertical balance.
+11. Right contextual roles rail remains.
+12. Product Ownership is included in the right rail.
+13. Use real/finalized role copy where available.
+14. No new unrelated card style should be introduced.
+
+===============================================================================
+18. DO NOT BREAK
+===============================================================================
+
+[ ] Roles route loads correctly.
+[ ] Watch Overview works.
+[ ] Overview media loads/plays correctly.
+[ ] All six role links navigate correctly.
+[ ] Right roles rail navigation works.
+[ ] Product Ownership route is wired if the route already exists or is being added.
+[ ] Cards remain equal-height on desktop.
+[ ] Technical Animation copy does not break the grid.
+[ ] Keyboard focus visible.
+[ ] Responsive layout usable.
+
+===============================================================================
+19. ACCEPTANCE CHECKLIST
+===============================================================================
+
+VISUAL:
+[ ] Header matches shared ui-page-title family.
+[ ] Overview video retains standard landscape ratio.
+[ ] MY ROLES section sits lower and balances page vertically.
+[ ] Six cards form a clean 3×2 grid.
+[ ] Bottom row is fully populated.
+[ ] All cards have consistent size and CTA baseline.
+[ ] Icons are coherent.
+[ ] Cards feel tactile, not flat.
+[ ] Red is controlled.
+[ ] Right role rail contains all six roles.
+
+FUNCTION:
+[ ] Video works.
+[ ] All role links work.
+[ ] Product Ownership is reachable.
+[ ] Right rail selection stays synchronized.
+[ ] Responsive grid transitions cleanly.
+
+ARCHITECTURE:
+[ ] Existing role-card family reused/refined.
+[ ] ui-role-rail established as shared component.
+[ ] Shared tokens and controls reused.
+[ ] No unnecessary raster UI geometry.
+
+===============================================================================
+20. FINAL IMPLEMENTATION INTENT
+===============================================================================
+
+Roles Overview should feel like a clean selection board of six professional
+capability areas:
+
+    immediately scannable
+    tactile
+    coherent
+    visually authored
+    structurally reusable
+
+The expressive shell provides intensity.
+The six role cards provide clarity and organization.
+
+END OF SPEC

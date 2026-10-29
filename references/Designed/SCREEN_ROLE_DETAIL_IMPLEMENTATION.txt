@@ -1,0 +1,579 @@
+PORTFOLIO SITE — SCREEN IMPLEMENTATION SPEC
+SCREEN: GAMES / ROLE DETAIL
+REFERENCE ROLE: TECHNICAL GAME DESIGNER
+STATUS: APPROVED FOR IMPLEMENTATION
+DOCUMENT TYPE: CODEX IMPLEMENTATION CONTRACT
+VERSION: 1.0
+
+===============================================================================
+0. PURPOSE
+===============================================================================
+
+This file defines the approved Role Detail screen family.
+
+Reference implementation:
+    TECHNICAL GAME DESIGNER
+
+The same structural system should support:
+    TECHNICAL GAME DESIGNER
+    LEVEL DESIGNER
+    GAMEPLAY DEVELOPER
+    CREATIVE LEADERSHIP
+    TECHNICAL ANIMATION
+    PRODUCT OWNERSHIP
+
+This is NOT a redesign request.
+This is NOT permission to invent role claims, project credits, case studies, or
+experience.
+
+Inherit the shared UI system and nomenclature from:
+    SCREEN_OVERVIEW_IMPLEMENTATION.txt
+    SCREEN_PROJECTS_OVERVIEW_IMPLEMENTATION.txt
+    SCREEN_PROJECT_DETAIL_IMPLEMENTATION.txt
+    SCREEN_ROLES_OVERVIEW_IMPLEMENTATION.txt
+
+Use the approved Role Detail mockup as the primary visual reference together
+with this file.
+
+===============================================================================
+1. CORE SCREEN INTENT
+===============================================================================
+
+Role Detail explains one capability area through:
+
+1. role positioning / summary
+2. selected concrete experience
+3. visual practice evidence
+4. working approach / principles
+5. one featured case study
+
+The screen should feel:
+- authored
+- tactile
+- information-dense but readable
+- portfolio-first
+- consistent with the established black / cream / red system
+
+The expressive shell remains aggressive/editorial.
+The interior content remains clean and structured.
+
+===============================================================================
+2. SHARED COMPONENTS — REUSE
+===============================================================================
+
+GLOBAL:
+    ui-shell
+    ui-page-title
+    ui-surface
+    ui-btn
+
+PROJECT / MEDIA:
+    project-media-panel
+    ui-carousel-arrow
+    ui-index
+    ui-index-tab
+
+ROLE:
+    role-card
+    ui-role-rail
+
+Do NOT duplicate these families with alternate names.
+
+===============================================================================
+3. NEW SHARED COMPONENTS INTRODUCED HERE
+===============================================================================
+
+COMPONENT:
+    role-detail-panel
+
+Purpose:
+    reusable tactile content panel for role summary, selected experience,
+    approach, and related role-detail content.
+
+Suggested classes:
+    .role-detail-panel
+    .role-detail-panel__header
+    .role-detail-panel__body
+    .role-detail-panel__list
+    .role-detail-panel__item
+
+Visual:
+- cream/off-white body
+- black angled header plate
+- cream title text
+- narrow red accent on header
+- controlled clipped corners
+- compact black shadow
+- restrained red underslab / corner detail
+- clean reading interior
+
+Implementation:
+    HTML/CSS
+
+-------------------------------------------------------------------------------
+
+COMPONENT:
+    role-case-study-card
+
+Purpose:
+    featured case-study strip at bottom of Role Detail screens.
+
+Suggested classes:
+    .role-case-study-card
+    .role-case-study-card__media
+    .role-case-study-card__eyebrow
+    .role-case-study-card__title
+    .role-case-study-card__description
+    .role-case-study-card__cta
+
+Visual:
+- wide horizontal cream card
+- compact thumbnail on left
+- case study label + title + short description in center
+- tactile CTA on right
+- strong outline
+- compact depth
+- restrained red edge accents
+
+Implementation:
+    HTML/CSS + real case study media
+
+===============================================================================
+4. PAGE HEADER
+===============================================================================
+
+Breadcrumb:
+    GAMES / ROLES / [ROLE NAME]
+
+Reference:
+    GAMES / ROLES / TECHNICAL GAME DESIGNER
+
+Page title:
+    TECHNICAL GAME DESIGNER
+
+Subtitle / positioning line:
+    BRIDGING DESIGN AND TECHNOLOGY TO CREATE PLAYABLE, SCALABLE SYSTEMS.
+
+Use role-specific real/finalized positioning copy where available.
+
+Approved visual:
+- shared ui-page-title family
+- black title plate
+- cream title
+- red slash accent
+- subtitle directly beneath title
+- compact enough to leave room for dense content below
+
+===============================================================================
+5. TOP CONTENT ROW
+===============================================================================
+
+Two equal-priority panels:
+
+LEFT:
+    ROLE & EXPERIENCE
+
+RIGHT:
+    SELECTED EXPERIENCE
+
+Use:
+    role-detail-panel
+
+-------------------------------------------------------------------------------
+5.1 ROLE & EXPERIENCE
+-------------------------------------------------------------------------------
+
+Purpose:
+    concise first-person summary of the role and working scope.
+
+Reference copy direction:
+    I design, prototype and implement gameplay systems, turning mechanics,
+    behaviors and ideas into playable, iterated and measurable experiences.
+    I work at the intersection of design, engineering and production to ensure
+    features are fun, robust and scalable.
+
+Use the real finalized role copy from source data if available.
+
+Do not reduce this to placeholder text once final content exists.
+
+-------------------------------------------------------------------------------
+5.2 SELECTED EXPERIENCE
+-------------------------------------------------------------------------------
+
+Purpose:
+    concrete examples of where this role has been exercised.
+
+Reference structure:
+- Hollow Graves — investigation systems, supernatural mechanics.
+- Reditus Umbrae — combat, progression, enemy behavior, prototyping.
+- Dreadwoods — exploration systems, interaction, prototyping.
+- Teaching — systems design, implementation and production.
+
+Use real project / teaching examples only.
+
+Visual:
+- clean bulleted list
+- bold project/source name
+- short role-specific contribution after dash
+- no nested cards needed
+
+===============================================================================
+6. IN PRACTICE PANEL
+===============================================================================
+
+Use:
+    project-media-panel
+or a role-specific modifier of the same shared media family.
+
+Title:
+    IN PRACTICE
+
+Purpose:
+    show one practical visual example at a time.
+
+Reference content:
+    prototyping / greybox / systems-in-engine evidence
+
+Media:
+- standard landscape ratio
+- no decorative distortion
+- real screenshot/video/still
+- arrows vertically centered on left/right of media
+
+Carousel:
+- side arrows use shared ui-carousel-arrow
+- small index/dot state may be used inside this role-practice panel if it is
+  driven by real media count and remains visually restrained
+
+Approved reference shows:
+    4 practice examples
+
+Caption:
+    short evidence caption beneath media
+
+Example:
+    Prototyping and validating a traversal ability system in-engine.
+
+Do not invent evidence screenshots or captions.
+
+===============================================================================
+7. MY APPROACH PANEL
+===============================================================================
+
+Use:
+    role-detail-panel
+
+Title:
+    MY APPROACH
+
+Purpose:
+    concise statement of working philosophy followed by concrete principles.
+
+Reference intro:
+    I treat implementation as part of design rather than a downstream task.
+    My approach is to:
+
+Reference principles:
+- Prototype early.
+- Iterate with intent.
+- Design for production.
+- Bridge disciplines.
+
+Each principle:
+- bold lead phrase
+- one concise supporting sentence
+
+Do not let this become a long essay.
+The panel should be highly scannable.
+
+===============================================================================
+8. FEATURED CASE STUDY
+===============================================================================
+
+Use:
+    role-case-study-card
+
+Reference:
+    FEATURED CASE STUDY
+    DESIGNING INVESTIGATION IN HOLLOW GRAVES
+
+Description:
+    A deep dive into the design and implementation of its investigation systems.
+
+CTA:
+    VIEW CASE STUDY
+
+Layout:
+- full-width horizontal strip below the main 2×2 panel area
+- media thumbnail on left
+- text center
+- CTA right
+
+The card should feel visually connected to the case-study system but remain a
+Role Detail component.
+
+Use real case study route / media.
+
+===============================================================================
+9. RIGHT ROLE CONTEXT RAIL
+===============================================================================
+
+Reuse:
+    ui-role-rail
+
+Items:
+    OVERVIEW
+    TECHNICAL GAME DESIGNER
+    LEVEL DESIGNER
+    GAMEPLAY DEVELOPER
+    CREATIVE LEADERSHIP
+    TECHNICAL ANIMATION
+    PRODUCT OWNERSHIP
+
+Current role:
+- red selected marker
+- stronger text
+
+Keep rail synchronized with route.
+
+===============================================================================
+10. ROLE DETAIL GRID
+===============================================================================
+
+Canonical desktop composition:
+
+ROW 1:
+    ROLE & EXPERIENCE
+    SELECTED EXPERIENCE
+
+ROW 2:
+    IN PRACTICE
+    MY APPROACH
+
+ROW 3:
+    FEATURED CASE STUDY spanning full central width
+
+The first two rows should feel like a balanced 2×2 composition.
+
+Avoid:
+- oversized empty panels
+- uneven heights without reason
+- unnecessary scroll on canonical desktop if content can fit cleanly
+
+===============================================================================
+11. TACTILE UI LANGUAGE
+===============================================================================
+
+Inherit the established Nintendo-like clarity/tactility:
+
+- black raised header plates
+- cream physical surfaces
+- compact black shadows
+- restrained red accents
+- clear internal zones
+- large readable action controls
+- consistent corner language
+
+Do not fall back to flat 1px bordered rectangles.
+
+Do not overcomplicate panel geometry.
+
+===============================================================================
+12. TYPOGRAPHY
+===============================================================================
+
+Page title:
+    largest condensed display type
+
+Panel headings:
+    bold condensed cream text on black plates
+
+Body:
+    clean, highly legible
+
+Bullets:
+    simple black square bullets acceptable
+
+Subtitle:
+    uppercase / tracked / compact
+
+Use existing project typography tokens.
+
+===============================================================================
+13. IMPLEMENTATION SPLIT
+===============================================================================
+
+BUILD IN HTML/CSS/SVG:
+- role-detail-panel
+- panel header plates
+- case study card
+- CTA
+- bullet/list layout
+- media frame
+- carousel arrows
+- role rail
+- shadows
+- clipped corners
+- page title geometry
+- responsive layout
+
+USE REAL ASSETS FOR:
+- practice screenshots/video
+- case study thumbnail
+- shell textures / halftone / brush assets
+
+DO NOT rasterize:
+- panel geometry
+- title bars
+- buttons
+- lists
+- rail
+- case-study card frame
+
+===============================================================================
+14. RESPONSIVE BEHAVIOR
+===============================================================================
+
+Desktop:
+    2×2 content grid + full-width case study strip
+
+Tablet:
+    2 columns where practical
+    case study remains horizontal if readable
+
+Mobile:
+    stack in this order:
+        page header
+        Role & Experience
+        Selected Experience
+        In Practice
+        My Approach
+        Featured Case Study
+
+Media remains standard ratio.
+Right role rail may collapse according to site responsive behavior.
+
+===============================================================================
+15. ACCESSIBILITY
+===============================================================================
+
+Practice carousel:
+- semantic previous/next buttons
+- visible focus
+- current media state exposed programmatically
+
+Case study CTA:
+- semantic link
+- obvious focus
+- clear accessible name
+
+Role rail:
+- semantic navigation
+- aria-current for active role
+
+Headings:
+- preserve logical heading hierarchy
+
+===============================================================================
+16. APPROVED SCREEN DECISIONS
+===============================================================================
+
+LOCKED:
+
+1. Role Detail uses a dense 2×2 content grid plus a full-width featured case
+   study strip.
+
+2. Page title is role-specific and uses the shared black plate system.
+
+3. Role positioning subtitle sits below the page title.
+
+4. Top-left panel is ROLE & EXPERIENCE.
+
+5. Top-right panel is SELECTED EXPERIENCE.
+
+6. Bottom-left panel is IN PRACTICE with real media evidence.
+
+7. Bottom-right panel is MY APPROACH.
+
+8. Featured case study spans the width below the four main panels.
+
+9. Right contextual Roles rail remains and includes Product Ownership.
+
+10. Panels use tactile black-header / cream-body construction.
+
+11. Practice media remains standard landscape geometry.
+
+12. Practice carousel arrows sit at the sides of displayed media.
+
+13. Selected Experience uses concise bullet examples, not decorative cards.
+
+14. My Approach uses bold principle headings with short supporting text.
+
+15. Featured Case Study contains thumbnail + label/title/description + CTA.
+
+16. Same structural family must support every role detail route.
+
+17. Use real project / teaching / case study content only.
+
+===============================================================================
+17. DO NOT BREAK
+===============================================================================
+
+[ ] Role routes still work.
+[ ] Role rail navigation works.
+[ ] Current role selection is correct.
+[ ] Practice media loads correctly.
+[ ] Practice carousel controls work.
+[ ] Practice media keeps standard ratio.
+[ ] Case study CTA points to correct route.
+[ ] Existing responsive behavior remains usable.
+[ ] Product Ownership is present in role rail.
+[ ] No invented experience claims are introduced.
+
+===============================================================================
+18. ACCEPTANCE CHECKLIST
+===============================================================================
+
+VISUAL:
+[ ] Role Detail inherits the approved site system.
+[ ] Main title remains visually dominant but compact.
+[ ] 2×2 panel grid feels balanced.
+[ ] Panel headers share one family.
+[ ] Content interiors remain clean.
+[ ] Selected Experience is scannable.
+[ ] Practice media is visually prominent.
+[ ] My Approach remains concise.
+[ ] Case Study strip is clear and tactile.
+[ ] Right rail remains coherent with Roles Overview.
+[ ] Red is controlled and meaningful.
+
+FUNCTION:
+[ ] Practice carousel works.
+[ ] Case study CTA works.
+[ ] Role rail works.
+[ ] Keyboard focus visible.
+[ ] Responsive stacking works.
+
+ARCHITECTURE:
+[ ] role-detail-panel implemented as reusable family.
+[ ] role-case-study-card implemented as reusable family.
+[ ] project-media-panel reused/refined.
+[ ] ui-role-rail reused.
+[ ] real role data drives copy where possible.
+[ ] no unnecessary raster UI geometry.
+
+===============================================================================
+19. FINAL IMPLEMENTATION INTENT
+===============================================================================
+
+Role Detail should answer five questions quickly:
+
+    What does this role mean?
+    Where has it been used?
+    What does it look like in practice?
+    How is the work approached?
+    Where can I see a deeper case study?
+
+The screen should feel substantial without becoming verbose.
+
+END OF SPEC

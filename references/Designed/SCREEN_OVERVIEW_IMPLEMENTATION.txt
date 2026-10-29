@@ -1,0 +1,960 @@
+PORTFOLIO SITE — SCREEN IMPLEMENTATION SPEC
+SCREEN: GAMES / OVERVIEW
+STATUS: APPROVED FOR IMPLEMENTATION
+DOCUMENT TYPE: CODEX IMPLEMENTATION CONTRACT
+VERSION: 1.0
+
+===============================================================================
+0. PURPOSE OF THIS FILE
+===============================================================================
+
+This file defines how Codex should assemble the approved Games / Overview screen.
+
+This is NOT a request to redesign the screen.
+This is NOT a request to change the site architecture.
+This is NOT a request to replace working functionality.
+
+The task is to reproduce the approved visual direction inside the existing site,
+preserving the current routing, data, project media, carousel behavior, responsive
+logic, links, and content relationships.
+
+Future screen implementation TXT files will reference the SAME shared component
+and asset nomenclature established here. Reuse existing named components/assets
+instead of creating screen-specific duplicates whenever the visual function is
+the same.
+
+If an approved Overview mockup image is present in the repository, use it as the
+primary visual reference together with this specification. Where the mockup and
+this file differ, follow explicit instructions in this file.
+
+
+===============================================================================
+1. GLOBAL DESIGN RULE
+===============================================================================
+
+North-star:
+    GUILTY GEAR INTENSITY + NINTENDO-LIKE CLARITY / TACTILITY
+
+Interpret this as:
+- aggressive, authored visual identity around the interface
+- clean, readable functional interiors
+- strong hierarchy
+- chunky, obvious clickable elements
+- tactile depth
+- clear selected / unselected states
+- restrained but deliberate use of red
+- game-interface personality without becoming noisy
+
+Core principle:
+    EXPRESSIVE SHELL -> DISCIPLINED INTERFACE
+
+Do NOT:
+- redesign the site navigation architecture
+- make this look like a conventional corporate portfolio
+- copy Nintendo / Smash / Guilty Gear proprietary UI
+- rasterize ordinary buttons, panels, borders, shadows, tabs, or clipped corners
+- bake text into decorative assets
+- cover body copy with grunge
+- add unnecessary icons
+- make every surface red
+- make containers overly transparent
+- restore duplicate carousel counters / controls removed in the approved design
+
+
+===============================================================================
+2. SHARED NOMENCLATURE — USE ACROSS ALL SCREENS
+===============================================================================
+
+These names establish the project-wide UI vocabulary.
+
+------------------------------------------------------------------------------
+2.1 GLOBAL LAYOUT / SHELL
+------------------------------------------------------------------------------
+
+COMPONENT: ui-shell
+Purpose:
+    Existing three-zone desktop composition.
+
+Children:
+    ui-shell__left-rail
+    ui-shell__content
+    ui-shell__right-rail
+
+Rules:
+- Preserve the existing left navigation rail.
+- Preserve the right contextual / identity rail where applicable.
+- Preserve the central cream content field.
+- Do not rebuild the information architecture.
+
+------------------------------------------------------------------------------
+2.2 PAGE TITLE
+------------------------------------------------------------------------------
+
+COMPONENT: ui-page-title
+
+Suggested classes:
+    .ui-page-title
+    .ui-page-title__eyebrow
+    .ui-page-title__plate
+    .ui-page-title__text
+    .ui-page-title__accent
+    .ui-page-title__subtitle
+
+Visual grammar:
+- black angular plate
+- cream/off-white title text
+- red accent slash / underslab
+- strong condensed typography
+- compact shadow / offset depth
+- smaller than the first exploratory mockup
+- dominant, but not so tall that it steals excessive vertical space
+
+Implementation:
+    HTML/CSS
+Optional decorative texture:
+    image asset if already available globally
+
+------------------------------------------------------------------------------
+2.3 SECTION TITLE
+------------------------------------------------------------------------------
+
+COMPONENT: ui-section-title
+
+Suggested classes:
+    .ui-section-title
+    .ui-section-title__plate
+    .ui-section-title__text
+    .ui-section-title__rule
+    .ui-section-title__dots
+
+Visual grammar:
+- red slanted label plate
+- cream title text
+- thin horizontal continuation rule
+- optional halftone/dot accent near the plate
+- should be compact enough to repeat several times on one screen
+
+Implementation:
+    HTML/CSS
+Halftone may be:
+    CSS pattern OR shared decorative asset
+
+------------------------------------------------------------------------------
+2.4 SURFACE / CARD FAMILY
+------------------------------------------------------------------------------
+
+BASE COMPONENT: ui-surface
+
+Suggested classes:
+    .ui-surface
+    .ui-surface--card
+    .ui-surface--showcase
+    .ui-surface--media
+    .ui-surface--dark
+
+Shared visual rules:
+- opaque or near-opaque warm light surface
+- strong dark outline
+- selective clipped corners
+- compact dark shadow
+- optional narrow red underslab / exposed accent
+- functional interior stays clean
+
+IMPORTANT:
+The approved direction intentionally moves AWAY from transparent floating cards.
+The cards should feel like physical objects sitting over the cream-paper page.
+
+Implementation:
+    HTML/CSS
+
+------------------------------------------------------------------------------
+2.5 BUTTON FAMILY
+------------------------------------------------------------------------------
+
+BASE COMPONENT: ui-btn
+
+Variants:
+    ui-btn--primary
+    ui-btn--secondary
+    ui-btn--compact
+    ui-btn--carousel
+    ui-btn--nav
+
+Suggested structure:
+    .ui-btn
+    .ui-btn__label
+    .ui-btn__icon
+
+State modifiers:
+    .is-hover
+    .is-focus
+    .is-pressed
+    .is-selected
+    .is-disabled
+
+Interaction philosophy:
+REST:
+    clear light surface + restrained shadow
+HOVER:
+    slight lift OR slightly stronger shadow / exposed red accent
+FOCUS:
+    obvious keyboard-visible focus treatment
+PRESSED:
+    slight physical compression / reduced shadow offset
+SELECTED:
+    persistent red emphasis / stronger framing where relevant
+DISABLED:
+    reduced contrast but readable
+
+Implementation:
+    HTML/CSS + SVG/icon font/plain text arrow where appropriate
+
+Do NOT rasterize buttons.
+
+------------------------------------------------------------------------------
+2.6 CAROUSEL ARROW
+------------------------------------------------------------------------------
+
+COMPONENT: ui-carousel-arrow
+
+Variants:
+    ui-carousel-arrow--prev
+    ui-carousel-arrow--next
+
+Visual grammar:
+- compact angular light housing
+- dark arrow
+- red side/underslab accent
+- physically overlaps / intersects the showcase edge
+- substantial hit target even if visual housing is compact
+
+Implementation:
+    HTML/CSS + inline SVG or text arrow
+
+Accessibility:
+- button element
+- aria-label
+- keyboard operable
+- visible focus state
+
+------------------------------------------------------------------------------
+2.7 INDEX / PAGINATION TAB
+------------------------------------------------------------------------------
+
+COMPONENT: ui-index-tab
+
+Suggested classes:
+    .ui-index
+    .ui-index-tab
+    .ui-index-tab.is-selected
+
+Visual grammar:
+- small chunky numbered tabs
+- selected tab filled red
+- inactive tabs light/cream with dark border
+- slightly tactile depth
+- clear click target
+
+Implementation:
+    HTML/CSS
+
+------------------------------------------------------------------------------
+2.8 ROLE ICON
+------------------------------------------------------------------------------
+
+COMPONENT: ui-role-icon
+
+Semantic asset names:
+    ui_role_icon_technical-game-design.svg
+    ui_role_icon_level-design.svg
+    ui_role_icon_creative-leadership.svg
+
+Preferred implementation:
+    SVG if the design remains geometric/graphic.
+
+Only use raster transparent assets if the icon set becomes painterly/distressed
+enough that SVG loses the intended character.
+
+These icons are NOT Overview-only assets. They should be reusable in Roles
+Overview / Role Detail where appropriate.
+
+------------------------------------------------------------------------------
+2.9 DECORATIVE ASSET NOMENCLATURE
+------------------------------------------------------------------------------
+
+Use semantic, reusable asset names.
+
+Preferred directories:
+    /assets/ui/global/
+    /assets/ui/decorative/
+    /assets/ui/roles/
+    /assets/ui/projects/
+    /assets/ui/identity/
+
+Preferred naming pattern:
+    ui_[family]_[element]_[variant]_[index].ext
+
+Examples:
+    ui_global_paper-cream_01.webp
+    ui_decorative_brush-slash_red_01.webp
+    ui_decorative_halftone-dots_black_01.webp
+    ui_decorative_brush-edge_black_01.webp
+    ui_identity_portrait-treatment_01.webp
+
+Rules:
+- Do not put screen names in asset filenames unless the asset is truly unique.
+- Reuse global decorative assets across screens.
+- Keep alpha clean on transparent files.
+- Avoid white matte/fringing.
+- Do not bake ordinary shadows, borders, panel fills, or text into PNGs.
+
+
+===============================================================================
+3. OVERVIEW SCREEN — CONTENT HIERARCHY
+===============================================================================
+
+Preserve the existing semantic structure:
+
+1. Left navigation rail
+2. Games / Overview breadcrumb / eyebrow
+3. Main page title: OVERVIEW
+4. Intro identity line / short portfolio introduction
+5. ROLES section
+6. Three role cards
+7. VIEW ALL ROLES action
+8. PROJECTS section
+9. Project showcase carousel
+10. VIEW ALL PROJECTS action
+11. Compact project index tabs
+12. Right portrait / identity rail
+
+Do not introduce new major content sections on this screen.
+
+
+===============================================================================
+4. OVERVIEW PAGE STRUCTURE / RECOMMENDED DOM
+===============================================================================
+
+Suggested page-level naming:
+
+    .overview
+        .overview__header
+        .overview__roles
+        .overview__projects
+
+Suggested hierarchy:
+
+ui-shell
+|
+|-- ui-shell__left-rail
+|
+|-- ui-shell__content
+|   |
+|   |-- overview
+|       |
+|       |-- overview__header
+|       |   |-- breadcrumb / eyebrow
+|       |   |-- ui-page-title
+|       |   |-- intro line / description
+|       |
+|       |-- overview__roles
+|       |   |-- section header row
+|       |   |   |-- ui-section-title
+|       |   |   |-- ui-btn ui-btn--compact ("VIEW ALL ROLES")
+|       |   |
+|       |   |-- overview__roles-grid
+|       |       |-- overview-role-card x3
+|       |
+|       |-- overview__projects
+|           |-- section header row
+|           |   |-- ui-section-title
+|           |   |-- ui-btn ui-btn--compact ("VIEW ALL PROJECTS")
+|           |
+|           |-- overview-project-showcase
+|           |   |-- ui-carousel-arrow--prev
+|           |   |-- media region
+|           |   |-- project information region
+|           |   |-- ui-carousel-arrow--next
+|           |
+|           |-- ui-index
+|
+|-- ui-shell__right-rail
+
+
+===============================================================================
+5. HEADER / OVERVIEW TITLE
+===============================================================================
+
+Approved adjustment:
+The main OVERVIEW title must be smaller than the first exploratory mockup.
+
+Goal:
+- still clearly the main page title
+- preserve dramatic plate treatment
+- reduce vertical footprint
+- leave more room for content-heavy pages using the same title family
+
+Do not scale the title until it dominates ~20%+ of the usable vertical content area.
+
+The intro text beneath should remain compact and readable.
+
+Use actual current copy unless content has been intentionally updated elsewhere.
+
+
+===============================================================================
+6. ROLES SECTION
+===============================================================================
+
+------------------------------------------------------------------------------
+6.1 OVERVIEW ROLE CARD
+------------------------------------------------------------------------------
+
+COMPONENT:
+    overview-role-card
+
+This is likely a reusable role-card family member, not a one-off.
+
+Suggested classes:
+    .role-card
+    .role-card__icon
+    .role-card__title
+    .role-card__description
+    .role-card__cta
+
+Cards:
+1. TECHNICAL GAME DESIGN
+2. LEVEL DESIGN
+3. CREATIVE LEADERSHIP
+
+Each card includes:
+- one role icon
+- role title
+- short description
+- VIEW ROLE action
+
+Approved visual treatment:
+- strong light/cream surface
+- dark outline
+- clipped upper corners / controlled angular geometry
+- subtle red underslab at bottom edge
+- compact shadow
+- red halftone accent in one corner
+- sufficient interior breathing room
+
+Grid:
+- 3 equal-width cards on canonical desktop
+- consistent heights
+- align titles and CTAs cleanly
+- do not let icon proportions distort the text layout
+
+Whole-card interaction:
+Prefer making the entire card clickable if this does not conflict with existing
+semantic/link architecture.
+
+Hover:
+- subtle lift
+- slightly stronger exposed red underside or shadow
+- no excessive animation
+
+Pressed:
+- compress slightly
+
+Keyboard:
+- whole card or CTA must show obvious focus
+
+
+===============================================================================
+7. PROJECTS SECTION
+===============================================================================
+
+------------------------------------------------------------------------------
+7.1 PROJECT SHOWCASE
+------------------------------------------------------------------------------
+
+COMPONENT:
+    overview-project-showcase
+
+Purpose:
+Feature one current project at a time while preserving existing project carousel
+data and routing.
+
+Approved layout:
+- single wide horizontal showcase
+- media on left
+- project information on right
+- previous/next arrows intersect the left and right outer panel edges
+- compact numbered project tabs below the panel
+- no duplicate textual "1 / 3" counter
+- no separate arrow row below the panel
+
+The approved design intentionally uses the project container more efficiently
+than the previous version. Avoid dead empty space on the right.
+
+Recommended desktop split:
+    media region: roughly 48-55%
+    information region: roughly 45-52%
+
+Adjust based on actual available width and content, but keep the panel balanced.
+
+Outer showcase:
+- opaque warm light surface
+- strong dark outline
+- selective clipped corners
+- dark compact shadow
+- visible red underslab / lower accent
+- cleaner interior than the surrounding shell
+
+------------------------------------------------------------------------------
+7.2 PROJECT MEDIA FRAME
+------------------------------------------------------------------------------
+
+COMPONENT:
+    ui-project-media-frame
+
+Suggested classes:
+    .project-media
+    .project-media__frame
+    .project-media__content
+    .project-media__play
+
+Visual:
+- dark/black framing
+- angular/clipped corners
+- small red corner slash accents
+- actual project media must remain the focal point
+- use REAL existing media already wired into the site
+- do not fabricate replacement screenshots
+
+If project media is video:
+- preserve current playback behavior
+- preserve existing poster/thumbnail strategy unless intentionally improved
+- keep controls accessible
+
+------------------------------------------------------------------------------
+7.3 PROJECT INFO
+------------------------------------------------------------------------------
+
+Suggested structure:
+    .project-showcase__eyebrow
+    .project-showcase__title
+    .project-showcase__description
+    .project-showcase__meta
+    .project-showcase__cta
+
+For Hollow Graves in the current example:
+- eyebrow: PROJECT SHOWCASE
+- title: HOLLOW GRAVES
+- description: use real/current description if available
+- metadata/status chip: preserve real data if available
+- CTA: VIEW PROJECT
+
+Do not invent production claims or metadata.
+
+The project CTA uses the shared ui-btn family.
+
+------------------------------------------------------------------------------
+7.4 PROJECT CAROUSEL CONTROLS
+------------------------------------------------------------------------------
+
+Previous arrow:
+    ui-carousel-arrow ui-carousel-arrow--prev
+
+Next arrow:
+    ui-carousel-arrow ui-carousel-arrow--next
+
+Position:
+- vertically centered relative to the showcase panel
+- overlap/intersect panel edge
+- do not place them in a separate control row beneath
+
+Index:
+    ui-index
+    ui-index-tab x3
+
+Approved behavior:
+- numbered project tabs remain
+- selected tab is red
+- inactive tabs are light
+- current approved mockup positions the compact index directly below the
+  showcase; center alignment is acceptable
+- do not restore the redundant "1 / 3" text counter from the old screen
+
+Behavior:
+- arrows advance / reverse the existing carousel
+- numbered tabs jump directly to a specific project
+- title/media/description/meta/CTA update together
+- preserve current wrap/clamp behavior unless the existing implementation has
+  an obvious defect
+
+Animation:
+- restrained
+- optional short content transition / crossfade / slide
+- no large theatrical motion that delays navigation
+
+
+===============================================================================
+8. RIGHT IDENTITY RAIL
+===============================================================================
+
+COMPONENT:
+    ui-identity-rail
+
+Preserve the existing right rail structure.
+
+The approved mockup anticipates a future portrait treatment:
+    ui_identity_portrait-treatment_01.webp
+
+Until the real portrait asset exists:
+- keep the current forthcoming / placeholder state
+- do not fabricate a fake portrait
+- retain the red slash / identity language
+- preserve name / media forthcoming treatment as currently appropriate
+
+When the portrait asset is eventually supplied, it should be positioned as
+artwork inside this rail, not baked together with the rail UI.
+
+
+===============================================================================
+9. DEPTH / MATERIAL LANGUAGE
+===============================================================================
+
+This is a CRITICAL change from the earlier implementation.
+
+Cards and controls should NOT look like transparent boxes floating over paper.
+
+Preferred depth:
+- warm off-white / light opaque fill
+- dark 1-2px-ish outline depending on scale
+- compact dark shadow or offset
+- optional narrow red underslab
+- shadow should communicate tactility, not float dramatically
+- consistent depth direction across components
+
+Avoid:
+- glassmorphism
+- translucent gray cards
+- huge blurred drop shadows
+- soft corporate card styling
+- large elevation differences between ordinary controls
+
+
+===============================================================================
+10. TYPOGRAPHY
+===============================================================================
+
+Preserve the existing strong condensed display identity.
+
+Hierarchy:
+PAGE TITLE:
+    largest, bold, condensed, cream on black plate
+
+SECTION TITLE:
+    large condensed, cream on red plate
+
+CARD TITLES:
+    bold condensed, dark text
+
+BODY:
+    highly legible, comparatively neutral
+    do not distress body copy
+
+EYEBROWS / LABELS:
+    uppercase
+    red or dark depending on background
+    compact tracking acceptable
+
+Avoid tiny body text.
+Do not let stylistic fonts hurt readability.
+
+
+===============================================================================
+11. COLOR SYSTEM
+===============================================================================
+
+Use existing project palette.
+
+Semantic roles:
+
+--ui-cream-bg
+    page background
+
+--ui-surface
+    opaque warm light cards/buttons
+
+--ui-black
+    outlines, dark plates, media framing
+
+--ui-red
+    primary accent / active / selected state
+
+--ui-red-dark
+    underslabs / depth accents if useful
+
+--ui-muted
+    secondary text / inactive state
+
+Codex should centralize these as CSS custom properties if the project does not
+already have equivalent tokens.
+
+Do not create slightly different reds or creams for every component.
+
+
+===============================================================================
+12. RESPONSIVE RULES
+===============================================================================
+
+Desktop:
+    composed interface
+
+Tablet / mobile:
+    normal responsive scrolling document
+
+Canonical desktop should preserve:
+- left rail
+- central composed content
+- right identity rail
+- 3-across role cards
+- horizontal project showcase
+
+As width decreases:
+1. protect readable text first
+2. allow content area to scroll vertically
+3. role cards may collapse to 2 columns then 1
+4. project showcase may stack media above info
+5. carousel arrows must remain reachable and not obscure content
+6. numbered project tabs remain accessible
+7. do not force the desktop composition into an unusable narrow viewport
+
+Do not redesign mobile into a separate visual language.
+
+
+===============================================================================
+13. ACCESSIBILITY / INTERACTION REQUIREMENTS
+===============================================================================
+
+All clickable controls:
+- use semantic links/buttons
+- keyboard operable
+- visible focus state
+- sufficient hit area
+- no interaction that depends exclusively on hover
+
+Carousel:
+- arrow buttons need aria-labels
+- numbered tabs should expose current selection with aria-current or equivalent
+- do not remove current project information from screen readers during visual
+  transitions without a replacement accessible state
+
+Contrast:
+- preserve strong text/background contrast
+- selected red states must remain readable
+
+Motion:
+- keep transitions short
+- honor prefers-reduced-motion if the project already supports it or can do so
+  cheaply
+
+
+===============================================================================
+14. IMPLEMENTATION SPLIT — CODE VS ASSET
+===============================================================================
+
+BUILD IN HTML/CSS/SVG:
+- ui-page-title geometry
+- ui-section-title geometry
+- role cards
+- project showcase panel
+- media frame geometry
+- buttons
+- clipped corners
+- borders
+- shadows
+- red underslabs
+- pagination/index tabs
+- carousel arrows
+- navigation states
+- simple role icons if SVG direction is used
+- layout
+- responsive behavior
+
+USE / PRODUCE IMAGE ASSETS ONLY FOR:
+- paper texture if not already present
+- brush strokes / slash textures
+- halftone/grunge overlays where CSS is insufficient
+- left/right shell decorative art already used by the site
+- future portrait treatment
+- any genuinely painterly/distressed role icons if we later choose raster over SVG
+
+Do not create raster panels or raster buttons.
+
+
+===============================================================================
+15. SHARED ASSET REGISTRY — INITIAL
+===============================================================================
+
+The following names are the shared vocabulary future screen TXT files should use.
+
+GLOBAL DECORATIVE:
+    ui_global_paper-cream_01
+    ui_decorative_brush-slash_red_01
+    ui_decorative_brush-edge_black_01
+    ui_decorative_halftone-dots_black_01
+    ui_decorative_halftone-dots_red_01
+
+ROLE ICONS:
+    ui_role_icon_technical-game-design
+    ui_role_icon_level-design
+    ui_role_icon_creative-leadership
+
+IDENTITY:
+    ui_identity_portrait-treatment_01   [FUTURE / NOT YET PRODUCED]
+
+PROJECT MEDIA:
+    Use existing project media by project/data identity.
+    Do not rename or duplicate media merely for this screen unless required by
+    current project architecture.
+
+IMPORTANT:
+Future screen implementation files should reference these exact semantic names
+when reusing the same assets.
+
+
+===============================================================================
+16. SHARED COMPONENT REGISTRY — INITIAL
+===============================================================================
+
+GLOBAL:
+    ui-shell
+    ui-page-title
+    ui-section-title
+    ui-surface
+    ui-btn
+
+NAVIGATION / CONTROLS:
+    ui-carousel-arrow
+    ui-index
+    ui-index-tab
+
+ROLE:
+    ui-role-icon
+    role-card
+
+PROJECT:
+    ui-project-media-frame
+
+IDENTITY:
+    ui-identity-rail
+
+OVERVIEW-SPECIFIC COMPOSITIONS:
+    overview__roles-grid
+    overview-project-showcase
+
+Do not create a new component name when an existing shared component plus a
+modifier can express the same pattern.
+
+
+===============================================================================
+17. SCREEN-SPECIFIC APPROVED DECISIONS
+===============================================================================
+
+LOCKED FOR THIS IMPLEMENTATION:
+
+1. Main page title is smaller / more compact than first exploratory mockup.
+
+2. Each role card has its own role icon.
+
+3. Role cards use stronger opacity and depth against the paper background.
+
+4. Project showcase uses horizontal space efficiently; avoid dead right-side
+   space.
+
+5. Previous/next project arrows sit directly on the left/right sides of the
+   showcase panel.
+
+6. Remove the old separate bottom arrow row.
+
+7. Remove the redundant textual current-slide counter ("1 / 3").
+
+8. Keep compact numbered project index tabs.
+
+9. Buttons / panels should feel materially separate from the page through solid
+   light surfaces, outline, compact shadow, and controlled red underslabs.
+
+10. Preserve the left rail and right identity rail.
+
+11. Preserve the existing content hierarchy and functionality.
+
+
+===============================================================================
+18. DO NOT BREAK
+===============================================================================
+
+Before considering the screen finished, verify:
+
+- Overview route still loads correctly.
+- Left rail navigation still works.
+- Role links still navigate correctly.
+- View All Roles works.
+- View All Projects works.
+- Project carousel arrows work.
+- Project index tabs work.
+- Project content changes as one synchronized unit.
+- View Project points to the correct project.
+- Existing project media still loads and plays correctly.
+- Keyboard navigation works.
+- Responsive layout does not overflow.
+- Right identity rail remains intact.
+- Existing data architecture is reused rather than duplicated.
+
+
+===============================================================================
+19. ACCEPTANCE CHECKLIST
+===============================================================================
+
+VISUAL:
+[ ] Main title is compact and does not consume excessive height.
+[ ] Section title plates match one shared family.
+[ ] Three role cards feel tactile and substantial.
+[ ] Role icons are present and visually coherent.
+[ ] Cards use opaque light surfaces rather than transparency.
+[ ] Shadows are compact and consistent.
+[ ] Red underslabs are controlled, not excessive.
+[ ] Project showcase is balanced with no large dead area.
+[ ] Arrows overlap the left/right showcase edges.
+[ ] Only one compact numbered project index is present.
+[ ] No redundant "1 / 3" text counter exists.
+[ ] Body copy remains clean and highly readable.
+[ ] Page still feels like the existing portfolio, not a new unrelated design.
+
+FUNCTIONAL:
+[ ] No routing regressions.
+[ ] No carousel regression.
+[ ] No media regression.
+[ ] No broken role/project links.
+[ ] Keyboard focus is visible.
+[ ] Responsive behavior remains usable.
+[ ] Existing real data/media are used.
+
+ARCHITECTURE:
+[ ] Shared components use the nomenclature in this file.
+[ ] Shared assets use the nomenclature in this file.
+[ ] No ordinary UI geometry is exported as PNG unnecessarily.
+[ ] No duplicate screen-specific asset is created where a shared one exists.
+
+
+===============================================================================
+20. FINAL IMPLEMENTATION INTENT
+===============================================================================
+
+The final screen should look visually authored and game-like, but its internal
+construction should remain ordinary, maintainable web UI:
+
+    strong art direction
+    + reusable CSS geometry
+    + restrained shared decorative assets
+    + existing site functionality
+    + clear interaction states
+
+High apparent visual complexity should NOT become high code complexity.
+
+END OF SPEC

@@ -1,0 +1,668 @@
+PORTFOLIO SITE — SCREEN IMPLEMENTATION SPEC
+SCREEN: GAMES / PROJECT DETAIL
+REFERENCE PROJECT: HOLLOW GRAVES
+STATUS: APPROVED FOR IMPLEMENTATION
+DOCUMENT TYPE: CODEX IMPLEMENTATION CONTRACT
+VERSION: 1.0
+
+===============================================================================
+0. PURPOSE
+===============================================================================
+
+This file defines the approved Project Detail screen family.
+
+Reference implementation shown in the approved mockup:
+    HOLLOW GRAVES
+
+The same structure must support:
+    HOLLOW GRAVES
+    REDITUS UMBRAE
+    DREADWOODS
+
+This is NOT a redesign request.
+This is NOT permission to invent project data, media, claims, or new sections.
+This is NOT permission to fork the site's established UI system.
+
+Inherit the shared design system and component nomenclature from:
+    SCREEN_OVERVIEW_IMPLEMENTATION.txt
+    SCREEN_PROJECTS_OVERVIEW_IMPLEMENTATION.txt
+
+Where an approved Project Detail mockup exists in the repository, use it as the
+primary visual reference together with this file.
+
+
+===============================================================================
+1. CORE DESIGN PRINCIPLE
+===============================================================================
+
+Project Detail is where the established system becomes more tactile.
+
+Formula:
+    GUILTY GEAR AROUND THE COMPONENTS
+    + NINTENDO-LIKE CLARITY / TACTILITY INSIDE THE COMPONENTS
+
+This means:
+- expressive shell / rails / edge decoration
+- strong black/red headings
+- chunky tactile panels
+- layered depth
+- obvious action zones
+- clean readable interiors
+- standard media geometry
+- minimal ambiguity
+
+Do NOT:
+- turn media into trapezoids or irregular crops
+- distort screenshots/video to fit decorative framing
+- use flat bordered rectangles as the only panel treatment
+- invent giant poster-like composition changes
+- create excessive bespoke polygon shapes
+- add genre chips unless project data actually provides them
+- add descriptive sections not present in the existing project structure
+- place redundant carousel arrows below media
+- place dot indicators below the screenshot carousel
+
+
+===============================================================================
+2. SHARED COMPONENTS — INHERIT
+===============================================================================
+
+GLOBAL:
+    ui-shell
+    ui-page-title
+    ui-section-title
+    ui-surface
+    ui-btn
+
+CONTROLS:
+    ui-carousel-arrow
+    ui-index
+    ui-index-tab
+
+PROJECT:
+    project-card
+    ui-project-media-frame
+    ui-project-rail
+
+IDENTITY / NAV:
+    existing left navigation rail
+    existing right contextual rail behavior
+
+No duplicate local versions of these components should be created.
+
+
+===============================================================================
+3. NEW SHARED COMPONENTS INTRODUCED HERE
+===============================================================================
+
+COMPONENT:
+    project-detail-panel
+
+Purpose:
+    Tactile, layered content panel used for "THE GAME" and "PLAYABLE BUILD".
+
+Suggested classes:
+    .project-detail-panel
+    .project-detail-panel__header
+    .project-detail-panel__body
+    .project-detail-panel__footer
+    .project-detail-panel__action
+    .project-detail-panel__status
+
+Visual:
+- cream/off-white body
+- strong black header plate
+- narrow red header accent
+- angular but controlled silhouette
+- compact black shadow
+- thin red underslab / exposed accent where useful
+- clean internal spacing
+- layered depth rather than one flat rectangle
+
+Implementation:
+    HTML/CSS
+
+-------------------------------------------------------------------------------
+
+COMPONENT:
+    project-media-panel
+
+Purpose:
+    Reusable framed container for project video and still gallery media.
+
+Suggested classes:
+    .project-media-panel
+    .project-media-panel__frame
+    .project-media-panel__media
+    .project-media-panel__controls
+    .project-media-panel__nav
+
+Visual:
+- standard media rectangle inside
+- cream physical outer frame
+- black outline
+- compact shadow
+- restrained red corner/depth accents
+- do not distort media aspect ratio
+
+Implementation:
+    HTML/CSS + real project media
+
+
+===============================================================================
+4. PAGE STRUCTURE
+===============================================================================
+
+Canonical desktop layout:
+
+ui-shell
+|
+|-- left navigation rail
+|
+|-- main content
+|   |
+|   |-- project detail header
+|   |   |-- breadcrumb
+|   |   |-- project title
+|   |
+|   |-- project detail grid
+|       |
+|       |-- LEFT COLUMN
+|       |   |-- gameplay/video media panel
+|       |   |-- screenshot/gallery media panel
+|       |   |-- project index tabs centered below screenshot panel
+|       |
+|       |-- RIGHT COLUMN
+|           |-- THE GAME panel
+|           |-- PLAYABLE BUILD panel
+|
+|-- ui-project-rail
+
+
+===============================================================================
+5. HEADER
+===============================================================================
+
+Breadcrumb:
+    GAMES / PROJECTS / [PROJECT NAME]
+
+Project title:
+    [PROJECT NAME]
+
+Reference:
+    HOLLOW GRAVES
+
+Approved visual:
+- black slanted title plate
+- cream/white project title
+- NO extra red text inside title plate
+- no subtitle text directly beneath the title
+- keep header compact enough to preserve the two-row content grid
+
+Do not reintroduce:
+    "Project showcase."
+
+The project title uses the shared ui-page-title family, adapted for Project Detail.
+
+
+===============================================================================
+6. GAMEPLAY / VIDEO PANEL
+===============================================================================
+
+Use:
+    project-media-panel
+
+CRITICAL MEDIA RULE:
+The video itself remains a STANDARD 16:9 rectangle.
+
+The decorative frame surrounds it.
+The frame must not crop the video into a trapezoid.
+
+Reference behavior:
+- real gameplay video / poster
+- normal video controls
+- standard playback interaction
+- no fake custom controls if native/current controls are already functional
+
+Frame:
+- tactile cream frame
+- black outline
+- compact shadow
+- restrained red edge accents
+- slightly more elaborate than ordinary content panels
+- still structurally clean
+
+Do not add carousel arrows to this video panel unless the existing media data
+actually requires multiple videos.
+
+
+===============================================================================
+7. THE GAME PANEL
+===============================================================================
+
+Use:
+    project-detail-panel
+
+Header:
+    THE GAME
+
+Body:
+- continuous explanatory project text
+- use real project copy/data
+- body stays clean and readable
+- do not create unnecessary internal cards
+- do not add invented metadata
+
+Optional:
+A small status / placeholder chip may remain only while real content is absent.
+
+Primary action:
+    DESIGNING INVESTIGATION IN HOLLOW GRAVES →
+or equivalent project-specific case-study CTA from real data.
+
+CTA construction:
+- large tactile cream/light button
+- dark outline
+- integrated red arrow housing on the right
+- obvious hover / focus / pressed states
+- action zone visually distinct from body copy
+
+The CTA is a reusable ui-btn variant, not a baked image.
+
+
+===============================================================================
+8. SCREENSHOT / GALLERY PANEL
+===============================================================================
+
+Use:
+    project-media-panel
+
+CRITICAL MEDIA RULE:
+Displayed screenshot remains a STANDARD landscape rectangle.
+
+Preferred:
+    16:9 or the image's native landscape ratio
+    without decorative distortion
+
+Navigation:
+- LEFT arrow button vertically centered on left side of displayed image
+- RIGHT arrow button vertically centered on right side of displayed image
+- arrows overlap/intersect the frame edge
+- use shared ui-carousel-arrow family
+
+Approved removals:
+- no external bottom previous/next arrows
+- no "1 / 3" textual counter below
+- no three-dot indicator row under the image
+
+Project index tabs:
+- 1 / 2 / 3 remain
+- centered horizontally beneath the screenshot frame
+- selected tab red
+- inactive tabs light/cream
+- reuse ui-index / ui-index-tab
+
+If the screenshot gallery count differs by project, generate tabs from real data.
+
+
+===============================================================================
+9. PLAYABLE BUILD PANEL
+===============================================================================
+
+Use:
+    project-detail-panel
+
+Header:
+    PLAYABLE BUILD
+
+Approved tactile structure:
+
+1. Header plate
+2. Status strip
+3. Primary download button
+4. Provider strip
+5. De-emphasized footer note
+
+Status strip:
+    "Playable build available."
+    or real project-specific equivalent
+
+Primary action:
+    DOWNLOAD BUILD
+
+Button:
+- large saturated red primary action
+- download icon
+- arrow affordance on right
+- chunky tactile shape
+- strong hover / pressed response
+- full-width inside panel
+
+Provider strip:
+    e.g. Google Drive
+
+Visual:
+- light inset strip
+- provider icon + label
+- secondary hierarchy beneath primary CTA
+
+Footer:
+    evaluation / distribution terms
+    visually subdued
+    small info icon acceptable
+
+Do not make the provider row compete with the primary CTA.
+
+
+===============================================================================
+10. RIGHT PROJECT CONTEXT RAIL
+===============================================================================
+
+Reuse:
+    ui-project-rail
+
+Items:
+    OVERVIEW
+    HOLLOW GRAVES
+    REDITUS UMBRAE
+    DREADWOODS
+
+Selected:
+    current project uses red marker
+    stronger text treatment
+
+Project Detail must reuse the SAME rail family approved in Projects Overview.
+
+
+===============================================================================
+11. LAYOUT / PROPORTIONS
+===============================================================================
+
+Desktop composition:
+- fixed left navigation rail
+- central content field
+- fixed/narrow right project rail
+
+Reference shell proportions at canonical 1434×913:
+    left rail: ~251 px
+    content: ~1049 px
+    right contextual rail: ~134 px
+
+Treat these as approximate layout intent, not rigid pixel locks.
+
+Within the central content:
+- two columns
+- left column is media-dominant
+- right column is information/action-dominant
+- two rows
+- top row: video + The Game
+- bottom row: screenshot gallery + Playable Build
+
+The screen should fit the desktop viewport when practical.
+
+
+===============================================================================
+12. DEPTH / NINTENDO-LIKE TACTILITY
+===============================================================================
+
+This screen must NOT fall back to flat white rectangles.
+
+Each panel should feel assembled from layers:
+
+    base card
+    + raised header plate
+    + clean body
+    + inset strip / action zone where needed
+    + compact shadow
+    + red depth accent
+
+Use:
+- chunky readable surfaces
+- obvious internal grouping
+- stronger button affordances
+- physical hover / pressed feedback
+- clean, friendly spacing
+- mild corner clipping / bevel-like construction
+
+Do not:
+- use glassmorphism
+- use large blurred shadows
+- overcomplicate every edge
+- create ornamental borders that interfere with media or text
+
+
+===============================================================================
+13. DECORATIVE LANGUAGE
+===============================================================================
+
+Keep expressive decoration around the components:
+- paper texture
+- red brush marks
+- halftone
+- black distressed side art
+- restrained project-specific decorative silhouette
+
+Do not let decorative artwork replace functional layout.
+
+The upper-right gothic silhouette used in the Hollow Graves mockup may use:
+    ui_decorative_architecture-gothic_01
+
+This decorative asset is optional for implementation and must not block layout.
+
+
+===============================================================================
+14. IMPLEMENTATION SPLIT
+===============================================================================
+
+BUILD IN HTML/CSS/SVG:
+- panel frames
+- header plates
+- shadows
+- bevel-like geometry
+- CTA shapes
+- arrow housings
+- provider/status strips
+- pagination
+- project rail
+- all typography
+- interactive states
+- responsive layout
+
+USE IMAGE / VIDEO ASSETS FOR:
+- real gameplay video
+- real screenshots
+- decorative architecture silhouette
+- paper / brush / halftone assets where asset-backed
+
+DO NOT RASTERIZE:
+- THE GAME panel
+- PLAYABLE BUILD panel
+- media frames
+- buttons
+- carousel arrows
+- pagination
+- title plate
+- project rail
+
+
+===============================================================================
+15. INTERACTIONS
+===============================================================================
+
+Panels:
+- no hover unless panel itself is interactive
+
+Buttons:
+REST:
+    clear physical depth
+
+HOVER:
+    slight lift / stronger edge / arrow emphasis
+
+PRESSED:
+    subtle compression / reduced shadow
+
+FOCUS:
+    obvious keyboard-visible focus
+
+Gallery arrows:
+- semantic buttons
+- aria-label previous / next
+- vertically centered on media
+- large hit area
+
+Index tabs:
+- semantic buttons/links
+- current item exposed programmatically
+
+
+===============================================================================
+16. RESPONSIVE BEHAVIOR
+===============================================================================
+
+Desktop:
+    composed two-column / two-row layout
+
+Tablet:
+    allow grid to compress
+    media remains standard ratio
+    panels remain readable
+    right rail may simplify based on existing responsive system
+
+Mobile:
+    normal vertical document flow
+    stack sections in logical order:
+        title
+        video
+        The Game
+        gallery
+        gallery index
+        Playable Build
+
+Do not preserve desktop frame proportions by shrinking content into unreadability.
+
+
+===============================================================================
+17. APPROVED PROJECT DETAIL DECISIONS
+===============================================================================
+
+LOCKED:
+
+1. Project Detail uses the existing site structure rather than a new page
+   architecture.
+
+2. Gameplay video remains standard landscape / 16:9.
+
+3. Screenshot/gallery image remains standard landscape geometry.
+
+4. Media frames can be tactile and angular, but must NOT distort media.
+
+5. The screen uses the stronger Nintendo-like tactile construction:
+   layered physical panels, raised header plates, clear internal zones, and
+   chunky interaction surfaces.
+
+6. The overall shell remains Guilty Gear/editorial in intensity.
+
+7. Project title sits on a black title plate with cream text.
+
+8. Remove the subtitle text directly beneath the project title.
+
+9. THE GAME uses a clean explanatory body and a large case-study CTA.
+
+10. PLAYABLE BUILD uses:
+       status strip
+       large red download CTA
+       provider strip
+       subdued footer note
+
+11. Gallery arrows remain on the LEFT and RIGHT sides of the displayed image.
+
+12. Remove bottom external previous/next arrows.
+
+13. Remove textual gallery counter such as "1 / 3".
+
+14. Remove the three-dot gallery indicators.
+
+15. Keep 1 / 2 / 3 index tabs centered beneath the screenshot panel.
+
+16. Keep the right Projects rail with current project highlighted.
+
+17. Reuse real media and real project data.
+
+18. Same component system must support Hollow Graves, Reditus Umbrae, and
+    Dreadwoods.
+
+
+===============================================================================
+18. DO NOT BREAK
+===============================================================================
+
+[ ] Project routes still work.
+[ ] Right project rail navigation still works.
+[ ] Video playback still works.
+[ ] Video keeps standard aspect ratio.
+[ ] Screenshot media keeps standard aspect ratio.
+[ ] Gallery side arrows work.
+[ ] Gallery index tabs work.
+[ ] Current gallery index stays synchronized.
+[ ] Case study CTA navigates correctly.
+[ ] Download Build link remains correct.
+[ ] Provider/link metadata remains correct.
+[ ] Responsive layout remains usable.
+[ ] No duplicate bottom arrows remain.
+[ ] No gallery dot indicator row remains.
+[ ] No "1 / 3" counter remains.
+[ ] No subtitle under project title remains.
+
+
+===============================================================================
+19. ACCEPTANCE CHECKLIST
+===============================================================================
+
+VISUAL:
+[ ] Project Detail clearly inherits Overview / Projects Overview.
+[ ] Panels feel tactile and layered rather than flat.
+[ ] Video is standard landscape geometry.
+[ ] Screenshot is standard landscape geometry.
+[ ] Media frames are strong but do not alter content ratio.
+[ ] Header plates are coherent across THE GAME and PLAYABLE BUILD.
+[ ] Red is used for action / selection / controlled depth.
+[ ] CTA construction feels chunky and obvious.
+[ ] Gallery arrows overlap the media frame sides.
+[ ] Numbered tabs are centered under screenshot frame.
+[ ] Decorative art stays peripheral.
+[ ] Page fits desktop composition cleanly.
+
+FUNCTIONAL:
+[ ] Video functional.
+[ ] Gallery functional.
+[ ] Case study link functional.
+[ ] Download build functional.
+[ ] Project rail functional.
+[ ] Keyboard focus visible.
+[ ] Responsive behavior usable.
+
+ARCHITECTURE:
+[ ] project-detail-panel is reusable.
+[ ] project-media-panel is reusable.
+[ ] ui-project-rail reused.
+[ ] ui-index / ui-index-tab reused.
+[ ] ui-carousel-arrow reused.
+[ ] Existing data drives project-specific copy/media/links.
+[ ] No unnecessary raster UI geometry.
+
+
+===============================================================================
+20. FINAL IMPLEMENTATION INTENT
+===============================================================================
+
+Project Detail should feel like a polished game menu built around real portfolio
+content.
+
+The shell supplies aggression and identity.
+The components supply clarity and tactility.
+The media remains conventional and undistorted.
+The interactions are obvious.
+The structure remains reusable across all three projects.
+
+END OF SPEC

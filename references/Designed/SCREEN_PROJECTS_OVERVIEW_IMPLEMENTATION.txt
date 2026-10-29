@@ -1,0 +1,882 @@
+PORTFOLIO SITE — SCREEN IMPLEMENTATION SPEC
+SCREEN: GAMES / PROJECTS OVERVIEW
+STATUS: APPROVED FOR IMPLEMENTATION
+DOCUMENT TYPE: CODEX IMPLEMENTATION CONTRACT
+VERSION: 1.0
+
+===============================================================================
+0. PURPOSE OF THIS FILE
+===============================================================================
+
+This file defines how Codex should assemble the approved Games / Projects
+Overview screen.
+
+This is NOT a redesign request.
+This is NOT permission to alter the existing information architecture.
+This is NOT permission to invent new project content or media.
+
+The implementation must preserve the site's current routing, project links,
+responsive behavior, navigation rails, and project identities while recreating
+the approved visual composition.
+
+IMPORTANT:
+This file belongs to the same implementation system as:
+
+    SCREEN_OVERVIEW_IMPLEMENTATION.txt
+
+Reuse the SAME shared component names, CSS architecture, asset nomenclature,
+design tokens, and interaction rules established there.
+
+Do NOT create duplicate local versions of shared UI components if the same
+component already exists.
+
+If the approved Projects Overview mockup is stored in the repository, treat it
+as the primary visual reference together with this document.
+
+
+===============================================================================
+1. SHARED DESIGN LANGUAGE — INHERIT FROM OVERVIEW
+===============================================================================
+
+North-star:
+    GUILTY GEAR INTENSITY + NINTENDO-LIKE CLARITY / TACTILITY
+
+Core principle:
+    EXPRESSIVE SHELL -> DISCIPLINED INTERFACE
+
+Inherit without redesigning:
+
+    ui-shell
+    ui-page-title
+    ui-section-title
+    ui-surface
+    ui-btn
+    ui-carousel-arrow
+    ui-index
+    ui-index-tab
+    ui-identity-rail / right contextual rail behavior where relevant
+
+Also inherit the same:
+- cream / black / saturated red palette
+- condensed display typography
+- paper background
+- halftone / brush visual language
+- clipped-corner geometry
+- compact shadows
+- red underslabs
+- tactile hover / pressed states
+- responsive philosophy
+- accessibility rules
+- asset folder/naming conventions
+
+DO NOT introduce a separate visual system for this screen.
+
+
+===============================================================================
+2. SCREEN PURPOSE
+===============================================================================
+
+This screen is the PROJECTS OVERVIEW.
+
+Its purpose is to:
+- present the three primary projects immediately
+- make project identity strongly visual
+- let the user enter any project directly
+- preserve the contextual right-side project index
+- serve as the visual gateway into project detail pages
+
+This screen is NOT:
+- the general Games landing page
+- a case study hub
+- an About Me page
+- a long project description page
+- a video overview page
+
+Do NOT add Case Studies or About Me shortcut panels here.
+
+
+===============================================================================
+3. APPROVED CONTENT HIERARCHY
+===============================================================================
+
+Desktop hierarchy:
+
+1. Left persistent navigation rail
+2. Games / Projects breadcrumb / eyebrow
+3. Main page title: GAME PROJECTS
+4. Compact page subtitle
+5. Three large project cards
+6. Left / right carousel-style edge controls if retained by existing behavior
+7. Compact numbered project index
+8. Right contextual project rail
+
+Projects:
+
+1. HOLLOW GRAVES
+2. REDITUS UMBRAE
+3. DREADWOODS
+
+
+===============================================================================
+4. APPROVED REMOVALS
+===============================================================================
+
+The following elements from the current live page are intentionally REMOVED:
+
+- top-right Projects Overview video
+- WATCH OVERVIEW button
+- FEATURED PROJECT heading
+- single large featured-project showcase panel
+- descriptive project paragraph beneath each project card
+- duplicate lower carousel counter text such as "1 / 3"
+- Case Studies shortcut panel
+- About Me shortcut panel
+
+Do NOT preserve these simply because they exist in the current screen.
+
+The approved redesign replaces the old featured-project structure with three
+large visual project cards visible simultaneously on canonical desktop.
+
+
+===============================================================================
+5. PAGE TITLE / HEADER
+===============================================================================
+
+Reuse:
+    ui-page-title
+
+Content:
+    eyebrow / breadcrumb: GAMES / PROJECTS
+    title: GAME PROJECTS
+
+Subtitle direction:
+    short one-line statement only
+
+Approved example:
+    Original projects and prototypes in game design, systems and production.
+
+Use the real finalized copy if it exists elsewhere in the project.
+
+Visual:
+- same black angular page-title plate family established in Overview
+- cream/off-white title
+- red slash / depth accent
+- horizontal continuation rule acceptable
+- keep title compact enough to preserve the three-card composition below
+
+Do not enlarge the title beyond the shared ui-page-title scale.
+
+
+===============================================================================
+6. NEW SHARED COMPONENT — PROJECT CARD
+===============================================================================
+
+COMPONENT:
+    project-card
+
+This is a NEW reusable shared component family.
+
+It should later be reusable anywhere a project requires a visually dominant
+entry card, including possible future navigation / selection surfaces.
+
+Suggested classes:
+
+    .project-card
+    .project-card__media
+    .project-card__frame
+    .project-card__title-band
+    .project-card__title
+    .project-card__cta
+    .project-card__categories
+    .project-card__accent
+    .project-card__halftone
+
+State modifiers:
+
+    .project-card.is-featured
+    .project-card.is-hover
+    .project-card.is-focus
+    .project-card.is-pressed
+    .project-card.is-selected
+
+Canonical desktop composition:
+    3 cards visible simultaneously
+
+Card identity:
+- large project artwork dominates
+- black diagonal title band overlaps lower media area
+- project name in large cream condensed type
+- compact arrow CTA integrated into title region
+- broad category line only beneath
+- no descriptive paragraph
+- strong outline
+- selective angular/clipped geometry
+- compact physical shadow
+- optional red underlayer / offset
+- restrained halftone accent near bottom edge
+
+The cards should feel like designed game-selection objects, but must remain
+clearly portfolio project links rather than imitation character-select cards.
+
+
+===============================================================================
+7. PROJECT CARD CONTENT
+===============================================================================
+
+------------------------------------------------------------------------------
+7.1 HOLLOW GRAVES
+------------------------------------------------------------------------------
+
+Title:
+    HOLLOW GRAVES
+
+Approved broad categories:
+    HORROR · EXPLORATION · SCI-FI
+
+Use real project artwork already available in the project if possible.
+
+Visual accent:
+    Hollow Graves may use the red-selected/featured treatment in the approved
+    mockup, but this must not imply the other cards are disabled.
+
+------------------------------------------------------------------------------
+7.2 REDITUS UMBRAE
+------------------------------------------------------------------------------
+
+Title:
+    REDITUS UMBRAE
+
+Approved broad categories:
+    ACTION · COMBAT · DARK FANTASY
+
+Use real Reditus artwork/media where available.
+
+------------------------------------------------------------------------------
+7.3 DREADWOODS
+------------------------------------------------------------------------------
+
+Title:
+    DREADWOODS
+
+Approved broad categories:
+    EXPLORATION · SURVIVAL · FOLK HORROR
+
+Use real Dreadwoods artwork/media where available.
+
+------------------------------------------------------------------------------
+7.4 IMPORTANT CONTENT RULE
+------------------------------------------------------------------------------
+
+DO NOT place a small descriptive paragraph beneath the category line.
+
+The approved card structure is:
+
+    MEDIA
+    TITLE BAND + CTA
+    BROAD CATEGORY LINE
+
+That is all.
+
+The categories should act as the fast-reading descriptor.
+
+If real project taxonomy later changes, update the category line from project
+data rather than hardcoding visual-only copy in multiple places.
+
+
+===============================================================================
+8. PROJECT CARD MEDIA
+===============================================================================
+
+Use REAL existing project media / artwork.
+
+Do NOT:
+- fabricate screenshots
+- generate replacement art inside the implementation
+- use random stock imagery
+- bake title text directly into the artwork
+- create separate duplicate copies only for this screen unless technically needed
+
+Recommended image behavior:
+- cover fit
+- preserve key subject focal point
+- allow per-project object-position tuning if needed
+- use responsive art direction only if already supported or genuinely useful
+
+Card media should occupy the majority of the card height.
+
+
+===============================================================================
+9. PROJECT CARD GEOMETRY
+===============================================================================
+
+Each card should use the shared surface/depth language but be more expressive
+than ordinary role cards.
+
+Visual grammar:
+- slight individual rotation / skew is acceptable
+- controlled irregularity
+- strong straight edges remain dominant
+- no excessive polygon complexity
+- one or two clipped corners maximum
+- outer white/cream edge
+- black outline
+- compact black shadow
+- thin red offset/underslab as accent
+- project image framed cleanly
+
+Suggested desktop styling:
+- cards approximately equal width
+- center card may sit slightly differently in angle than left/right
+- cards visually overlap the expressive background without overlapping each other
+- maintain readable spacing between cards
+
+The differences in angle should feel authored, not random.
+
+Implement rotation/skew via CSS transforms, not rasterized frames.
+
+
+===============================================================================
+10. TITLE BAND
+===============================================================================
+
+COMPONENT PART:
+    project-card__title-band
+
+Implementation:
+    HTML/CSS
+
+Visual:
+- black angular / diagonal band
+- overlays lower portion of image
+- large cream title
+- integrated CTA arrow housing near right edge
+- red active/featured CTA for Hollow Graves in the approved reference
+- light/cream CTA housing for non-selected cards
+
+Do NOT bake title text into the image asset.
+
+The project title must remain semantic HTML text.
+
+
+===============================================================================
+11. PROJECT CTA
+===============================================================================
+
+Use the shared button/control language.
+
+Suggested:
+    project-card__cta
+    built from ui-btn principles
+
+Visual:
+- compact square/angled arrow control
+- strong contrast
+- red variant for emphasized/selected project
+- light variant for ordinary card
+- physically integrated into title band
+
+Behavior:
+Preferred:
+    entire project-card is clickable
+
+The arrow should reinforce affordance, not be the only clickable area.
+
+If whole-card linking conflicts with nested interactive semantics, use a single
+stretched-link pattern or equivalent clean implementation.
+
+Accessibility:
+- semantic anchor
+- visible keyboard focus
+- aria-label where needed
+- avoid nested anchors/buttons
+
+
+===============================================================================
+12. CARD INTERACTION
+===============================================================================
+
+REST:
+- compact shadow
+- strong frame
+- no unnecessary animation
+
+HOVER:
+- slight lift / translateY
+- tiny increase in rotation confidence or reduced paper contact
+- shadow becomes slightly more visible
+- red accent may expose slightly more
+- CTA may shift a few pixels or strengthen contrast
+
+FOCUS:
+- visible focus ring/frame that fits the existing visual system
+
+PRESSED:
+- slight compression
+- reduced shadow offset
+
+Selected/current:
+- only use selected state where meaningful
+- do not make unselected cards appear unavailable
+
+Motion:
+- short and tactile
+- no long cinematic transitions
+- respect prefers-reduced-motion
+
+
+===============================================================================
+13. PROJECTS GRID / COMPOSITION
+===============================================================================
+
+NEW SCREEN-SPECIFIC COMPOSITION:
+    projects-overview__grid
+
+Suggested structure:
+
+    .projects-overview
+        .projects-overview__header
+        .projects-overview__grid
+            .project-card
+            .project-card
+            .project-card
+        .projects-overview__controls
+
+Canonical desktop:
+- 3 cards visible
+- cards dominate screen
+- header compact above them
+- no secondary content row beneath
+
+Card relative scale:
+- large enough to make artwork immediately legible
+- do not shrink cards merely to create extra whitespace
+- fill the central content field efficiently
+
+The approved page should feel visually full but not cramped.
+
+
+===============================================================================
+14. CAROUSEL / EDGE CONTROLS
+===============================================================================
+
+Reuse:
+    ui-carousel-arrow
+
+Approved visual reference includes:
+    previous arrow at left side of card group
+    next arrow at right side of card group
+
+These may continue to map onto existing project-selection / carousel logic if
+that behavior exists and remains useful.
+
+Important:
+On canonical desktop, all three projects are already visible.
+
+Therefore arrows should NOT hide the fact that all three are directly clickable.
+
+Acceptable uses:
+- move current selection
+- shift focus/active project
+- support smaller responsive widths
+- preserve existing project-carousel mechanics
+
+Do NOT make the desktop grid unnecessarily scroll one card at a time if all
+three already fit cleanly.
+
+If the existing architecture expects carousel state, preserve it without
+visually compromising the 3-card layout.
+
+
+===============================================================================
+15. NUMBERED INDEX
+===============================================================================
+
+Reuse:
+    ui-index
+    ui-index-tab
+
+Approved:
+- compact 1 / 2 / 3 index at lower-right of central content area
+- selected/current index filled red
+- inactive tabs cream/light
+- dark border
+- tactile depth
+
+Do NOT add separate textual "1 / 3" counters.
+
+If the numbered index and right contextual rail both reflect project selection,
+keep them synchronized.
+
+
+===============================================================================
+16. RIGHT CONTEXTUAL PROJECT RAIL
+===============================================================================
+
+Preserve the existing project context rail.
+
+Suggested shared name:
+    ui-project-rail
+
+If this component does not yet exist as a named reusable component, establish it
+now rather than treating it as Projects Overview-only.
+
+Suggested classes:
+    .ui-project-rail
+    .ui-project-rail__title
+    .ui-project-rail__track
+    .ui-project-rail__item
+    .ui-project-rail__marker
+
+Items:
+    OVERVIEW
+    HOLLOW GRAVES
+    REDITUS UMBRAE
+    DREADWOODS
+
+Selected state:
+- red marker
+- stronger text
+- maintain the vertical track
+- clear but compact
+
+Use the same rail later on Project Detail screens.
+
+Implementation:
+    HTML/CSS
+
+Do NOT rasterize the rail.
+
+
+===============================================================================
+17. DECORATIVE BACKGROUND
+===============================================================================
+
+The approved mockup includes:
+- red brush slashes
+- halftone fields
+- cream paper texture
+- dark/black distressed edge art
+- a gothic / architectural silhouette near upper-right
+
+IMPORTANT:
+The architectural silhouette is decorative only.
+
+If a suitable real shared decorative asset already exists:
+    reuse it.
+
+If not:
+    treat it as optional visual artwork to be produced separately.
+
+Suggested asset name if produced:
+    ui_decorative_architecture-gothic_01.webp
+
+Do NOT block implementation on this asset.
+
+The functional UI must remain complete without it.
+
+Use shared existing assets wherever possible:
+
+    ui_global_paper-cream_01
+    ui_decorative_brush-slash_red_01
+    ui_decorative_brush-edge_black_01
+    ui_decorative_halftone-dots_black_01
+    ui_decorative_halftone-dots_red_01
+
+
+===============================================================================
+18. IMPLEMENTATION SPLIT — CODE VS ASSET
+===============================================================================
+
+BUILD IN HTML/CSS/SVG:
+- page title plate
+- project cards
+- card borders
+- clipped corners
+- card transforms/rotation
+- title bands
+- category strips
+- CTA arrows
+- shadows
+- red underlayers
+- carousel edge controls
+- numbered index
+- right project rail
+- all typography
+- all interaction states
+- responsive layout
+
+USE IMAGE ASSETS FOR:
+- real project artwork/media
+- paper texture if already asset-backed
+- brush textures
+- halftone overlays where CSS is insufficient
+- gothic architectural decorative silhouette if produced
+- persistent shell artwork
+
+DO NOT rasterize:
+- project card frames
+- title bands
+- arrows
+- category strips
+- page title geometry
+- pagination
+- right rail
+
+
+===============================================================================
+19. SHARED COMPONENT REGISTRY — ADDITIONS
+===============================================================================
+
+INHERITED FROM SCREEN_OVERVIEW_IMPLEMENTATION.txt:
+
+GLOBAL:
+    ui-shell
+    ui-page-title
+    ui-section-title
+    ui-surface
+    ui-btn
+
+CONTROLS:
+    ui-carousel-arrow
+    ui-index
+    ui-index-tab
+
+ROLE:
+    ui-role-icon
+    role-card
+
+PROJECT:
+    ui-project-media-frame
+
+IDENTITY:
+    ui-identity-rail
+
+NEW SHARED COMPONENTS INTRODUCED HERE:
+
+PROJECT:
+    project-card
+    ui-project-rail
+
+SCREEN-SPECIFIC COMPOSITION:
+    projects-overview__grid
+
+Do NOT invent alternate names for these in future screen specs unless the
+component genuinely changes category/function.
+
+
+===============================================================================
+20. SHARED ASSET REGISTRY — ADDITIONS
+===============================================================================
+
+INHERIT EXISTING ASSET NAMES:
+
+    ui_global_paper-cream_01
+    ui_decorative_brush-slash_red_01
+    ui_decorative_brush-edge_black_01
+    ui_decorative_halftone-dots_black_01
+    ui_decorative_halftone-dots_red_01
+    ui_identity_portrait-treatment_01
+
+OPTIONAL NEW SHARED DECORATIVE ASSET:
+
+    ui_decorative_architecture-gothic_01
+
+PROJECT ART:
+Use existing project media by project/data identity.
+
+If a project-card-specific hero image becomes necessary, use semantic names:
+
+    project_hollow-graves_card-hero_01
+    project_reditus-umbrae_card-hero_01
+    project_dreadwoods_card-hero_01
+
+Only create these if a dedicated crop/export is genuinely needed.
+Do not duplicate existing suitable images unnecessarily.
+
+
+===============================================================================
+21. RESPONSIVE BEHAVIOR
+===============================================================================
+
+Desktop:
+    three-card composed interface
+
+Tablet:
+- cards may reduce width
+- allow horizontal card browsing if necessary
+- preserve clear selected state
+- right rail may simplify/collapse according to existing responsive strategy
+
+Mobile:
+- normal scrolling document
+- project cards stack vertically OR become a single-card carousel if consistent
+  with existing architecture
+- do not shrink three cards side-by-side into unreadability
+- category line must remain legible
+- CTA remains a comfortable hit target
+
+Priority:
+1. readable project identity
+2. project artwork
+3. category line
+4. interaction
+5. decorative composition
+
+Do not sacrifice usability to preserve desktop angles on narrow screens.
+
+
+===============================================================================
+22. ACCESSIBILITY
+===============================================================================
+
+Project cards:
+- semantic links
+- meaningful accessible name
+- keyboard reachable
+- visible focus
+- no nested interactive elements
+
+Images:
+- useful alt text where image conveys project identity
+- decorative overlays use empty alt / CSS background as appropriate
+
+Right rail:
+- semantic navigation
+- current item uses aria-current where appropriate
+
+Numbered index:
+- semantic buttons/links
+- current selection exposed programmatically
+
+Motion:
+- short transitions
+- reduced-motion support
+
+
+===============================================================================
+23. APPROVED SCREEN DECISIONS
+===============================================================================
+
+LOCKED FOR THIS IMPLEMENTATION:
+
+1. Remove the top-right overview video entirely.
+
+2. Remove the Watch Overview CTA.
+
+3. Replace the old single featured-project showcase with THREE large project
+   cards visible simultaneously on canonical desktop.
+
+4. Project cards use the stronger card language from the approved visual:
+   image-dominant, angular, tactile, and slightly rotated.
+
+5. Each card uses:
+       project artwork
+       project name
+       integrated arrow CTA
+       broad category line
+
+6. Do NOT include the smaller descriptive paragraph beneath the category line.
+
+7. Use the category lines:
+
+       HOLLOW GRAVES:
+       HORROR · EXPLORATION · SCI-FI
+
+       REDITUS UMBRAE:
+       ACTION · COMBAT · DARK FANTASY
+
+       DREADWOODS:
+       EXPLORATION · SURVIVAL · FOLK HORROR
+
+8. Keep the right contextual Projects rail.
+
+9. Keep compact numbered project index tabs.
+
+10. Preserve existing left navigation rail.
+
+11. Do NOT add Case Studies / About Me shortcut panels to this screen.
+
+12. Reuse the shared Overview UI system rather than building a second design
+    language.
+
+
+===============================================================================
+24. DO NOT BREAK
+===============================================================================
+
+Verify before completion:
+
+[ ] Projects route loads correctly.
+[ ] Left rail navigation still works.
+[ ] All three project cards link to the correct project.
+[ ] Project artwork uses real existing media.
+[ ] Right contextual rail still works.
+[ ] Numbered index works if retained as interaction.
+[ ] Existing project selection/carousel state does not regress.
+[ ] No top-right overview video remains.
+[ ] No Watch Overview button remains.
+[ ] No Featured Project single-showcase remains.
+[ ] No case study or About Me shortcut row appears.
+[ ] No small descriptive paragraph appears inside project cards.
+[ ] Keyboard navigation works.
+[ ] Responsive layout does not overflow.
+
+
+===============================================================================
+25. ACCEPTANCE CHECKLIST
+===============================================================================
+
+VISUAL:
+[ ] Page title matches shared ui-page-title family.
+[ ] Three project cards dominate the content area.
+[ ] Cards have intentional but restrained angle differences.
+[ ] Media remains the visual focus.
+[ ] Project names are large and immediately readable.
+[ ] CTA arrows feel integrated into the card.
+[ ] Category line is broad/simple and readable.
+[ ] No paragraph copy clutters the lower card area.
+[ ] Depth uses opaque surfaces, outline, compact shadow, red accent.
+[ ] Right rail is visually consistent with the shell.
+[ ] Decorative art does not obstruct functionality.
+[ ] Screen fits the approved cream/black/red system.
+
+FUNCTION:
+[ ] Three projects navigate correctly.
+[ ] All shared controls remain accessible.
+[ ] Right rail selection is accurate.
+[ ] Responsive behavior remains usable.
+[ ] No obsolete video/showcase logic visibly remains.
+
+ARCHITECTURE:
+[ ] project-card created as reusable shared component.
+[ ] ui-project-rail created/reused as shared component.
+[ ] Shared Overview components reused.
+[ ] Shared asset names reused.
+[ ] No unnecessary raster UI geometry.
+[ ] Project data is not duplicated across multiple hardcoded components where
+    existing data structures can drive the card content.
+
+
+===============================================================================
+26. FINAL IMPLEMENTATION INTENT
+===============================================================================
+
+Projects Overview should function as an immediate visual project selector:
+
+    three projects
+    three strong identities
+    almost no explanatory friction
+
+The user should understand the project lineup in seconds.
+
+The screen should feel more like opening a curated game portfolio hub than
+reading a conventional project directory, while still being built from
+maintainable, reusable web components.
+
+High visual personality.
+Low interaction ambiguity.
+Minimal copy.
+Real project media.
+Shared UI system.
+
+END OF SPEC
