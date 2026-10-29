@@ -20,7 +20,9 @@ Contracts override exploratory images. The Case Study Step contract calls for **
 - Priority: **MEDIUM**.
 - Can implementation proceed first? Yes; clean header and intentional media placeholder are allowed.
 
-### `assets/ui/identity/ui_identity_portrait-treatment_01.webp`
+### `assets/ui/identity/ui_identity_portrait-treatment_01.webp` — optional future standalone treatment
+
+**Current Games landing fulfilled:** the user-supplied `assets/ui/identity/authorbanner.png` is integrated unchanged. The original separate transparent portrait treatment below remains a future option, not a blocker for the landing.
 
 - Screens: Games Overview identity rail.
 - Purpose: Approved treatment of the actual owner portrait; no invented stand-in.

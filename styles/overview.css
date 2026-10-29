@@ -92,3 +92,10 @@
  .overview-page .overview-role-card h3 { font-size:26px; }
  .overview-page .ui-btn { min-height:44px; }
 }
+
+/* Supplied composite author banner: preserve every edge, portrait and baked label. */
+.overview-page .overview-portrait--banner { background:#000; }
+.overview-page .overview-portrait--banner > img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; }
+@media(max-width:1200px) {
+ .overview-page .overview-portrait--banner { width:min(100%,420px); height:auto; min-height:0; aspect-ratio:715/1671; justify-self:center; }
+}

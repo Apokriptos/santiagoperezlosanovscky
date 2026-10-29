@@ -33,7 +33,7 @@ Pass 05 · 2026-10-29. Overview, Projects Overview/Detail and Roles Overview/Det
 | `role-case-study-card` | IMPLEMENTED | Role Detail featured strip | `roleCaseStudyCard()`; surface/media/button | Cover/text/CTA when a real featured case is configured. Honest disabled forthcoming state otherwise. |
 | `project-media-panel` recipe | IMPLEMENTED | Project Detail | `projectGallery()` in `src/components.js`, shared `mediaFrame()` and side arrows | Standard rectangular video/gallery, generated numbered screenshot index. Role Detail now also consumes this frame family for practice evidence. |
 | `project-detail-panel` | IMPLEMENTED | Project Detail | `projectDetailPanel()` in `src/project-ui.js`, shared surface/header/button | The Game and Playable Build share one layered panel renderer; real copy, status/provider/action/footer. |
-| `ui-identity-rail` | IMPLEMENTED | Overview | Existing identity fallback, shared tokens | Approved forthcoming state retained, full-height desktop rail; real portrait treatment remains absent. |
+| `ui-identity-rail` | IMPLEMENTED | Overview | Existing identity fallback, shared tokens | Supplied `assets/ui/identity/authorbanner.png` now fills the Games landing identity area with contain fitting. The full composite and embedded text remain visible; responsive stacking preserves native aspect. About portrait configuration remains separate. |
 | `ui-btn--nav` revision | SPEC ONLY | Overview | Shared tokens and button state vocabulary | Existing left rail is deliberately unchanged. |
 | Case Study numbered chapter header, explanation panel and bottom step rail | SPEC ONLY | Case Study Step | Page/header/surface/frame primitives | Do not merge internal chapter navigation with the right sibling-case rail. |
 
@@ -41,7 +41,7 @@ Pass 05 · 2026-10-29. Overview, Projects Overview/Detail and Roles Overview/Det
 
 | Approved revision | Status | Why |
 | --- | --- | --- |
-| Overview | IMPLEMENTED | Production composition and functional/responsive regressions passed. Real portrait remains forthcoming as specified. |
+| Overview | IMPLEMENTED | Production composition and functional/responsive regressions passed. Supplied author banner now replaces the identity forthcoming state. |
 | Projects Overview | IMPLEMENTED | Approved three-card gateway, selector/index, real-media fallback and route rail verified. |
 | Project Detail | IMPLEMENTED | One shared template for all three projects; native video, side gallery arrows, numbered tabs and real build/case actions verified. |
 | Roles Overview | IMPLEMENTED | Six-role board, current overview-video placeholder/configured playback path, shared cards and role rail verified. |
@@ -78,3 +78,5 @@ Projects Overview and all three Project Detail routes pass production/regression
 ## Pass 05 Roles verification
 
 Roles Overview and all six Role Detail routes pass responsive/functional checks. Native playback is shared through `bindMediaPlayback()`; configured practice media is filtered to real sources, with synchronized caption/index controls. No fake evidence/experience/case selection or portrait/decorative art was supplied. See `docs/roles-pass-05.md`. Case Studies is the next screen family; its missing Overview contract is still needed for that approved overview revision.
+
+Identity asset update: the user-supplied 715×1671 author banner is integrated byte-for-byte, through `config.overview.authorBanner`. No image editing or generation. See `docs/author-banner-update.md`.

@@ -155,7 +155,8 @@ Every existing image/video is inventoried below at its original filename. No con
 
 | Canonical filename | Type | Status | Reuse | Screens | Notes |
 | --- | --- | --- | --- | --- | --- |
-| `assets/ui/identity/ui_identity_portrait-treatment_01.webp` | WEBP | NEEDS ART | Owner identity | Games Overview identity rail | Real owner photo and approved treatment required. Reference comic figure is not an owner portrait. |
+| `assets/ui/identity/authorbanner.png` | PNG | SUPPLIED / INTEGRATED | Owner identity | Games Overview identity rail | User-supplied 715×1671 composite, copied unchanged. Preserve the full image/embedded text using contain fitting. |
+| `assets/ui/identity/ui_identity_portrait-treatment_01.webp` | WEBP | OPTIONAL FUTURE | Standalone owner portrait | Future separate portrait use | Reserved transparent treatment is not supplied; the current Games landing requirement is fulfilled by the supplied banner. |
 | Existing `.portrait-placeholder` / `.portrait-caption` composition | CSS | EXISTING | Identity component geometry | Current Games Overview | Keep live labels, registration and fallback. Do not bake them into portrait artwork. |
 
 ## Deferred / Not Yet Required
@@ -211,3 +212,7 @@ Projects Overview and Project Detail now use shared surfaces, title/header plate
 ## Pass 05 Roles production use
 
 All six approved role SVGs are consumed by the 3×2 Roles Overview board, including Product Ownership. Shared title/header/surface/button/media/index primitives are reused. No authored image, SVG, media or decorative asset was generated or changed. The same right-tab image uses a taller proportional crop for seven role-index entries; no letter backplates were reintroduced. Roles overview reel, practice evidence/captions and selected featured cases remain forthcoming unless configured with actual source content.
+
+## Supplied author banner update
+
+The user supplied `authorbanner.png`; it is integrated unchanged at `assets/ui/identity/authorbanner.png` through `config.overview.authorBanner`. Native size: 715×1671. SHA-256: `f2bb95e043671ed58f4fafa5250c5daa68bdce320a140651af4be3bce1457a50`. Full contain fitting preserves the face, name and role text without cropping/stretching. The root Games/Books selector and About portrait setting are unchanged.

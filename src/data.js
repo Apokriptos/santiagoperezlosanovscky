@@ -6,7 +6,7 @@ export const config = {
   overviewVideos: { projects: null, roles: null, 'case-studies': null },
   portrait: null,
   // Overview is a curated window into Roles[], not a second role definition.
-  overview: { featuredRoleIds: ['technical-game-design', 'level-design', 'creative-leadership'] },
+  overview: { featuredRoleIds: ['technical-game-design', 'level-design', 'creative-leadership'], authorBanner: {src:'assets/ui/identity/authorbanner.png',alt:'Santiago Pérez Losanovscky — Technical Game Designer. Author portrait banner.',width:715,height:1671} },
   copy: {
     projects: 'Project introduction forthcoming.',
     roles: 'Explore the areas of work below. Selected experience will be added with the final content.',
