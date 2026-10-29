@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1434,
+      "passed": true,
+      "horizontalOverflow": false,
+      "canonicalNoScroll": true,
+      "arrowsTabsWrapKeyboard": true,
+      "roleDestinations": true,
+      "mediaRatio": true
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "horizontalOverflow": false,
+      "canonicalNoScroll": null,
+      "arrowsTabsWrapKeyboard": true,
+      "roleDestinations": true,
+      "mediaRatio": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "horizontalOverflow": false,
+      "canonicalNoScroll": null,
+      "arrowsTabsWrapKeyboard": true,
+      "roleDestinations": true,
+      "mediaRatio": true
+    },
+    {
+      "width": 390,
+      "passed": true,
+      "horizontalOverflow": false,
+      "canonicalNoScroll": null,
+      "arrowsTabsWrapKeyboard": true,
+      "roleDestinations": true,
+      "mediaRatio": true
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "horizontalOverflow": false,
+      "canonicalNoScroll": null,
+      "arrowsTabsWrapKeyboard": true,
+      "roleDestinations": true,
+      "mediaRatio": true
+    }
+  ]
+}

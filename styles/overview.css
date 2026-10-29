@@ -1,55 +1,3 @@
-/* Only Overview receives the complete visual composition in this calibration.
-   These columns are INSIDE MainContent; the shared Games shell stays untouched. */
-.overview-page { padding: 30px 30px 30px 32px; }
-.overview-page .overview-grid { grid-template-columns: minmax(0, 1fr) minmax(260px, .43fr); gap: 28px; align-items: stretch; }
-.overview-editorial { min-width: 0; }
-.overview-page .breadcrumb { margin-bottom: 16px; font-size: 10px; letter-spacing: .13em; }
-.overview-page .breadcrumb a { text-decoration: none; }
-.overview-page .breadcrumb a:hover { text-decoration: underline; }
-.overview-page .page-header { margin-bottom: 22px; padding-bottom: 17px; border-bottom: 2px solid var(--games-ink); position: relative; }
-.overview-page .page-header::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 50px; height: 5px; background: var(--games-red); transform: skewX(-25deg); }
-.overview-page h1 { font-size: clamp(50px, 4.6vw, 72px); line-height: 1; margin-bottom: 0; }
-.overview-intro { padding-bottom: 20px; border-bottom: 1px solid var(--games-rule); }
-.overview-intro .eyebrow { color: var(--games-red); margin-bottom: 9px; font-size: 11px; }
-.overview-intro > p:last-child { margin-bottom: 0; max-width: 61ch; font-size: 15px; line-height: 1.6; }
-.overview-page .section { margin-top: 24px; }
-.overview-page .section-heading { margin-bottom: 13px; align-items: center; }
-.overview-page h2 { margin-bottom: 0; font-size: 30px; line-height: 1; }
-.overview-page .section-heading > a { text-transform: uppercase; font-size: 10px; letter-spacing: .05em; font-weight: 700; }
-.overview-roles .cards { grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; }
-.overview-roles .panel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 15px 16px;
-  border: 1px solid var(--games-ink);
-  border-top-width: 3px;
-  background: #fff9edb8;
-  min-height: 176px;
-}
-.overview-roles .panel::before { content: ''; width: 20px; height: 4px; background: var(--games-red); transform: skewX(-25deg); margin-bottom: 13px; }
-.overview-roles h3 { font-family: var(--games-heading-font); font-size: 18px; font-weight: 400; line-height: 1.15; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
-.overview-roles .panel p { color: var(--games-muted); font-size: 12px; line-height: 1.5; margin-bottom: 15px; }
-.overview-roles .action { margin-top: auto; font-size: 10px; text-transform: uppercase; text-decoration: underline; }
-.overview-roles .panel:hover { background: var(--games-paper); border-top-color: var(--games-red); }
-.overview-projects .project-slide { grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr); gap: 18px; padding: 10px; background: #fff9edb8; border: 1px solid var(--games-ink); }
-.overview-projects .project-slide > div:last-child { padding: 10px 6px 8px 0; }
-.overview-projects .media { min-height: 180px; background: #242423; border: 1px solid var(--games-ink); }
-.overview-projects .media .placeholder { color: #eee5d5; padding: 18px; }
-.overview-projects .media .placeholder::before { content: '+'; font-family: monospace; font-size: 28px; color: #ff453e; }
-.overview-projects .media .placeholder span { font-size: 12px; }
-.overview-projects .project-slide .eyebrow { color: var(--games-red); font-size: 9px; margin-bottom: 8px; }
-.overview-projects h3 { font-family: var(--games-heading-font); font-size: 26px; line-height: 1.1; text-transform: uppercase; font-weight: 400; margin-bottom: 9px; }
-.overview-projects .project-slide p:not(.eyebrow) { font-size: 12px; line-height: 1.5; margin-bottom: 12px; }
-.overview-projects .tags { font-size: 9px; margin-block: 0 12px; }
-.overview-projects .tags li { border-color: var(--games-rule); }
-.overview-projects .action { text-transform: uppercase; font-size: 10px; }
-.overview-projects .carousel-controls { padding-top: 10px; gap: 8px; }
-.overview-projects .carousel-count { font-size: 11px; letter-spacing: .08em; }
-.overview-projects .carousel-controls > button { background: var(--games-ink); color: var(--games-paper); border-color: var(--games-ink); padding: 6px 12px; }
-.overview-projects .pagination { margin-left: auto; }
-.overview-projects .pagination button { color: var(--games-ink); background: #fff9edb8; border: 1px solid var(--games-ink); font-size: 10px; padding: 6px 9px; }
-.overview-projects .pagination [aria-pressed='true'], .overview-projects .carousel-controls > button:hover { background: var(--games-red); color: var(--games-paper); border-color: var(--games-red); }
 .overview-portrait {
   position: relative;
   overflow: hidden;
@@ -71,28 +19,76 @@
 .portrait-caption::before { content: ''; position: absolute; top: -4px; left: 0; width: 35px; height: 5px; background: #ff453e; transform: skewX(-25deg); }
 .portrait-caption p { font-family: var(--games-heading-font); font-weight: 400; text-transform: uppercase; font-size: 28px; line-height: 1.15; letter-spacing: .04em; margin-bottom: 15px; }
 .portrait-caption .eyebrow { color: #c3b6a0; font-size: 9px; }
-@media (max-width: 1200px) and (min-width: 1001px) {
-  .overview-page { padding: 24px; }
-  .overview-page .overview-grid { grid-template-columns: minmax(0, 1fr) 220px; gap: 20px; }
-  .overview-roles .cards { grid-template-columns: minmax(0, 1fr); }
-  .overview-roles .panel { min-height: 0; }
-  .overview-projects .project-slide { grid-template-columns: minmax(0, 1fr); }
+.overview-page { padding:24px; }
+.overview-page .overview-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(230px,.36fr); gap:24px; }
+.overview-page .overview-editorial { display:flex; flex-direction:column; gap:24px; min-width:0; }
+.overview-page .breadcrumb { display:flex; gap:12px; margin:0 0 12px; font-size:12px; font-weight:700; text-transform:uppercase; }
+.overview-page .breadcrumb a { text-decoration:none; }
+.overview-page h1.ui-page-title { font-size:clamp(36px,3.5vw,52px); margin:0 0 14px; }
+.overview-page .ui-page-title .ui-plate { --ui-plate-padding:8px 28px; }
+.overview-intro .eyebrow { color:var(--ui-red); font-weight:700; margin:0 0 4px; font-size:14px; }
+.overview-intro > p:last-child { font-size:14px; line-height:1.45; margin:0; max-width:66ch; }
+.overview-page .section { margin:0; min-width:0; }
+.overview-page .section-heading { display:flex; align-items:center; gap:12px; margin:0 0 16px; }
+.overview-page h2.ui-section-title { flex:1; min-width:0; font-size:30px; margin:0; border:0; padding:0; }
+.overview-page .section-heading > .ui-btn { font-family:var(--ui-font-display); font-style:italic; text-transform:uppercase; font-size:16px; }
+.overview-page .ui-btn { border-radius:0; }
+.overview-page .ui-btn__label { order:0; }
+.overview-page .ui-btn > .ui-icon { order:1; width:18px; height:18px; }
+.overview-page .overview__roles-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.overview-role-card { --ui-surface-padding:16px; --ui-cut:14px; }
+.overview-role-card .ui-surface__body { display:flex; flex-direction:column; position:relative; }
+.overview-role-card .ui-surface__body::after { content:''; position:absolute; bottom:0; right:0; width:60px; height:70px; background:radial-gradient(var(--ui-red) 1px,transparent 1.5px) 0 0 / 5px 5px; clip-path:polygon(100% 0,100% 100%,0 100%); pointer-events:none; }
+.overview-role-card__heading { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.overview-role-card__icon { display:grid; place-items:center; flex:0 0 48px; height:42px; background:var(--ui-red); transform:skew(-12deg); }
+.overview-role-card__icon .ui-role-icon { transform:skew(12deg); }
+.overview-page .overview-role-card h3 { font:italic 24px/1.05 var(--ui-font-display); text-transform:uppercase; margin:0; }
+.overview-role-card p { font-size:14px; line-height:1.4; margin:0 0 12px; }
+.overview-role-card__cta { align-self:flex-start; margin-top:auto; position:static; }
+.overview-role-card__cta::after { content:''; position:absolute; inset:0; z-index:1; }
+.overview-role-card:has(a:hover) { --ui-underslab-offset:4px; }
+.overview-role-card:has(a:focus-visible) { outline:3px solid var(--ui-red); outline-offset:5px; }
+.overview-role-card .ui-btn { font:italic 16px/1.2 var(--ui-font-display); text-transform:uppercase; }
+.overview-carousel { position:relative; padding:0 8px; }
+.overview-page .overview-projects .project-slide { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:20px; padding:0; border:0; background:none; align-items:center; }
+.overview-project-showcase { --ui-surface-padding:16px 24px; --ui-cut:18px; }
+.overview-page .ui-project-media-frame { --ui-surface-padding:5px; --ui-surface-fill:var(--ui-black); --ui-cut:12px; }
+.overview-page .ui-project-media-frame .media { width:100%; height:100%; min-height:0; border:0; background:var(--ui-black); }
+.overview-page .ui-project-media-frame img { object-fit:contain; }
+.project-showcase__info { min-width:0; }
+.project-showcase__info .eyebrow { color:var(--ui-red); font:italic 16px/1.2 var(--ui-font-display); margin:0 0 6px; }
+.overview-page .project-showcase__info h3 { font:34px/1.05 var(--ui-font-display); text-transform:uppercase; margin:0 0 10px; }
+.project-showcase__info > p:not(.eyebrow) { font-size:14px; line-height:1.4; margin:0 0 10px; }
+.project-showcase__info .tags { font-size:11px; margin:0 0 12px; }
+.project-showcase__info .ui-btn { font:italic 18px/1.15 var(--ui-font-display); text-transform:uppercase; }
+.overview-carousel > .ui-carousel-arrow { position:absolute; top:calc((100% - 58px)/2); transform:translateY(calc(-50% + var(--ui-button-lift))); z-index:2; box-shadow:3px 5px 0 var(--ui-red-dark); min-height:56px; }
+.overview-carousel > .ui-carousel-arrow--prev { left:-7px; }
+.overview-carousel > .ui-carousel-arrow--next { right:-7px; }
+.overview-carousel .ui-index { margin:18px 0 0; }
+.overview-carousel .ui-index-tab { min-width:44px; min-height:44px; font-size:16px; margin:0; }
+.overview-page .overview-portrait { margin:0; min-height:620px; }
+.overview-announcement { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media(min-width:1201px) and (min-height:840px) {
+ .overview-page { height:100%; padding:24px; }
+ .overview-page .overview-grid { height:100%; grid-template-rows:minmax(0,1fr); }
+ .overview-page .overview-editorial { display:flex; justify-content:center; gap:24px; min-height:0; }
+ .overview-page .overview-portrait { margin:-24px -24px -24px 0; min-height:0; height:auto; }
+ .overview-page .portrait-placeholder { min-height:0; }
+ .overview-page .ui-project-media-frame { max-width:calc(28dvh * 16 / 9); justify-self:center; }
 }
-@media (max-width: 1000px) {
-  .overview-page { padding: 28px 24px; }
-  .overview-page .overview-grid { grid-template-columns: minmax(0, 1fr) minmax(210px, .43fr); gap: 22px; }
-  .overview-roles .cards { grid-template-columns: minmax(0, 1fr); }
-  .overview-roles .panel { min-height: 0; }
-  .overview-projects .project-slide { grid-template-columns: minmax(0, 1fr); }
+@media(max-width:1200px) {
+ .overview-page .overview-grid { grid-template-columns:minmax(0,1fr); }
+ .overview-page .overview-portrait { min-height:420px; }
+ .overview-page .portrait-placeholder { min-height:420px; }
 }
-@media (max-width: 700px) {
-  .overview-page { padding: 26px 20px; }
-  .overview-page .overview-grid { grid-template-columns: minmax(0, 1fr); }
-  .overview-page .section-heading { gap: 10px; }
-  .overview-page .section-heading > a { font-size: 9px; }
-  .overview-roles .panel { min-height: 154px; }
-  .overview-portrait { min-height: 430px; }
-  .portrait-placeholder { min-height: 430px; }
-  .portrait-registration { inset: 64px 20px 150px; }
-  .overview-projects .media { min-height: 0; }
+@media(max-width:700px) {
+ .overview-page { padding:24px 18px; }
+ .overview-page .overview__roles-grid { grid-template-columns:minmax(0,1fr); gap:18px; }
+ .overview-page .section-heading { flex-wrap:wrap; }
+ .overview-page h2.ui-section-title { font-size:26px; flex-basis:100%; }
+ .overview-page .overview-projects .project-slide { grid-template-columns:minmax(0,1fr); gap:16px; }
+ .overview-project-showcase { --ui-surface-padding:16px 22px; }
+ .overview-carousel > .ui-carousel-arrow { width:44px; min-height:48px; }
+ .overview-page .overview-role-card h3 { font-size:26px; }
+ .overview-page .ui-btn { min-height:44px; }
 }

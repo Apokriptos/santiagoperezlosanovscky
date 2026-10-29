@@ -199,3 +199,7 @@ No six-icon set or standalone functional family already existed. Existing inline
 - No embedded rasters, baked text, scripts, metadata blobs, filters or external resources are present in the new SVGs.
 - Pass 01 left production files unchanged. Pass 02 conservatively integrates shared icon/rail/media foundations and token aliases; existing site regression checks pass. No whole approved screen was implemented, no role route added, no artwork invented and no Git push attempted.
 - See `ASSET_ARTWORK_NEEDED.md` for source/crop/priority briefs and contract gaps. Asset readiness does not certify portfolio experience or analytical claims.
+
+## Pass 03 production use
+
+The approved Overview now consumes the shared role/action SVGs, existing paper/rail decoration and actual project hero media. No image or SVG asset was generated or modified. The identity portrait is still forthcoming, per its required real-source-photo fallback. CSS supplies halftone accents and functional geometry. See `docs/overview-pass-03.md`.

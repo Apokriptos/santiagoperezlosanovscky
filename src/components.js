@@ -91,12 +91,15 @@ export function bindComponents(root) {
   root.querySelector('[data-case-overview]')?.addEventListener('click',()=>root.querySelector('.case-overview-video .video-start')?.click());
   root.querySelectorAll('.carousel').forEach(node => {
     let current = 0;
-    const slides = [...node.querySelectorAll(':scope > .slide')];
+    const slides = [...node.querySelectorAll(':scope > .slide, :scope > .overview-showcase-slides > .slide')];
     function show(index) {
       if (!slides.length) return;
       current = (index + slides.length) % slides.length;
       slides.forEach((s,i) => { s.hidden = i !== current; if (s.hidden) s.querySelectorAll('video').forEach(v => v.pause()); });
-      node.querySelector('.carousel-count').textContent = `${current + 1} / ${slides.length}`;
+      const count=node.querySelector('.carousel-count');
+      if(count) count.textContent = `${current + 1} / ${slides.length}`;
+      const announcement=node.querySelector('.overview-announcement');
+      if(announcement) announcement.textContent=slides[current].querySelector('h3')?.textContent || `Project ${current+1}`;
       node.querySelectorAll('[data-slide]').forEach((b,i) => b.setAttribute('aria-pressed', String(i === current)));
     }
     node.addEventListener('click', event => {

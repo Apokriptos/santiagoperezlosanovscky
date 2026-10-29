@@ -11,7 +11,7 @@ for (const [family,items] of [['projects',Projects],['roles',Roles],['case-studi
     for(const step of item.steps || []) valid.push(`#games/${family}/${item.id}/${step.id}`);
   }
 }
-for(const hash of valid) { const r=resolveRoute(hash); assert.notEqual(r.branch,'invalid',hash); if(r.branch==='games') assert.ok(renderPage(r).includes('<h1>')); }
+for(const hash of valid) { const r=resolveRoute(hash); assert.notEqual(r.branch,'invalid',hash); if(r.branch==='games') assert.ok(renderPage(r).match(/<h1(?:\s|>)/)); }
 for(const hash of ['#other','#games/missing','#games/roles/missing','#games/projects/project-1/extra','#games/case-studies/case-1/missing','#games/about/extra','#%E0%A4%A']) assert.equal(resolveRoute(hash).branch,'invalid',hash);
 // New records and arbitrary step counts must work without changing renderers/router.
 const temporary={...CaseStudies[0],id:'temporary-case',steps:Array.from({length:12},(_,i)=>({id:`s${i}`,title:`Title ${i}`,body:'Test',media:[],captions:[]}))};
@@ -37,7 +37,7 @@ assert.ok(renderPage(resolveRoute('#games')).includes('Data-driven role title'))
 selectedRole.title=originalTitle;
 Projects.push({...Projects[0],id:'extra-project',title:'Extra project'});
 assert.ok(renderPage(resolveRoute('#games')).includes('Extra project'));
-assert.ok(renderPage(resolveRoute('#games')).includes('1 / 4'));
+assert.ok(renderPage(resolveRoute('#games')).includes('data-slide="3"'));
 Projects.pop();
 // Configured links must be real actions; missing files remain deliberate empty states.
 const previousCv=config.cv.url;

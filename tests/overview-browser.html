@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Overview Pass 03 verification</title><style>body{margin:0;font:14px monospace}iframe{display:block;border:0;transform-origin:top left}pre{white-space:pre-wrap;margin:8px}body.preview{height:100vh;overflow:hidden}body.preview pre{display:none}</style><pre id="report">Running…</pre><iframe title="Overview production verification"></iframe><script type="module">
+import {Projects,Roles,config} from '../src/data.js';
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const assert=(ok,message)=>{if(!ok)throw new Error(message);};
+const tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+async function load(width){frame.width=width;frame.height=913;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/?overview-check='+width+'#games';});await tick();await frame.contentDocument.fonts.ready;await tick();return frame.contentDocument;}
+try {
+ for(const width of [1434,1920,768,390,320]) {
+  const d=await load(width),w=frame.contentWindow,carousel=d.querySelector('.overview-carousel');
+  assert(d.documentElement.scrollWidth<=width && d.querySelector('main').scrollWidth<=d.querySelector('main').clientWidth,'Horizontal overflow '+width);
+  if(width>=1434)assert(d.querySelector('main').scrollHeight<=913,'Desktop no scroll '+width);
+  assert(!carousel.querySelector('.carousel-count,.carousel-controls'),'Removed old count/control row');
+  assert(carousel.querySelectorAll('.ui-index').length===1,'One project index');
+  assert(d.querySelectorAll('.overview-role-card .ui-role-icon').length===config.overview.featuredRoleIds.length,'Canonical role icons');
+  for(const card of d.querySelectorAll('.overview-role-card'))assert(w.getComputedStyle(card.querySelector('.ui-surface__body')).backgroundColor==='rgb(255, 249, 237)','Opaque cream roles');
+  if(width===1434){assert(d.querySelector('main').scrollHeight<=913,'Canonical no scroll');const b=d.querySelector('.overview-project-showcase').getBoundingClientRect();for(const [selector,edge]of [['.ui-carousel-arrow--prev','left'],['.ui-carousel-arrow--next','right']]){const a=carousel.querySelector(selector).getBoundingClientRect();assert(a.left<=b[edge] && a.right>=b[edge],'Arrow overlaps showcase '+edge);assert(Math.abs((a.top+a.bottom-b.top-b.bottom)/2)<3,'Arrow vertically centered');}}
+  const media=d.querySelector('.ui-project-media-frame .media').getBoundingClientRect();assert(Math.abs(media.width/media.height-16/9)<.02,'Media ratio');
+  assert(w.getComputedStyle(carousel.querySelector('[aria-pressed="true"]')).backgroundColor==='rgb(188, 17, 24)','Selected project tab red');
+  const selected=i=>{const slide=carousel.querySelector('.slide:not([hidden])');assert(slide.querySelector('h3').textContent===Projects[i].title,'Synchronized title');assert(slide.querySelector('a').getAttribute('href')==='#games/projects/'+Projects[i].id,'Synchronized project link');assert(slide.querySelector('img').getAttribute('src').endsWith(Projects[i].heroMedia.src),'Synchronized media');assert(carousel.querySelectorAll('[aria-pressed="true"]').length===1 && carousel.querySelector('[data-slide="'+i+'"]').getAttribute('aria-pressed')==='true','Synchronized index');};
+  carousel.querySelector('[data-direction="1"]').click();selected(1);
+  carousel.querySelector('[data-direction="-1"]').click();selected(0);
+  carousel.querySelector('[data-direction="-1"]').click();selected(Projects.length-1);
+  for(let i=0;i<Projects.length;i++){carousel.querySelector('[data-slide="'+i+'"]').click();selected(i);}
+  const next=carousel.querySelector('[data-direction="1"]');next.focus();assert(w.getComputedStyle(next).outlineWidth==='3px','Keyboard visible focus');next.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));selected(0);
+  assert(d.querySelector('.studio-link').href===config.studioUrl,'Aobscura URL');
+  for(const id of config.overview.featuredRoleIds){d.querySelector('.overview-role-card a[href="#games/roles/'+id+'"]').click();await tick();assert(d.querySelector('h1').textContent===Roles.find(r=>r.id===id).title,'Role navigation '+id);w.history.back();await new Promise(r=>w.addEventListener('hashchange',r,{once:true}));await tick();}
+  results.push({width,passed:true,horizontalOverflow:false,canonicalNoScroll:width===1434?true:null,arrowsTabsWrapKeyboard:true,roleDestinations:true,mediaRatio:true});
+ }
+ report.textContent=JSON.stringify({passed:true,results},null,2);
+ if(new URLSearchParams(location.search).has('preview')){document.body.className='preview';await load(1434);window.scrollTo(0,0);frame.style.transform='scale('+Math.min(1,innerWidth/1434,innerHeight/913)+')';}
+}catch(error){report.textContent=JSON.stringify({passed:false,error:error.message,results},null,2);}
+</script></html>

@@ -8,20 +8,6 @@
   :is(.projects-page,.roles-page,.about-page) > .page-header .breadcrumb { margin-bottom: 10px; }
   :is(.projects-page,.roles-page,.about-page) > .page-header .subtitle { margin-top: 8px; }
 
-  /* Overview: editorial sections and portrait share one full-height interior. */
-  .overview-page .overview-grid { height: 100%; min-height: 0; }
-  .overview-page .overview-editorial { display: grid; grid-template-rows: auto auto auto minmax(0,1fr); gap: 18px; min-height: 0; }
-  .overview-page .page-header { margin: 0; padding-bottom: 14px; }
-  .overview-page h1 { font-size: 64px; }
-  .overview-page .overview-intro { padding-bottom: 16px; }
-  .overview-page .section { margin: 0; min-height: 0; }
-  .overview-page .overview-projects { display: grid; grid-template-rows: auto minmax(0,1fr); }
-  .overview-page .overview-projects .carousel { display: grid; grid-template-rows: minmax(0,1fr) auto; min-height: 0; }
-  .overview-page .overview-projects .slide { height: 100%; min-height: 0; }
-  .overview-page .overview-projects .project-slide { height: 100%; align-items: center; }
-  .overview-page .overview-projects .media { min-height: 0; width: min(100%,calc(24dvh * 16 / 9)); height: auto; aspect-ratio: 16 / 9; justify-self: center; }
-  .overview-page .overview-portrait, .overview-page .portrait-placeholder { min-height: 0; }
-
   /* Overview screens keep their editorial/video top row and a lower content row. */
   :is(.projects-page,.roles-page).index-page { display: grid; grid-template-rows: minmax(0,.8fr) minmax(0,1.2fr); gap: 22px; }
   :is(.projects-page,.roles-page).index-page .split-intro { min-height: 0; padding-bottom: 18px; }

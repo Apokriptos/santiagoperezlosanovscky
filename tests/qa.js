@@ -67,7 +67,7 @@ try {
   assert(mainArtwork.includes('polished_background_final.png') && !mainArtwork.includes('gradient') && !mainArtwork.includes('paper-hd'),'Only approved final Games background');
   assert(!doc().querySelector('video') && !doc().querySelector('iframe'),'Overview does not initialize project videos');
   const portraitBounds=doc().querySelector('.overview-portrait').getBoundingClientRect();
-  assert(Math.abs(portraitBounds.right-1434)<1 && Math.abs(portraitBounds.top)<1 && Math.abs(portraitBounds.bottom-913)<1,'Overview portrait fills top/right/bottom edges');
+  assert(Math.abs(portraitBounds.right-1434)<1 && Math.abs(portraitBounds.top)<1 && Math.abs(portraitBounds.bottom-913)<1,'Overview portrait fills top/right/bottom edges '+JSON.stringify(portraitBounds.toJSON()));
   const roleLinks=[...doc().querySelectorAll('.overview-roles .cards a')];
   assert(roleLinks.length===config.overview.featuredRoleIds.length,'Curated roles from config');
   for (const id of config.overview.featuredRoleIds) {
@@ -75,15 +75,15 @@ try {
   }
   const overviewCarousel=doc().querySelector('.overview-projects .carousel');
   overviewCarousel.querySelector('[data-direction="1"]').click();
-  assert(overviewCarousel.querySelector('.carousel-count').textContent===`2 / ${Projects.length}`,'Overview next');
+  assert(overviewCarousel.querySelector('[data-slide="1"]').getAttribute('aria-pressed')==='true','Overview next');
   const projectLink=overviewCarousel.querySelector('.slide:not([hidden]) a');
   assert(projectLink.getAttribute('href')===`#games/projects/${Projects[1].id}`,'Overview selected project link');
   overviewCarousel.querySelector('[data-direction="-1"]').click();
-  assert(overviewCarousel.querySelector('.carousel-count').textContent===`1 / ${Projects.length}`,'Overview previous');
+  assert(overviewCarousel.querySelector('[data-slide="0"]').getAttribute('aria-pressed')==='true','Overview previous');
   overviewCarousel.querySelector('[data-slide="2"]').click();
-  assert(overviewCarousel.querySelector('.carousel-count').textContent===`3 / ${Projects.length}`,'Overview pagination');
+  assert(overviewCarousel.querySelector('[data-slide="2"]').getAttribute('aria-pressed')==='true','Overview pagination');
   overviewCarousel.querySelector('button').dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
-  assert(overviewCarousel.querySelector('.carousel-count').textContent===`2 / ${Projects.length}`,'Overview keyboard');
+  assert(overviewCarousel.querySelector('[data-slide="1"]').getAttribute('aria-pressed')==='true','Overview keyboard');
   projectLink.click();await pause();assert(doc().querySelector('h1').textContent===Projects[1].title,'Overview project route');
   await load('#games');
   doc().querySelector('.overview-roles .cards a').click();await pause();
