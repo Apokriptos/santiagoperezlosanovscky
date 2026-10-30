@@ -225,3 +225,8 @@ The approved chapter layout consumes shared surfaces/title/header plates and one
 
 Supplied original: assets/polished_background_black_final.png (1569x1002). Built-in imagegen refinement: assets/polished-background-black-hd.png (1570x1002 native HD, not 4K). Composition retained; source preserved. Central pages consume it through styles/dark-background.css. See docs/black-background-11.md.
 
+
+## Cream background restored
+
+The black background trial is inactive. Original and refined black assets remain stored, but index.html and the stress fixture no longer load styles/dark-background.css. The approved polished_background_final.png cream background is active again. See docs/project-entry-rebalance-12.md.
+

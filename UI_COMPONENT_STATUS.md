@@ -97,3 +97,8 @@ Case Studies entry links in global navigation, project CTAs and configured role-
 
 Supplied black artwork replaces cream page backgrounds; cream component surfaces and all proportions remain. Free-standing text uses light foregrounds, while cream panels retain dark text. See docs/black-background-11.md.
 
+
+## Current correction: cream background and Project Detail
+
+Cream background restored; black trial stylesheet is no longer loaded. Shared game entries now favor larger media, narrower build/description columns and compact case/download/play actions. Overview focus interaction and all role changes remain. See docs/project-entry-rebalance-12.md.
+

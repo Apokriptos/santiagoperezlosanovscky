@@ -38,6 +38,7 @@ try{
   for(const project of Projects){
    d=await load('#games/projects/'+project.id,width);w=frame.contentWindow;fit(d,width);
    assert(d.querySelectorAll('.project-detail-panel').length===2,'Shared detail panel count');
+   if(width>=1434){const visual=d.querySelector('.project-video .project-media-panel').getBoundingClientRect(),build=d.querySelector('.build-panel').getBoundingClientRect();assert(visual.width>=540&&visual.width>build.width,'Enlarged media and narrower build column');assert(d.querySelector('.project-build-link').getBoundingClientRect().width<build.width-40,'Build action fits its label');assert(d.querySelector('.project-case-link').getBoundingClientRect().width<=380,'Case action capped');assert(d.querySelector('.video-start').getBoundingClientRect().width<240,'Compact video action');}
    assert(!d.querySelector('.projects-header > p,.projects-header .subtitle'),'No title subtitle');
    assert(project.description.every(p=>d.querySelector('.project-prose').textContent.includes(p)),'Actual project prose');
    assert(d.querySelector('.project-build-link').href===project.buildUrl,'Exact build URL');
