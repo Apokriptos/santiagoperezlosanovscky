@@ -186,6 +186,8 @@ Role detail pages may contain:
 Do not invent statistics or metrics unless explicitly supplied.
 
 ## Case Studies
+
+Current development status: Case Studies is marked "Coming soon!" with grey global navigation and cross-links. Keep routes and internal controls available while developing the interface. The first public release will exclude Cases; the complete navigation/direct-route lock is a later release task, not implemented by this preview styling.
 Case Studies must be highly modular.
 
 There is no fixed number of cases or steps.

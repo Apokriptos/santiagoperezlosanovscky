@@ -11,8 +11,7 @@
 .roles-header .roles-positioning { text-transform:uppercase; font-size:12px; letter-spacing:.06em; margin:12px 0 0; }
 .roles-page .ui-btn { border-radius:0; }
 .roles-page .ui-btn--arrow .ui-btn__arrow { flex-shrink:0; }
-.roles-overview-header { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); align-items:center; gap:28px; padding-bottom:24px; border-bottom:1px solid var(--ui-black); }
-.roles-overview-video { min-width:0; width:100%; }
+.roles-overview-header { display:block; padding-bottom:24px; border-bottom:1px solid var(--ui-black); }
 .roles-page .project-media-panel { --ui-surface-padding:8px; --ui-cut:16px; width:100%; }
 .roles-page .project-media-panel .media { width:100%; height:100%; min-height:0; aspect-ratio:16/9; background:var(--ui-black); color:var(--ui-surface); border:0; }
 .roles-page .project-media-panel .placeholder { min-height:0; padding:20px; color:var(--ui-surface); }
@@ -25,15 +24,21 @@
 .roles-page .role-card { display:block; padding:0; border:0; --ui-surface-padding:14px; --ui-cut:14px; min-width:0; }
 .roles-page .role-card > .ui-surface__edge { display:block; }
 .roles-page .role-card > .ui-surface__edge > .ui-surface__body { display:flex; flex-direction:column; gap:12px; }
-.role-card__heading { display:grid; grid-template-columns:46px minmax(0,1fr); min-height:58px; }
-.role-card__icon { display:grid; place-items:center; background:var(--ui-black); color:var(--ui-surface); }
+.role-card__heading { display:grid; grid-template-columns:52px minmax(0,1fr); min-height:64px; height:64px; }
+.role-card__icon { height:64px; transform:none; display:grid; place-items:center; background:var(--ui-black); color:var(--ui-surface); }
 .role-card__icon .ui-icon { width:30px; height:30px; }
-.roles-page .role-card h3.ui-header-plate { font:italic 21px/1.1 var(--ui-font-display); margin:0; display:flex; align-items:stretch; }
-.role-card__header .ui-plate { width:100%; display:flex; align-items:center; --ui-plate-padding:8px 10px; }
+.roles-page .role-card h3.ui-header-plate { font:italic 21px/1.1 var(--ui-font-display); margin:0; height:64px; display:flex; align-items:stretch; }
+.role-card__header .ui-plate { clip-path:none; transform:none; width:100%; display:flex; align-items:center; --ui-plate-padding:8px 10px; }
 .roles-page .role-card .role-card__description { font-size:13px; line-height:1.45; margin:0; }
 .roles-page .role-card .role-card__cta { margin-top:auto; width:100%; min-height:44px; text-align:left; font-size:12px; }
 .roles-page .role-card:has(a:focus-visible) { outline:3px solid var(--ui-red); outline-offset:4px; }
 .roles-page .role-card:hover { border:0; background:transparent; }
+.role-card__header .ui-plate__label { text-wrap:balance; }
+.roles-page .role-card:has(a:hover) .role-card__icon { color:var(--ui-red); }
+.roles-page .role-card .role-card__cta:hover { box-shadow:inset 0 0 0 1px var(--ui-red); }
+.roles-page .role-detail-panel__body { overflow-wrap:anywhere; }
+.roles-page .role-practice .ui-carousel-arrow:disabled { opacity:.3; cursor:default; }
+.roles-page .role-practice .ui-index-tab[aria-pressed="true"] { box-shadow:inset 0 -3px 0 var(--ui-black); }
 /* Entries: two rows of physical panels plus a full-width featured-case strip. */
 .roles-page.detail-page > .roles-header { margin-bottom:20px; }
 .roles-page .role-detail-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:18px; align-items:stretch; }
@@ -50,15 +55,16 @@
 .role-approach-intro { margin-bottom:12px !important; font-style:italic; }
 .roles-page .practice-section { display:block; }
 .roles-page .practice-section .ui-header-plate { border:0; padding:0; }
-.role-practice { min-width:0; }
+.role-practice { min-width:0; display:grid; gap:8px; }
 .role-practice__media { width:100%; height:100%; min-height:0; }
 .role-media-pending { width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px; padding:24px; text-align:center; color:var(--ui-surface); }
 .role-media-pending > span { color:var(--ui-red); font:italic 36px/1 var(--ui-font-display); }
 .role-media-pending strong { font-size:15px; }
 .role-media-pending p { font-size:13px; margin:0; }
-.role-practice > .ui-index { margin-top:12px; }
+.role-practice__footer { display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; }
+.role-practice__footer > .ui-index { margin:0; flex:0 1 auto; max-width:100%; flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start; }
 .roles-page .role-practice .ui-index-tab { min-height:44px; min-width:44px; }
-.role-practice__caption { font-size:12px; line-height:1.4; text-align:center; margin:10px 0 0; }
+.role-practice__caption { flex:1 1 120px; font-size:12px; line-height:1.4; text-align:center; margin:0; }
 .roles-page .role-practice .project-media-panel .media { object-fit:contain; }
 .role-practice .ui-carousel-arrow { min-height:48px; }
 .roles-page .role-case-study-card { --ui-surface-padding:14px 18px; --ui-cut:14px; margin-top:20px; }
@@ -71,22 +77,23 @@
 .role-case-study-card--pending > .ui-surface__edge > .ui-surface__body { grid-template-columns:minmax(0,1fr) auto; }
 .roles-page .role-case-study-card .ui-btn { max-width:200px; min-height:48px; font:italic 17px/1.1 var(--ui-font-display); text-transform:uppercase; }
 @media(min-width:1201px) and (min-height:840px) {
- .roles-page.index-page { height:100%; display:flex; flex-direction:column; gap:0; justify-content:center; }
- .roles-page .roles-overview-header { min-height:260px; }
- .roles-page .roles-overview-video { max-width:calc(29dvh * 16 / 9); justify-self:end; }
+ .roles-page.index-page { height:100%; display:flex; flex-direction:column; gap:0; justify-content:flex-start; }
+ .roles-page .roles-overview-header { min-height:0; }
  .roles-page .roles-overview__grid { grid-auto-rows:1fr; }
  .roles-page .role-card { min-height:212px; }
  .roles-page.detail-page { height:100%; display:flex; flex-direction:column; gap:0; }
  .roles-page.detail-page > .roles-header { flex-shrink:0; }
- .roles-page.detail-page .role-detail-grid { grid-template-rows:minmax(150px,auto) minmax(0,1fr); flex:1; min-height:0; }
- .roles-page .role-practice .project-media-panel { max-width:calc(22dvh * 16 / 9); margin:auto; }
+ .roles-page.detail-page .role-detail-grid { grid-template-columns:minmax(0,min(480px,calc(50% - 9px))) minmax(0,1fr); grid-template-rows:repeat(4,minmax(0,1fr)); flex:1; min-height:0; }
+ .roles-page.detail-page .approach-panel { grid-column:1; grid-row:1; }
+ .roles-page.detail-page .practice-section { grid-column:1; grid-row:2 / 5; }
+ .roles-page.detail-page .selected-experience { grid-column:2; grid-row:1 / 3; }
+ .roles-page.detail-page .role-summary { grid-column:2; grid-row:3 / 5; }
+ .roles-page .role-practice .project-media-panel { max-width:none; margin:0; }
  .roles-page .role-detail-panel__body { min-height:0; }
  .roles-page .role-case-study-card { flex-shrink:0; }
  .roles-page .role-case-study-card__media .media { max-width:180px; }
 }
 @media(max-width:1200px) {
- .roles-overview-header { grid-template-columns:minmax(0,1fr); gap:24px; }
- .roles-overview-video { width:100%; max-width:640px; justify-self:center; }
  .roles-page .roles-overview__grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
  .roles-page .role-detail-grid { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
  .roles-page h1.ui-page-title { font-size:38px; }
@@ -110,4 +117,31 @@
  .role-media-pending > span { font-size:24px; }
  .role-media-pending strong { font-size:13px; }
  .role-media-pending p { font-size:11px; }
+}
+
+/* Straight, flush role heading boxes; summary now occupies the larger lower panel. */
+.roles-page .practice-section { --ui-surface-padding:12px; }
+.practice-section > .ui-surface__edge > .ui-surface__body { gap:10px; }
+.roles-page .practice-section .ui-header-plate { font-size:26px; }
+.roles-page :is(.approach-panel,.selected-experience) { --ui-surface-padding:12px; }
+.roles-page :is(.approach-panel,.selected-experience) .ui-header-plate { font-size:26px; }
+:is(.approach-panel,.selected-experience) > .ui-surface__edge > .ui-surface__body { gap:12px; }
+.roles-page .selected-experience { --ui-surface-padding:16px; }
+.roles-page .role-summary .ui-header-plate { font-size:26px; }
+.roles-page .role-summary > .ui-surface__edge > .ui-surface__body { gap:12px; }
+/* Native modal supplies focus containment, Escape dismissal and inert background. */
+.roles-overview-dialog { width:min(880px,calc(100vw - 32px),calc((100dvh - 160px) * 16 / 9 + 40px)); max-height:calc(100dvh - 32px); padding:0; border:0; background:transparent; color:var(--ui-black); overflow:auto; }
+.roles-overview-dialog::backdrop { background:#000b; }
+.roles-overview-dialog__surface { --ui-surface-padding:20px; --ui-cut:14px; filter:none; }
+.roles-overview-dialog__header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+.roles-page .roles-overview-dialog__header h2 { font:30px/1.1 var(--ui-font-display); text-transform:uppercase; margin:0; }
+.roles-overview-dialog__header .ui-btn { flex-shrink:0; min-height:44px; }
+.roles-overview-player { min-width:0; }
+.roles-page .roles-overview-player .project-media-panel { width:100%; max-width:none; }
+body:has(.roles-overview-dialog[open]) .main-content { overflow:hidden; }
+@media(max-width:700px) {
+ .roles-overview-dialog__surface { --ui-surface-padding:14px; }
+ .roles-page .roles-overview-dialog__header h2 { font-size:24px; }
+ .roles-overview-dialog__header { gap:10px; margin-bottom:14px; }
+ .roles-overview-dialog__header .ui-btn { font-size:11px; padding:8px; }
 }

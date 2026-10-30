@@ -1,3 +1,4 @@
+import { applyCaseAvailability } from './case-availability.js';
 import { bindRoleUI } from './role-ui.js';
 import { bindProjectSelector } from './project-ui.js';
 import { config, navigation, Projects, Roles, CaseStudies } from './data.js';
@@ -27,6 +28,7 @@ function render() {
     bindComponents(app);
     bindProjectSelector(app);
     bindRoleUI(app);
+    applyCaseAvailability(app);
   }
   document.title=`${r.item?.title || navigation.find(n=>n.id===r.section)?.title || (r.branch==='books' ? 'Books' : 'Portfolio')} — ${config.name}`;
   if (!initial) { document.querySelector('#main')?.focus({preventScroll:true}); window.scrollTo(0,0); }

@@ -5,6 +5,8 @@ export const config = {
   studioUrl: 'https://apokriptos.github.io/aobscuragames/',
   overviewVideos: { projects: null, roles: null, 'case-studies': null },
   portrait: null,
+  // Preview styling only. Case routes stay available while the interface is developed.
+  caseStudies: { comingSoon: true, label: 'Coming soon!' },
   // Overview is a curated window into Roles[], not a second role definition.
   overview: { featuredRoleIds: ['technical-game-design', 'level-design', 'creative-leadership'], authorBanner: {src:'assets/ui/identity/authorbanner.png',alt:'Santiago Pérez Losanovscky — Technical Game Designer. Author portrait banner.',width:715,height:1671} },
   copy: {
@@ -62,18 +64,19 @@ export const Projects = projectSources.map((source, i) => ({
 // Approved identities and structure; analytical content remains unwritten.
 export const CaseStudies = [
   { id: 'case-1', title: 'Designing Investigation in Hollow Graves', projectIndex: 0,
+    disciplines: ['Game Design', 'Systems Design', 'Technical Design'],
     labels: ['Context', 'Design Problem', 'Investigation Loop', 'GhostSight', 'Clues & Feedback', 'Iteration', 'Outcome'] },
   { id: 'case-2', title: 'Frenzy & Combat in Reditus Umbrae', projectIndex: 1,
     labels: ['Step 01', 'Step 02'], structurePending: true },
   { id: 'case-3', title: 'Exploration in Dreadwoods', projectIndex: 2,
     labels: ['Steps forthcoming'], structurePending: true },
-].map(({ id, title, projectIndex, labels, structurePending = false }) => ({
-  id, title, subtitle: structurePending ? 'Structure and analysis forthcoming' : 'Analysis forthcoming',
+].map(({ id, title, projectIndex, labels, disciplines = [], structurePending = false }) => ({
+  id, title, disciplines, subtitle: structurePending ? 'Structure and analysis forthcoming' : 'Analysis forthcoming',
   projectId: Projects[projectIndex].id, roleIds: [], heroMedia: { ...Projects[projectIndex].heroMedia }, structurePending,
   summary: 'Case summary forthcoming.', centralQuestion: 'The central design question will be supplied here.',
   contribution: ['Contribution and ownership details forthcoming.'],
   steps: labels.map((title, i) => ({ id: `step-${i + 1}`, number: i + 1,
-    title, body: 'Reasoning, decisions, iteration, and outcomes forthcoming.',
+    title, body: '',
     media: [placeholder('Evidence 01'), placeholder('Evidence 02')], captions: [],
   })),
 }));

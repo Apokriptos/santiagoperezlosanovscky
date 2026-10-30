@@ -1,4 +1,5 @@
-import { roleCard, roleDetailPanel, rolePractice, roleCaseStudyCard } from './role-ui.js';
+import { caseStudyStep } from './case-ui.js';
+import { roleCard, roleDetailPanel, rolePractice, roleCaseStudyCard, roleOverviewDialog } from './role-ui.js';
 import { projectSelector, projectDetailPanel } from './project-ui.js';
 import { pageTitle, sectionTitle, surface, button, headerPlate, carouselArrow, indexTabs, mediaFrame } from './ui.js';
 import { icon, roleIcon, iconAssets } from './ui-icons.js';
@@ -49,12 +50,12 @@ function projects(project) {
 }
 
 function roles(role) {
-  const roleHeader=(title,detail=false)=>`<header class="roles-header"><nav class="breadcrumb" aria-label="Breadcrumb">${link('#games','Games')}<span>/</span>${detail?`${link(route('roles'),'Roles')}<span>/</span>`:''}<span>${e(detail?title:'Areas of work')}</span></nav>${pageTitle(title)}${detail?`<p class="roles-positioning">${e(role.positioning||role.subtitle)}</p>`:`<p>${e(config.copy.roles)}</p>${button('Watch overview',{iconName:'play',disabled:!config.overviewVideos.roles?.src,attributes:{'data-role-overview':'true'}})}`}</header>`;
-  if(!role) return `<div class="roles-overview-header">${roleHeader('AREAS OF WORK')}<section class="roles-overview-video" aria-label="Roles overview video">${mediaFrame(video(config.overviewVideos.roles,'Roles overview').replace('class="video-start"','class="video-start ui-btn"'),{label:'Roles overview video',className:'project-media-panel'})}</section></div><section class="roles-overview-section">${sectionTitle('My Roles',{tone:'black'})}<div class="role-cards roles-overview__grid">${Roles.map(roleCard).join('')}</div></section>`;
+  const roleHeader=(title,detail=false)=>`<header class="roles-header"><nav class="breadcrumb" aria-label="Breadcrumb">${link('#games','Games')}<span>/</span>${detail?`${link(route('roles'),'Roles')}<span>/</span>`:''}<span>${e(detail?title:'Areas of work')}</span></nav>${pageTitle(title)}${detail?`<p class="roles-positioning">${e(role.positioning||role.subtitle)}</p>`:`<p>${e(config.copy.roles)}</p>${button('Watch overview',{iconName:'play',attributes:{'data-role-overview':'true','aria-haspopup':'dialog','aria-controls':'roles-overview-dialog'}})}`}</header>`;
+  if(!role) return `<div class="roles-overview-header">${roleHeader('AREAS OF WORK')}</div><section class="roles-overview-section">${sectionTitle('My Roles',{tone:'black'})}<div class="role-cards roles-overview__grid">${Roles.map(roleCard).join('')}</div></section>${roleOverviewDialog(config.overviewVideos.roles)}`;
   const experience=role.experience.length?`<ul class="role-detail-panel__list">${role.experience.map(item=>`<li><strong>${e(item.title)}</strong>${item.body?` — ${e(item.body)}`:''}${item.projectId?` ${link(route('projects',item.projectId),'View project','role-project-link')}`:''}</li>`).join('')}</ul>`:'<p class="role-content-pending">Selected experience forthcoming. Concrete project examples will be supplied here.</p>';
   const approach=`${role.approachIntro?`<p class="role-approach-intro">${e(role.approachIntro)}</p>`:''}<ul class="role-detail-panel__list">${role.approach.map(item=>typeof item==='string'?`<li>${e(item)}</li>`:`<li><strong>${e(item.title)}</strong>${item.body?` ${e(item.body)}`:''}</li>`).join('')}</ul>`;
   const study=CaseStudies.find(item=>item.id===role.featuredCaseStudy);
-  return `${roleHeader(role.detailTitle||role.title,true)}<div class="role-detail-grid">${roleDetailPanel('Role & Experience',`<p>${e(role.summary)}</p>`,{className:'role-summary'})}${roleDetailPanel('Selected Experience',experience)}${rolePractice(role.practiceMedia)}${roleDetailPanel('My Approach',approach,{className:'approach-panel'})}</div>${roleCaseStudyCard(study)}`;
+  return `${roleHeader(role.detailTitle||role.title,true)}<div class="role-detail-grid">${roleDetailPanel('My Approach',approach,{className:'approach-panel'})}${roleDetailPanel('Selected Experience',experience,{className:'selected-experience'})}${rolePractice(role.practiceMedia)}${roleDetailPanel('Role & Experience',`<p>${e(role.summary)}</p>`,{className:'role-summary'})}</div>${roleCaseStudyCard(study)}`;
 }
 
 function caseIndexCard(study) {
@@ -80,14 +81,7 @@ function cases(study, step) {
       ${printSection('WHAT THIS STUDY COVERS',study.steps.length ? `<ol class="coverage-list">${study.steps.map(s=>`<li>${link(base+'/'+s.id,s.title)}</li>`).join('')}</ol>` : emptyState('Steps forthcoming'))}
     </div>
     ${actions((study.steps.length ? link(base+'/'+study.steps[0].id,'Begin case study →','button button-primary') : '')+' '+(study.projectId ? link(route('projects',study.projectId),'View project →','button') : ''))}</div>`;
-  const index = study.steps.indexOf(step);
-  const previous = study.steps[index-1], next = study.steps[index+1];
-  return `<div class="case-step-layout">${heading(study.title,'','case-studies')}<div class="case-step-content">
-    <section class="step-prose print-panel"><div class="step-heading"><span class="eyebrow">${e(String(step.number ?? index + 1).padStart(2,'0'))}</span><h2 class="step-title">${e(step.title)}</h2></div>
-      <p class="step-question">${e(step.question || study.centralQuestion)}</p><p class="lead">${e(step.body)}</p></section>
-    <div class="evidence" data-evidence-count="${step.media.length}">${step.media.map((item,i)=>`<figure>${media(item,'Evidence')}<figcaption>${e(step.captions?.[i] || item.caption || '')}</figcaption></figure>`).join('')}</div>
-    <div class="step-actions">${link(previous ? base+'/'+previous.id : base,previous ? '← Previous step' : '← Case cover','action')}${next ? link(base+'/'+next.id,'Next step →','action') : link(base,'Case cover →','action')}</div>
-    </div><nav class="step-nav" aria-label="Case study steps">${study.steps.map((s,i)=>`<a href="${base}/${s.id}" ${s.id===step.id ? 'aria-current="step"' : ''}><span class="step-number">${e(String(s.number ?? i+1).padStart(2,'0'))}</span><span class="step-label">${e(s.title)}</span></a>`).join('')}</nav></div>`;
+  return caseStudyStep(study,step);
 }
 
 function about() {

@@ -48,3 +48,9 @@ Run `npm test` for router validation, all configured routes, invalid routes, a t
 Final artwork, final copy, real project/case evidence, playable builds, portrait, and email/LinkedIn remain pending. The supplied CV is implemented with a searchable HTML preview and PDF view/download actions. Real video/build playback and production GitHub Pages deployment remain unverified. Books remains a placeholder.
 
 Roles implementation: see docs/roles-pass-05.md. Entry labels may use detailTitle while canonical IDs and overview titles stay stable. Optional positioning, approachIntro and structured approach items are supported. Practice indices count configured media with a real source; planned null-source examples remain a forthcoming state.
+
+Roles layout iteration: Watch overview opens a native modal with Close, Escape and backdrop dismissal, then restores button focus and resets playback. Role card icon/title boxes are straight and flush. Entry pages place My Approach above In Practice and Role & Experience in the larger lower-right panel. Practice media fills its panel width. See docs/roles-iteration-07.md.
+
+## Case Studies release preview
+
+Case Studies entry navigation and cross-links currently show a grey Coming soon! state. config.caseStudies.comingSoon controls this preview styling; it does not block routes. Internal case/step navigation remains available for development. The first public release will exclude Cases: a separate total-access lock for navigation, cross-links and direct routes must be implemented before that release. See docs/case-studies-pass-06.md.

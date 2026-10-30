@@ -62,7 +62,8 @@ assert.ok(renderPage(resolveRoute('#games/roles/'+Roles[0].id)).includes('Test f
 Roles[0].experience=previousExperience;
 assert.ok(!renderPage(resolveRoute('#games/case-studies/case-1')).includes('class="step-nav"'));
 assert.ok(renderPage(resolveRoute('#games/case-studies')).includes('class="case-carousel"'));
-assert.ok(renderPage(resolveRoute('#games/case-studies/case-1/step-1')).includes('class="step-question"'));
+assert.ok(renderPage(resolveRoute('#games/case-studies/case-1/step-1')).includes('case-study-step-panel'));
+assert.ok(!renderPage(resolveRoute('#games/case-studies/case-1/step-1')).includes('class="step-question"'));
 assert.ok((await readFile(new URL('../'+config.cv.url,import.meta.url))).subarray(0,5).toString()==='%PDF-');
 assert.ok((await readFile(new URL('../'+config.cv.source,import.meta.url))).length>0);
 assert.ok((await readFile(new URL('../'+config.cv.previewUrl,import.meta.url),'utf8')).includes('PROFESSIONAL SUMMARY'));
@@ -99,3 +100,4 @@ console.log('Project Detail prose, numbered gallery generation and current Redit
 await import('./ui-foundation.mjs');
 await import('./projects.mjs');
 await import('./roles.mjs');
+await import('./cases.mjs');

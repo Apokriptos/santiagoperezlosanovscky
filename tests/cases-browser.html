@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Case Studies preview checks</title><style>body{font:14px monospace}pre{white-space:pre-wrap}iframe{border:0;display:block}</style><pre id="report">Running…</pre><iframe title="Case Studies verification"></iframe><script type="module">
+import {CaseStudies,Projects} from '../src/data.js';
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const assert=(ok,message)=>{if(!ok)throw new Error(message);},tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+let seq=0;
+async function load(route,width,path=''){
+ frame.width=width;frame.height=913;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/'+path+(path.includes('?')?'&':'?')+'case-check='+ ++seq+route;});const d=frame.contentDocument;
+ if(!d.querySelector('#app > *'))await new Promise((resolve,reject)=>{const observer=new MutationObserver(()=>{if(d.querySelector('#app > *')){observer.disconnect();clearTimeout(timer);resolve();}}),timer=setTimeout(()=>{observer.disconnect();reject(new Error('Render timeout'));},5000);observer.observe(d.querySelector('#app'),{childList:true});});
+ await tick();await d.fonts.ready;await tick();return d;
+}
+function fit(d,width){const main=d.querySelector('main');assert(d.documentElement.scrollWidth<=width&&main.scrollWidth<=main.clientWidth,'Horizontal overflow '+width);if(width>=1434)assert(main.scrollHeight<=913,'Desktop scroll '+width+' '+main.scrollHeight);}
+function coming(entry){assert(entry?.classList.contains('is-coming-soon')&&entry.querySelector('.coming-soon-label').textContent==='Coming soon!','Grey Coming soon entry');assert(entry.getAttribute('href'),'Development link is retained');assert(entry.getAttribute('aria-disabled')!=='true','No false disabled semantics on working link');}
+try{
+ for(const width of [1434,1920,768,390,320]){
+  let d=await load('#games/projects/project-1',width),w=frame.contentWindow;fit(d,width);
+  const global=d.querySelector('.primary-nav a[href="#games/case-studies"]'),cross=d.querySelector('.project-case-link');coming(global);coming(cross);
+  assert(w.getComputedStyle(cross).filter.includes('grayscale(1)'),'Cross-link grey paint');
+  if(width>=1434){global.focus();assert(w.getComputedStyle(global).outlineWidth==='3px'&&w.getComputedStyle(global).outlineColor==='rgb(255, 249, 237)','Visible Coming soon focus on dark rail');}
+  cross.click();await tick();assert(d.querySelector('.case-cover-layout'),'Cross-link still enters development cover');assert(d.querySelector('.case-preview-status').textContent.includes('Coming soon!'),'Development status visible');
+  d=await load('#games/roles/technical-game-design',width,'tests/stress.html?role-ui=1');coming(d.querySelector('.role-case-study-card a'));fit(d,width);
+  d=await load('#games/case-studies/case-1/step-1',width);w=frame.contentWindow;fit(d,width);
+  assert(d.querySelector('.case-study-step-shell')&&d.querySelector('.case-study-step-panel'),'Approved chapter primitives');
+  assert(!d.querySelector('.step-question,.step-actions,.evidence figcaption,.evidence video,.evidence iframe,.evidence button'),'Removed strips/captions/carousel/video');
+  assert(d.querySelectorAll('.case-study-evidence-panel').length===1,'One static evidence panel');
+  assert(!d.body.textContent.includes('The central design question will be supplied here.')&&!d.body.textContent.includes('Reasoning, decisions, iteration, and outcomes forthcoming.'),'No obsolete placeholder prose');
+  const rail=d.querySelector('.step-nav'),links=[...rail.querySelectorAll('a')],right=d.querySelector('.ui-case-study-rail');
+  assert(links.length===CaseStudies[0].steps.length,'Step count from data');assert(right.querySelectorAll('nav a').length===CaseStudies.length+1,'Right rail holds cases');
+  assert(right.querySelector('[aria-current="page"]').getAttribute('href')==='#games/case-studies/case-1','Current case retained');
+  if(width>=1434)assert(rail.scrollWidth<=rail.clientWidth,'All seven reference steps visible');
+  const content=d.querySelector('.case-study-step-shell__content').getBoundingClientRect(),footer=d.querySelector('.case-study-step-shell__footer').getBoundingClientRect();assert(footer.top>=content.bottom+14,'Breathing room before lower rail');
+  links[0].focus();assert(w.getComputedStyle(links[0]).outlineWidth==='3px','Visible step focus');links[0].dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert(d.activeElement===links.at(-1),'Step keyboard focus');
+  links.at(-1).click();await tick();assert(d.querySelector('.step-nav [aria-current="step"]').getAttribute('href').endsWith('/step-7'),'Step route active state');
+  assert(d.querySelector('.ui-case-study-rail [aria-current="page"]').getAttribute('href')==='#games/case-studies/case-1','Case rail separate from steps');
+  d=await load('#games/case-studies/case-1/stress-step-1',width,'tests/stress.html?case-ui=1');fit(d,width);
+  assert(d.querySelectorAll('.evidence img').length===1,'One actual fixture image despite multiple data images');const fixtureImage=d.querySelector('.evidence img');fixtureImage.loading='eager';await Promise.race([fixtureImage.decode(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Fixture evidence decode timeout')),10000))]);
+  const image=d.querySelector('.evidence .media').getBoundingClientRect();assert(Math.abs(image.width/image.height-16/9)<.02,'Standard evidence ratio');
+  assert(d.querySelector('.case-study-step-panel__body').textContent.includes('Fixture explanation paragraph'),'Configured explanatory text');
+  assert(d.querySelector('.case-study-step-panel__key-points li').textContent==='Fixture key point one.','Configured key points');
+  const panel=d.querySelector('.case-study-step-panel').getBoundingClientRect(),body=d.querySelector('.case-study-step-panel__body').getBoundingClientRect();assert(body.bottom<=panel.bottom-10,'Explanation remains inside its physical panel');
+  assert(!d.querySelector('.case-study-step-shell').textContent.includes('Must not appear under'),'No captions from old data');
+  results.push({width,passed:true,comingSoonEntryLinks:true,developmentRoutesOpen:true,chapterNavigation:true,singleStaticEvidence:true,configuredExplanation:true,horizontalOverflow:false,desktopNoScroll:width>=1434});
+ }
+ report.textContent=JSON.stringify({passed:true,results},null,2);
+}catch(error){report.textContent=JSON.stringify({passed:false,error:error.message,results},null,2);}
+</script></html>

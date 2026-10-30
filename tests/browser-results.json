@@ -877,7 +877,7 @@
       ]
     },
     {
-      "test": "Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, 1/2/3 evidence layouts",
+      "test": "Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, single-evidence chapter composition",
       "passed": true
     },
     {

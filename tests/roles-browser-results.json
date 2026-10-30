@@ -10,7 +10,10 @@
       "desktopNoScroll": true,
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
-      "watchOverviewConfigured": true
+      "watchOverviewModal": true,
+      "alignedCardHeaders": true,
+      "fullWidthPractice": true,
+      "swappedSummaryApproach": true
     },
     {
       "width": 1920,
@@ -21,7 +24,10 @@
       "desktopNoScroll": true,
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
-      "watchOverviewConfigured": true
+      "watchOverviewModal": true,
+      "alignedCardHeaders": true,
+      "fullWidthPractice": true,
+      "swappedSummaryApproach": true
     },
     {
       "width": 768,
@@ -32,7 +38,10 @@
       "desktopNoScroll": false,
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
-      "watchOverviewConfigured": true
+      "watchOverviewModal": true,
+      "alignedCardHeaders": true,
+      "fullWidthPractice": true,
+      "swappedSummaryApproach": true
     },
     {
       "width": 390,
@@ -43,7 +52,10 @@
       "desktopNoScroll": false,
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
-      "watchOverviewConfigured": true
+      "watchOverviewModal": true,
+      "alignedCardHeaders": true,
+      "fullWidthPractice": true,
+      "swappedSummaryApproach": true
     },
     {
       "width": 320,
@@ -54,7 +66,10 @@
       "desktopNoScroll": false,
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
-      "watchOverviewConfigured": true
+      "watchOverviewModal": true,
+      "alignedCardHeaders": true,
+      "fullWidthPractice": true,
+      "swappedSummaryApproach": true
     }
   ]
 }

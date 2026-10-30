@@ -216,3 +216,7 @@ All six approved role SVGs are consumed by the 3×2 Roles Overview board, includ
 ## Supplied author banner update
 
 The user supplied `authorbanner.png`; it is integrated unchanged at `assets/ui/identity/authorbanner.png` through `config.overview.authorBanner`. Native size: 715×1671. SHA-256: `f2bb95e043671ed58f4fafa5250c5daa68bdce320a140651af4be3bce1457a50`. Full contain fitting preserves the face, name and role text without cropping/stretching. The root Games/Books selector and About portrait setting are unchanged.
+
+## Pass 06 Case Study chapter interface
+
+The approved chapter layout consumes shared surfaces/title/header plates and one static media frame. No artwork/media/SVG is generated or modified. Null-source planned evidence remains an honest forthcoming state; project covers are not promoted to analytical evidence. The current step has no gallery, video controls, evidence captions or obsolete pre-content status/question strips. Public entry links show grey Coming soon status while development routes remain available.

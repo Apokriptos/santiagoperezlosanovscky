@@ -1,6 +1,6 @@
 # UI_COMPONENT_STATUS
 
-Pass 05 · 2026-10-29. Overview, Projects Overview/Detail and Roles Overview/Detail layouts are implemented and verified using the approved shared foundation. Role content/evidence remains forthcoming where not supplied. Case Studies approved revisions remain SPEC ONLY.
+Pass 06 · 2026-10-30. Overview, Projects Overview/Detail, Roles Overview/Detail and the approved Case Study Step interface are implemented and verified. Case Studies is a Coming soon development preview; its release access lock is deferred. Case/role analysis and evidence remain forthcoming where unsupplied. The newer Cases Overview revision remains SPEC ONLY pending its missing contract.
 
 ## Shared primitives
 
@@ -35,7 +35,9 @@ Pass 05 · 2026-10-29. Overview, Projects Overview/Detail and Roles Overview/Det
 | `project-detail-panel` | IMPLEMENTED | Project Detail | `projectDetailPanel()` in `src/project-ui.js`, shared surface/header/button | The Game and Playable Build share one layered panel renderer; real copy, status/provider/action/footer. |
 | `ui-identity-rail` | IMPLEMENTED | Overview | Existing identity fallback, shared tokens | Supplied `assets/ui/identity/authorbanner.png` now fills the Games landing identity area with contain fitting. The full composite and embedded text remain visible; responsive stacking preserves native aspect. About portrait configuration remains separate. |
 | `ui-btn--nav` revision | SPEC ONLY | Overview | Shared tokens and button state vocabulary | Existing left rail is deliberately unchanged. |
-| Case Study numbered chapter header, explanation panel and bottom step rail | SPEC ONLY | Case Study Step | Page/header/surface/frame primitives | Do not merge internal chapter navigation with the right sibling-case rail. |
+| `case-study-step-shell`, numbered chapter header | IMPLEMENTED | Case Study Step | `caseStudyStep()` in `src/case-ui.js`; shared surface/header | One chapter object contains content and footer navigation. |
+| `case-study-step-panel` | IMPLEMENTED | Case Study Step | `caseStudyStepPanel()`; shared header/surface | Escaped paragraphs and optional Key Points; honest empty state until actual analysis is supplied. |
+| `case-study-step-rail` | IMPLEMENTED | Case Study Step | `caseStudyStepRail()`; existing step focus/scroll binder | Data-driven internal chapters; separate from right sibling-case navigation. |
 
 ## Whole approved screens
 
@@ -47,7 +49,7 @@ Pass 05 · 2026-10-29. Overview, Projects Overview/Detail and Roles Overview/Det
 | Roles Overview | IMPLEMENTED | Six-role board, current overview-video placeholder/configured playback path, shared cards and role rail verified. |
 | Role Detail | IMPLEMENTED | Shared layout for all six entry routes; real-media/featured-case paths verified with test-only fixtures. Production summaries, experience, media and featured cases remain forthcoming where not supplied. |
 | Case Studies Overview | SPEC ONLY | Referenced implementation contract is absent from the supplied folder. |
-| Case Study Step | SPEC ONLY | New one-image chapter composition not implemented in this pass. |
+| Case Study Step | IMPLEMENTED | Single static evidence slot, explanation panel and separate chapter rail verified. All production reasoning/evidence remains forthcoming; routes stay open for development. |
 
 ## Conflicts / deferred decisions
 
@@ -80,3 +82,9 @@ Projects Overview and all three Project Detail routes pass production/regression
 Roles Overview and all six Role Detail routes pass responsive/functional checks. Native playback is shared through `bindMediaPlayback()`; configured practice media is filtered to real sources, with synchronized caption/index controls. No fake evidence/experience/case selection or portrait/decorative art was supplied. See `docs/roles-pass-05.md`. Case Studies is the next screen family; its missing Overview contract is still needed for that approved overview revision.
 
 Identity asset update: the user-supplied 715×1671 author banner is integrated byte-for-byte, through `config.overview.authorBanner`. No image editing or generation. See `docs/author-banner-update.md`.
+
+Roles iteration 07: the overview video now opens in a native modal from Watch overview; the inline preview is removed. Role icon/title boxes are straight and aligned. Entry practice media fills its available width; My Approach and Role & Experience have exchanged positions with their content. See `docs/roles-iteration-07.md` and `tests/roles-browser-results.json`.
+
+## Pass 06 availability and chapter interface
+
+Case Studies entry links in global navigation, project CTAs and configured role-case CTAs are grey with Coming soon! labels. `config.caseStudies.comingSoon` is a preview-style flag, not an access lock. Internal routes and chapter/case controls remain working for development. Before the first public release, implement and verify the separately requested complete access lock. Existing hub/covers are retained; their newer Overview contract is still absent. See `docs/case-studies-pass-06.md`.

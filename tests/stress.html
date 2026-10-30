@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../styles/overview.css">
 <link rel="stylesheet" href="../styles/project-detail.css">
 <link rel="stylesheet" href="../styles/roles.css">
+<link rel="stylesheet" href="../styles/case-step.css">
+<link rel="stylesheet" href="../styles/coming-soon.css">
 <div id="app"></div>
 <script type="module">
   // Test-only records: production data is never written or changed on disk.
@@ -17,6 +19,10 @@
   Projects.push({...Projects[0],id:'stress-project',title:'A deliberately long project title for the contextual index'});
   Roles.push({...Roles[0],id:'stress-role',title:'A deliberately long role title for the contextual index'});
   const params=new URLSearchParams(location.search);
+  if(params.has('case-ui')) {
+    // Test-only explanatory content and an existing image for layout plumbing.
+    Object.assign(CaseStudies[0].steps[0],{body:['Fixture explanation paragraph. This text exercises the reading panel and is not published case analysis.','Fixture second paragraph. Real reasoning and evidence will be supplied separately.'],keyPoints:['Fixture key point one.','Fixture key point two.'],media:[Projects[0].gallery[0],Projects[0].gallery[1]],captions:['Must not appear under the evidence image.']});
+  }
   if(params.has('role-ui')) {
     // Test-only playback/evidence plumbing. These are not production role claims/media.
     config.overviewVideos.roles=Projects[0].video;

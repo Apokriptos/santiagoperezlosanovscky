@@ -1,0 +1,17 @@
+/* Availability preview only: links remain navigable until a separate release lock. */
+a.is-coming-soon,.ui-btn.is-coming-soon { filter:grayscale(1); color:#57534b; background:#e7e2d8; border-color:#817b70; }
+.ui-btn.is-coming-soon:hover { color:#292724; background:#f4f0e8; }
+.is-coming-soon .ui-btn__arrow { background:#77736d; color:#fff9ed; }
+.coming-soon-label { display:block; font:700 10px/1.25 Arial,sans-serif; letter-spacing:.015em; text-transform:none; margin-top:3px; }
+.games-shell .primary-nav a.is-coming-soon { color:#d3d0ca; background-color:#292826; }
+.games-shell .primary-nav .coming-soon-label { color:#c8c4bc; font-size:9px; }
+.games-shell .primary-nav a.is-coming-soon:focus-visible { outline:3px solid var(--ui-surface); outline-offset:3px; }
+.is-coming-soon:focus-visible { outline:3px solid var(--ui-black); outline-offset:4px; }
+.case-preview-status { color:var(--ui-muted); font:700 11px/1.4 Arial,sans-serif; margin:8px 0 0; }
+.case-studies-page .page-header .case-preview-status { font-size:11px; margin:6px 0 0; }
+@media(min-width:1001px) {
+ .case-studies-page:not(.case-step-page) .page-header { display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:16px; }
+ .case-studies-page:not(.case-step-page) .page-header > :is(nav,h1) { grid-column:1/-1; }
+ .case-studies-page:not(.case-step-page) .page-header > .subtitle { grid-column:1; grid-row:3; }
+ .case-studies-page:not(.case-step-page) .page-header > .case-preview-status { grid-column:2; grid-row:3; align-self:end; margin:8px 0 0; }
+}

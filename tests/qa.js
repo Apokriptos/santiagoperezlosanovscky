@@ -119,6 +119,7 @@ try {
     }
     if(!['#games/cv','#games/contact'].includes(hash)) desktopFrame(hash);
     for(const video of doc().querySelectorAll('.video-frame')) {
+      if(!video.getClientRects().length)continue; // Closed native dialogs contain deliberately hidden media.
       const box=video.getBoundingClientRect();assert(Math.abs(box.width/box.height-16/9)<.02,'Video aspect ratio '+hash);
     }
     noOverflow(hash);
@@ -154,8 +155,8 @@ try {
     active.focus();active.dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
     assert(doc().activeElement===rail.querySelectorAll('a')[count-2],'Timeline keyboard focus');
   }
-  for(const count of [1,2,3]) {await load('#games/case-studies/case-1/stress-step-1',1434,913,`tests/stress.html?evidence=${count}`);singleScreen(count+' evidence items');assert(doc().querySelectorAll('.evidence figure').length===count,'Evidence count');}
-  results.push({test:'Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, 1/2/3 evidence layouts',passed:true});
+  for(const count of [1,2,3]) {await load('#games/case-studies/case-1/stress-step-1',1434,913,`tests/stress.html?evidence=${count}`);singleScreen(count+' evidence items');assert(doc().querySelectorAll('.case-study-evidence-panel').length===1 && !doc().querySelector('.evidence figcaption'),'Single static evidence panel without caption');}
+  results.push({test:'Multi-card overview carousel, seven-case pagination/keyboard, 4/7/12-step covers and visible timelines, single-evidence chapter composition',passed:true});
   for(const width of [1001,1200]) {await load('#games/case-studies',width);singleScreen('Case index at '+width);}
   await load('#games/case-studies/case-1/step-1',1434,600);assert(doc().querySelector('main').scrollHeight>doc().querySelector('main').clientHeight,'Short-height accessibility fallback allows content flow');
   for(const width of [320,360,390,768,1000,1200,1920]) {

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1434,
+      "passed": true,
+      "comingSoonEntryLinks": true,
+      "developmentRoutesOpen": true,
+      "chapterNavigation": true,
+      "singleStaticEvidence": true,
+      "configuredExplanation": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": true
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "comingSoonEntryLinks": true,
+      "developmentRoutesOpen": true,
+      "chapterNavigation": true,
+      "singleStaticEvidence": true,
+      "configuredExplanation": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "comingSoonEntryLinks": true,
+      "developmentRoutesOpen": true,
+      "chapterNavigation": true,
+      "singleStaticEvidence": true,
+      "configuredExplanation": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false
+    },
+    {
+      "width": 390,
+      "passed": true,
+      "comingSoonEntryLinks": true,
+      "developmentRoutesOpen": true,
+      "chapterNavigation": true,
+      "singleStaticEvidence": true,
+      "configuredExplanation": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false
+    },
+    {
+      "width": 320,
+      "passed": true,
+      "comingSoonEntryLinks": true,
+      "developmentRoutesOpen": true,
+      "chapterNavigation": true,
+      "singleStaticEvidence": true,
+      "configuredExplanation": true,
+      "horizontalOverflow": false,
+      "desktopNoScroll": false
+    }
+  ]
+}
