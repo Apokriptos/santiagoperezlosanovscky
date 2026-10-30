@@ -75,6 +75,10 @@ Overview uses shared primitives without editing `src/ui.js`, `styles/ui-primitiv
 
 ## Pass 04 Projects verification
 
+Focus interaction second pass: warmer 55% shade and contour-following cream/red frame glow; pointer-hover rectangle removed, keyboard outline retained. Preview framing now supports the actual canvas aspect ratio without white margins. See `docs/projects-focus-10.md`.
+
+Focus interaction 09: Projects Overview now has CSS-only central shading with pointer hover/keyboard focus, a raised bright active card, and a restrained local highlight. Resting geometry, project content and pagination behavior are retained. Touch hover gating and reduced-motion branches are scoped to this index. See `docs/projects-focus-09.md`.
+
 Projects Overview and all three Project Detail routes pass production/regression checks. The selector index controls a card selection while the contextual rail reflects the current route; selecting a card index does not falsely mark a detail route current. Added projects page in groups of three on desktop; mobile shows normal stacked cards. See `docs/projects-pass-04.md`. Suggested next screen: Roles Overview, only after explicit request.
 
 ## Pass 05 Roles verification
@@ -88,3 +92,8 @@ Roles iteration 07: the overview video now opens in a native modal from Watch ov
 ## Pass 06 availability and chapter interface
 
 Case Studies entry links in global navigation, project CTAs and configured role-case CTAs are grey with Coming soon! labels. `config.caseStudies.comingSoon` is a preview-style flag, not an access lock. Internal routes and chapter/case controls remain working for development. Before the first public release, implement and verify the separately requested complete access lock. Existing hub/covers are retained; their newer Overview contract is still absent. See `docs/case-studies-pass-06.md`.
+
+## Black background trial
+
+Supplied black artwork replaces cream page backgrounds; cream component surfaces and all proportions remain. Free-standing text uses light foregrounds, while cream panels retain dark text. See docs/black-background-11.md.
+

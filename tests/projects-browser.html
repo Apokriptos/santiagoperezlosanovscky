@@ -3,15 +3,26 @@ import {Projects,config} from '../src/data.js';
 const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
 const assert=(ok,message)=>{if(!ok)throw new Error(message);},tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
 let seq=0;
-async function load(route,width,path=''){frame.width=width;frame.height=913;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/'+path+'?project-check='+ ++seq+route;});await tick();await frame.contentDocument.fonts.ready;await tick();return frame.contentDocument;}
+async function load(route,width,path=''){frame.width=width;frame.height=913;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/'+path+'?project-check='+ ++seq+route;});const d=frame.contentDocument;if(!d.querySelector('#app > *'))await new Promise((resolve,reject)=>{const observer=new MutationObserver(()=>{if(d.querySelector('#app > *')){observer.disconnect();clearTimeout(timer);resolve();}}),timer=setTimeout(()=>{observer.disconnect();reject(new Error('App render timeout'));},5000);observer.observe(d.querySelector('#app'),{childList:true});});await tick();await d.fonts.ready;await tick();return d;}
 function fit(d,width){const main=d.querySelector('main');assert(d.documentElement.scrollWidth<=width && main.scrollWidth<=main.clientWidth,'Horizontal overflow '+width);if(width>=1434)assert(main.scrollHeight<=913,'Desktop scroll '+width+' '+main.scrollHeight);}
 function ratio(node,label){const b=node.getBoundingClientRect();assert(Math.abs(b.width/b.height-16/9)<.02,'Standard media ratio '+label);}
 try{
- for(const width of [1434,1920,768,390,320]){
+ for(const width of [1434,1623,1920,768,390,320]){
   let d=await load('#games/projects',width),w=frame.contentWindow;fit(d,width);
   const selector=d.querySelector('[data-project-selector]'),cards=[...d.querySelectorAll('.project-card')];
   assert(cards.length===Projects.length,'Data-driven project count');
   assert(cards.every(card=>!card.hidden),'All three projects visible');
+  const page=d.querySelector('.projects-page'),shade=()=>w.getComputedStyle(page,'::after');
+  assert(shade().pointerEvents==='none'&&Number(shade().opacity)===0,'Focus shade rests transparent and never blocks input');
+  const dimensions=cards.map(card=>[card.offsetWidth,card.offsetHeight,card.offsetLeft,card.offsetTop]);
+  cards[1].focus();await tick();await new Promise(r=>setTimeout(r,220));
+  assert(cards[1].matches(':focus-visible'),'Keyboard-equivalent card focus');
+  assert(Number(shade().opacity)===1&&Number(w.getComputedStyle(cards[1]).zIndex)>Number(shade().zIndex),'Focused card rises above central shade');
+  assert(Number(w.getComputedStyle(cards[1],'::before').opacity)===1,'Local spotlight visible');
+  assert(w.getComputedStyle(cards[1].querySelector('.project-card__frame')).filter.includes('6px'),'Warm highlight follows clipped frame silhouette');
+  assert(w.getComputedStyle(cards[1]).outlineWidth==='3px','Visible focus outline');
+  assert(JSON.stringify(dimensions)===JSON.stringify(cards.map(card=>[card.offsetWidth,card.offsetHeight,card.offsetLeft,card.offsetTop])),'Focus does not reflow card geometry');
+  selector.querySelector('[data-ui-index="0"]').focus();await tick();await new Promise(r=>setTimeout(r,220));assert(Number(shade().opacity)===0,'Focus shade clears outside cards');
   assert(!d.querySelector('.video-frame,.split-intro,.carousel-count,.project-slide'),'Old featured overview removed');
   for(let i=0;i<Projects.length;i++){
    assert(cards[i].getAttribute('href')==='#games/projects/'+Projects[i].id,'Card destination');

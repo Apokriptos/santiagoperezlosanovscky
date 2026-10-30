@@ -64,7 +64,9 @@ try {
   await load('#games');
   assert(!doc().querySelector('.right-rail'),'Overview must not have a contextual rail');
   const mainArtwork=getComputedStyle(doc().querySelector('main')).backgroundImage;
-  assert(mainArtwork.includes('polished_background_final.png') && !mainArtwork.includes('gradient') && !mainArtwork.includes('paper-hd'),'Only approved final Games background');
+  assert(mainArtwork.includes('polished-background-black-hd.png') && !mainArtwork.includes('gradient') && !mainArtwork.includes('paper-hd'),'Only supplied black Games background');
+  assert(getComputedStyle(doc().querySelector('main')).color==='rgb(255, 249, 237)','Light foreground over black background');
+  assert(getComputedStyle(doc().querySelector('.overview-role-card .ui-surface__body')).color==='rgb(25, 25, 24)','Dark foreground retained on cream panels');
   assert(!doc().querySelector('video') && !doc().querySelector('iframe'),'Overview does not initialize project videos');
   const portraitBounds=doc().querySelector('.overview-portrait').getBoundingClientRect();
   assert(Math.abs(portraitBounds.right-1434)<1 && Math.abs(portraitBounds.top)<1 && Math.abs(portraitBounds.bottom-913)<1,'Overview portrait fills top/right/bottom edges '+JSON.stringify(portraitBounds.toJSON()));

@@ -2,19 +2,27 @@
 <html lang="en">
 <meta charset="utf-8">
 <title>Games visual calibration preview</title>
-<style>html,body{margin:0;padding:0}iframe{display:block;border:0}</style>
-<iframe title="Portfolio viewport preview"></iframe>
+<style>html,body{margin:0;padding:0;background:#141414}iframe{display:block;border:0}.preview-stage{position:relative}body.fitted{display:grid;place-items:center;width:100vw;height:100dvh;overflow:hidden}</style>
+<div class="preview-stage"><iframe title="Portfolio viewport preview"></iframe></div>
 <script>
   const size = new URLSearchParams(location.search).get('viewport');
-  const [width,height] = ({mobile:[390,844],tablet:[768,1024]})[size] || [1434,913];
+  let [width,height] = ({mobile:[390,844],tablet:[768,1024]})[size] || [1434,913];
   const frame=document.querySelector('iframe');
   frame.width=width; frame.height=height;
   frame.title=`${width} by ${height} portfolio preview`;
   // Preview-only fitting keeps the production iframe at its actual test dimensions.
   if(new URLSearchParams(location.search).has('fit')) {
-    frame.style.transformOrigin='top left';
-    frame.style.transform=`scale(${Math.min(1,innerWidth/width,innerHeight/height)})`;
-    document.body.style.overflow='hidden';
+    document.body.classList.add('fitted');
+    function fitPreview(){
+      // Screen mode uses a real responsive desktop viewport at the browser aspect ratio.
+      // Canonical/mobile/tablet modes retain their explicit viewport dimensions.
+      if(size==='screen'){height=913;width=Math.round(height*innerWidth/innerHeight);}
+      frame.width=width;frame.height=height;frame.title=`${width} by ${height} portfolio preview`;
+      const scale=Math.min(1,innerWidth/width,innerHeight/height),stage=frame.parentElement;
+      stage.style.width=`${width*scale}px`;stage.style.height=`${height*scale}px`;
+      frame.style.position='absolute';frame.style.transformOrigin='top left';frame.style.transform=`scale(${scale})`;
+    }
+    fitPreview();window.addEventListener('resize',fitPreview);
   }
   function showRoute() {
     frame.src='../'+(new URLSearchParams(location.search).get('view') === 'root' ? '' : (location.hash || '#games'));

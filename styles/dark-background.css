@@ -1,0 +1,24 @@
+/* Supplied black artwork replaces the page paper; physical cream panels remain.
+   Paint/contrast only: the existing shell owns every layout dimension. */
+body { background-color:#080808; }
+.games-shell .main-content,
+.branch-selector,
+.books {
+ background-color:#080808;
+ background-image:url('../assets/polished-background-black-hd.png');
+ background-position:center top;
+ background-size:cover;
+ background-repeat:no-repeat;
+ color:var(--ui-surface);
+ scrollbar-color:#8b8170 #080808;
+}
+.games-shell .main-content :is(.print-panel,.destination-card) { color:var(--ui-black); }
+.games-shell .main-content :is(.breadcrumb,.projects-header,.roles-header,.page-header,.overview-intro) { color:var(--ui-surface); }
+.games-shell .main-content :is(.page-header,.overview-intro) > .subtitle { color:#dfd5c4; }
+.games-shell .overview-intro > .eyebrow { color:#ff6556; }
+.games-shell .main-content :is(.projects-header,.roles-header,.page-header,.overview-intro) { text-shadow:0 1px 3px #000; }
+.games-shell .main-content :is(.ui-surface,.print-panel,.destination-card) { text-shadow:none; }
+.games-shell .roles-overview-header,
+.games-shell .project-selector > .ui-index,
+.games-shell .publication-page > .page-header { border-color:var(--ui-rail-rule); }
+.branch-selector > a { color:var(--ui-black); }

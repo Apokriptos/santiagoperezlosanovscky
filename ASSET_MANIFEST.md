@@ -220,3 +220,8 @@ The user supplied `authorbanner.png`; it is integrated unchanged at `assets/ui/i
 ## Pass 06 Case Study chapter interface
 
 The approved chapter layout consumes shared surfaces/title/header plates and one static media frame. No artwork/media/SVG is generated or modified. Null-source planned evidence remains an honest forthcoming state; project covers are not promoted to analytical evidence. The current step has no gallery, video controls, evidence captions or obsolete pre-content status/question strips. Public entry links show grey Coming soon status while development routes remain available.
+
+## Black background trial
+
+Supplied original: assets/polished_background_black_final.png (1569x1002). Built-in imagegen refinement: assets/polished-background-black-hd.png (1570x1002 native HD, not 4K). Composition retained; source preserved. Central pages consume it through styles/dark-background.css. See docs/black-background-11.md.
+

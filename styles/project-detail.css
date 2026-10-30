@@ -103,3 +103,33 @@
  .project-media-panel__gallery > .ui-index { gap:8px; }
 }
 @media(prefers-reduced-motion:reduce) { .project-card { transition:none; } .project-card:hover,.project-card:active { transform:rotate(var(--project-angle)); } }
+
+/* Projects focus mode: one central shade, with only the active card above it.
+   No ancestor of the cards creates an intervening stacking context. */
+.projects-page.index-page { position:relative; isolation:isolate; --project-focus-duration:calc(var(--ui-duration) * 1.5); }
+.projects-page.index-page::after { content:''; position:absolute; inset:0; z-index:2; background:rgb(20 8 4 / .55); opacity:0; pointer-events:none; transition:opacity var(--project-focus-duration) var(--ui-ease); }
+.projects-page.index-page .project-card { position:relative; transition:transform var(--project-focus-duration) var(--ui-ease),filter var(--project-focus-duration) var(--ui-ease); }
+.projects-page.index-page .project-card::before { content:''; position:absolute; inset:-32px; z-index:-1; pointer-events:none; background:radial-gradient(ellipse, rgb(255 227 185 / .22) 24%, rgb(188 17 24 / .22) 58%, transparent 76%); opacity:0; transition:opacity var(--project-focus-duration) var(--ui-ease); }
+.projects-page.index-page .project-card:focus-visible { z-index:3; transform:translateY(var(--project-focus-lift,-5px)) rotate(var(--project-angle)); filter:drop-shadow(0 4px 6px rgb(25 25 24 / .45)); outline:3px solid var(--ui-surface); outline-offset:5px; }
+.projects-page.index-page:has(.project-card:focus-visible)::after,
+.projects-page.index-page .project-card:focus-visible::before { opacity:1; }
+.projects-page.index-page .project-card:focus-visible .ui-surface__edge { background:var(--ui-surface); }
+.projects-page.index-page .project-card:focus-visible .project-card__frame { filter:drop-shadow(0 0 1px var(--ui-surface)) drop-shadow(0 0 6px rgb(188 17 24 / .65)) drop-shadow(var(--ui-shadow-compact)); }
+@media(hover:hover) and (pointer:fine) {
+ .projects-page.index-page:not(:has(.project-card:focus-visible)):has(.project-card:hover)::after { opacity:1; }
+ .projects-page.index-page:not(:has(.project-card:focus-visible)) .project-card:hover { z-index:3; transform:translateY(var(--project-focus-lift,-5px)) rotate(var(--project-angle)); filter:drop-shadow(0 4px 6px rgb(25 25 24 / .45)); outline:none; }
+ .projects-page.index-page:not(:has(.project-card:focus-visible)) .project-card:hover::before { opacity:1; }
+ .projects-page.index-page:not(:has(.project-card:focus-visible)) .project-card:hover .ui-surface__edge { background:var(--ui-surface); }
+ .projects-page.index-page:not(:has(.project-card:focus-visible)) .project-card:hover .project-card__frame { filter:drop-shadow(0 0 1px var(--ui-surface)) drop-shadow(0 0 6px rgb(188 17 24 / .65)) drop-shadow(var(--ui-shadow-compact)); }
+}
+@media(hover:none), (pointer:coarse) {
+ .projects-page.index-page .project-card:hover:not(:focus-visible) { transform:rotate(var(--project-angle)); filter:none; }
+}
+@media(max-width:700px) {
+ .projects-page.index-page .project-card::before { inset:-12px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .projects-page.index-page { --project-focus-lift:0px; }
+ .projects-page.index-page::after,.projects-page.index-page .project-card,.projects-page.index-page .project-card::before { transition:none; }
+ .projects-page.index-page .project-card:is(:hover,:focus-visible) { transform:rotate(var(--project-angle)); }
+}
