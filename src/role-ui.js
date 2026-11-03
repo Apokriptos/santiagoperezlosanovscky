@@ -4,7 +4,8 @@ import { iconAssets } from './ui-icons.js';
 
 export function roleCard(role) {
   const glyph=iconAssets[role.id]?.includes('/roles/')?roleIcon(role.id):'';
-  return surface(`<div class="role-card__heading"><span class="role-card__icon" aria-hidden="true">${glyph}</span>${headerPlate(role.title,{level:3,className:'role-card__header'})}</div><p class="role-card__description">${e(role.subtitle)}</p>${button('View role',{href:'#games/roles/'+role.id,arrowHousing:true,className:'role-card__cta',attributes:{'aria-label':'View '+role.title+' role'}})}`,{tag:'article',accent:true,className:'role-card'});
+  const accent=/^#[0-9a-f]{6}$/i.test(role.accentColor||'')?role.accentColor:'#3F78A8';
+  return surface(`<span class="role-card__icon" style="--role-accent:${accent}" aria-hidden="true">${glyph}</span><div class="role-card__content">${headerPlate(role.title,{level:3,className:'role-card__header'})}<p class="role-card__description">${e(role.subtitle)}</p>${button('View role',{href:'#games/roles/'+role.id,arrowHousing:true,className:'role-card__cta',attributes:{'aria-label':'View '+role.title+' role'}})}</div>`,{tag:'article',accent:true,className:'role-card'});
 }
 
 export function roleDetailPanel(title,content,{className=''}={}) {
@@ -20,8 +21,8 @@ export function rolePractice(items=[]) {
   const available=items.filter(item=>item?.src);
   const controls=carouselArrow('previous',{label:'Previous practice example',disabled:available.length<2,attributes:{'data-practice-direction':-1}})+carouselArrow('next',{label:'Next practice example',disabled:available.length<2,attributes:{'data-practice-direction':1}});
   const first=available[0];
-  const content=first?['video','embed'].includes(first.type)?video(first,'Practice example'):media(first,'Practice example'):`<div class="role-media-pending"><span aria-hidden="true">//</span><strong>Practice evidence forthcoming</strong><p>Real examples and captions will be added.</p></div>`;
-  return roleDetailPanel('In Practice',`<div class="role-practice" data-role-practice data-items="${e(JSON.stringify(available))}">${mediaFrame(`<div class="role-practice__media">${content}</div>`,{label:'Role practice evidence',className:'project-media-panel',controls})}<div class="role-practice__footer">${available.length?indexTabs(available.map((_,i)=>({label:String(i+1),active:i===0})),{label:'Practice example index'}).replaceAll('data-ui-index','data-practice-index'):''}<p class="role-practice__caption" aria-live="polite" aria-atomic="true">${e(first?.caption||(!first?'Evidence and caption forthcoming.':''))}</p></div></div>`,{className:'practice-section'});
+  const content=first?['video','embed'].includes(first.type)?video(first,'Practice example'):media(first,'Practice example'):`<div class="role-media-pending"><span aria-hidden="true">//</span><strong>Practice evidence forthcoming</strong></div>`;
+  return roleDetailPanel('In Practice',`<div class="role-practice" data-role-practice data-items="${e(JSON.stringify(available))}">${mediaFrame(`<div class="role-practice__media">${content}</div>`,{label:'Role practice evidence',className:'project-media-panel',controls})}<div class="role-practice__footer">${available.length?indexTabs(available.map((_,i)=>({label:String(i+1),active:i===0})),{label:'Practice example index'}).replaceAll('data-ui-index','data-practice-index'):''}<p class="role-practice__caption" aria-live="polite" aria-atomic="true">${e(first?.caption||(!first?'Real examples and captions will be added.':''))}</p></div></div>`,{className:'practice-section'});
 }
 
 export function roleCaseStudyCard(study) {

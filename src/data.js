@@ -1,4 +1,5 @@
-// Editorial placeholders are deliberately explicit: none are claims of completed work.
+import { applyProfileContent } from './profile-content.js';
+// Stable portfolio records. Approved professional copy is applied once below.
 export const config = {
   name: 'Santiago Pérez Losanovscky',
   introduction: 'Professional introduction forthcoming. Explore the portfolio structure by area of work, project, or case study.',
@@ -141,3 +142,6 @@ const roleEntryTitles = {
   'gameplay-development':'Gameplay Developer',
 };
 Roles.forEach(role=>{ role.detailTitle=roleEntryTitles[role.id] || role.title; });
+
+// Apply the approved professional content once, after stable record identities exist.
+applyProfileContent(config, Roles);

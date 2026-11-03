@@ -1,5 +1,6 @@
 /* Shared Games vocabulary. Legacy --games-* names alias these in games-visual.css. */
 :root {
+  --ui-media-radius:11px; --ui-shadow-ambient:0 2px 5px #19191826;
   --ui-cream-bg:#f5eddf; --ui-surface:#fff9ed; --ui-black:#191918;
   --ui-red:#bc1118; --ui-red-dark:#930d13; --ui-muted:#57534b; --ui-rule:#b5aa98;
   --ui-rail-bg:#141414; --ui-rail-text:#e7ddcc; --ui-rail-rule:#8b8170;

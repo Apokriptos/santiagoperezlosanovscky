@@ -1,0 +1,924 @@
+# CODEX — GLOBAL INTERFACE POLISH + RESPONSIVE FIT PASS
+
+## STATUS
+
+Approved interface iteration.
+
+## SCOPE
+
+Games portfolio only.
+
+This task is about:
+
+- interaction feel;
+- visual hierarchy;
+- media framing;
+- surface/background separation;
+- rail integration;
+- consistent responsive viewport fitting.
+
+This is **NOT a redesign pass**.
+
+The currently approved layouts, screen structures, routes, content hierarchy, project data, role data, case-study structure and navigation architecture remain authoritative.
+
+Do not reinterpret the pages.
+
+---
+
+# 0. READ FIRST
+
+Before editing, inspect:
+
+- current production site implementation;
+- existing shared tokens and primitives;
+- current screen-specific CSS;
+- `UI_COMPONENT_STATUS.md`;
+- approved `SCREEN_*_IMPLEMENTATION.txt` contracts;
+- existing responsive rules;
+- existing QA/stress tests.
+
+Especially inspect:
+
+- `styles/ui-tokens.css`
+- `styles/ui-primitives.css`
+- `styles/shell.css`
+- `styles/desktop-fit.css`
+- `styles/overview.css`
+- `styles/project-detail.css`
+- `styles/roles.css`
+- `styles/case-studies.css`
+- `styles/case-step.css`
+- `styles/publication.css`
+
+Adapt the implementation to the current architecture instead of blindly adding parallel systems.
+
+---
+
+# 1. CRITICAL RULE — PRESERVE APPROVED LAYOUTS
+
+At rest, every screen should retain its currently approved composition.
+
+Do NOT:
+
+- redesign screens;
+- move major sections without necessity;
+- change information architecture;
+- change routes;
+- change project order;
+- change role order;
+- change navigation hierarchy;
+- create new decorative themes;
+- activate experimental gothic artwork;
+- activate the existing black-background experiment;
+- invent new project art;
+- invent new evidence imagery;
+- alter professional content;
+- replace current media.
+
+This is a refinement pass.
+
+---
+
+# 2. RESPONSIVE VIEWPORT FIT — HIGHEST PRIORITY
+
+The Games portfolio is a composed interface, not a normal vertically scrolling website.
+
+The site currently behaves inconsistently across desktop/laptop resolutions: some routes fit the viewport while others create vertical scrolling.
+
+Fix this globally.
+
+## Core rule
+
+Supported screen layouts must adapt their:
+
+- spacing;
+- panel padding;
+- typography;
+- media dimensions;
+- grid proportions;
+- gaps;
+- rails;
+- header sizes;
+
+so the composition stays inside the available viewport.
+
+Do NOT solve responsive problems by introducing page-level scrollbars.
+
+Do NOT create internal scrolling panels as a workaround.
+
+Do NOT arbitrarily hide content.
+
+Do NOT allow a page to overflow just because a lower-resolution laptop is being used.
+
+The interface should behave like a composed game/menu UI.
+
+## Target desktop/laptop checks
+
+At minimum test:
+
+- 1280 × 720
+- 1366 × 768
+- 1440 × 900
+- 1600 × 900
+- 1920 × 1080
+- 2560 × 1440
+
+The screen should preserve the same overall composition at all these sizes.
+
+Use responsive CSS rather than hardcoding one resolution.
+
+Potential tools include:
+
+- `clamp()`
+- viewport-aware sizing
+- responsive spacing tokens
+- responsive typography
+- `minmax()`
+- aspect-ratio constraints
+- dynamic grid fractions
+- max-height/media constraints
+- breakpoint-specific density adjustments
+
+Avoid scaling the entire page through one giant `transform: scale(...)` unless there is an exceptionally strong technical reason.
+
+Prefer responsive component geometry.
+
+## Important
+
+A lower-resolution screen should feel like the same interface seen through a smaller viewport — not a different document.
+
+---
+
+# 3. MEDIA CORNER TREATMENT
+
+Media currently risks visually colliding with the angular geometry of its tactile container.
+
+Introduce subtle rounding ONLY to the actual media viewport.
+
+## Principle
+
+STRUCTURE = SHARP
+
+CONTENT = SLIGHTLY SOFTENED
+
+The outer tactile frame remains angular.
+
+The inner:
+
+- image;
+- video;
+- gameplay capture;
+- screenshot;
+- gallery viewport;
+
+receives subtle rounded corners.
+
+Recommended radius:
+
+    10–12px
+
+Smaller thumbnails may use approximately:
+
+    8px
+
+Do NOT round:
+
+- outer tactile panels;
+- title plates;
+- buttons;
+- navigation rails;
+- section plates;
+- contextual rails;
+- major content containers.
+
+The media viewport must use clipping/overflow so images and video respect the same radius.
+
+Maintain enough internal frame padding that the rounded media does not touch or collide with the outer clipped corners.
+
+Apply consistently across:
+
+- Overview project showcase;
+- Projects Overview cards;
+- Project Detail video;
+- Project Detail gallery;
+- Role Detail practice media;
+- Case Study evidence media;
+- other shared media frames.
+
+Preserve all correct source aspect ratios.
+
+Never stretch media.
+
+---
+
+# 4. CONTAINER / BACKGROUND SEPARATION
+
+The current background direction is NOT finalized.
+
+Do NOT change the global page background during this task.
+
+Do NOT activate `dark-background.css`.
+
+Do NOT decide between cream, grey or black.
+
+Instead, improve the distinction between the existing background plane and tactile cream surfaces using depth.
+
+## Goal
+
+Cream containers should clearly read as physical UI objects sitting above the page background.
+
+Explore subtle shadow treatment around major cream surfaces.
+
+This should work with the site's existing:
+
+- black outline;
+- red underslab;
+- offset hard shadow;
+- cut-corner geometry.
+
+We do NOT want generic modern web-card shadows.
+
+Preferred feeling:
+
+    printed / layered physical interface
+    +
+    small amount of ambient separation
+
+Possible approach:
+
+- retain existing compact hard offset shadow;
+- add a very restrained soft/ambient shadow around the outer surface;
+- keep opacity low;
+- avoid enormous blur radii.
+
+If useful, introduce one shared token such as:
+
+    --ui-shadow-ambient
+
+Do not independently invent different shadows per screen.
+
+Apply selectively to major physical surfaces, not every tiny control.
+
+Likely candidates:
+
+- `ui-surface`
+- print/content panels
+- major media containers
+- role cards
+- project cards
+- case-study shells
+
+Do not muddy text or create obvious glowing halos.
+
+The result should primarily improve separation from the background.
+
+---
+
+# 5. BUTTON INTERACTION LANGUAGE
+
+The existing button lift is good but insufficient by itself.
+
+Create a consistent site-wide color interaction language.
+
+## Neutral button
+
+REST:
+
+    cream background
+    black text/icon
+    black outline
+
+HOVER:
+
+    red background
+    cream text/icon
+    retained black outline
+    small upward physical response
+
+PRESSED:
+
+    black background
+    cream text/icon
+    reduced/collapsed shadow
+    slight downward movement
+
+## Primary red button
+
+REST:
+
+    red
+    cream content
+
+HOVER:
+
+    darker red
+    cream content
+
+PRESSED:
+
+    black
+    cream content
+
+## Motion
+
+Keep the existing tactile lift.
+
+Target:
+
+    approximately 1–3px
+
+The button may receive a tiny one-time "kick" / wiggle feeling when entering hover, but:
+
+- do not loop;
+- do not shake continuously;
+- do not make text difficult to read.
+
+The interaction should feel like selecting an item in a game menu.
+
+---
+
+# 6. ARROW MICROINTERACTION
+
+Directional arrows inside CTAs should respond to hover.
+
+On parent button hover:
+
+RIGHT arrow:
+
+    translateX(+2px to +3px)
+
+LEFT arrow:
+
+    translateX(-2px to -3px)
+
+Vertical arrows should follow their respective direction if they exist.
+
+Keep it fast and restrained.
+
+The arrow must return immediately when hover leaves.
+
+Do not animate continuously.
+
+---
+
+# 7. NUMBER / INDEX TABS
+
+Unify carousel/index interaction.
+
+## Rest
+
+    cream
+    black text
+    black edge
+
+## Hover
+
+    red
+    cream text
+
+## Active
+
+    red
+    cream text
+    persistent selected state
+
+## Pressed
+
+    black
+    cream text
+
+Apply consistently to:
+
+- Overview project index;
+- Projects index where applicable;
+- gallery index;
+- Case Study carousel index;
+- internal step indexes where the design uses this vocabulary.
+
+Selected state must remain visually stronger than hover.
+
+---
+
+# 8. LEFT PRIMARY NAVIGATION
+
+Preserve the current strong active-page treatment.
+
+Improve inactive hover feedback.
+
+A hovered inactive entry may receive:
+
+- restrained red edge/slash treatment;
+- small horizontal text movement;
+- slightly brighter type;
+- subtle red background/accent.
+
+Keep it consistent with the existing rail identity.
+
+Do NOT turn every nav item into a floating button.
+
+Do NOT weaken the selected/current page state.
+
+---
+
+# 9. RIGHT CONTEXTUAL RAIL
+
+Improve interaction feedback without changing its navigation architecture.
+
+REST:
+
+    existing muted rail presentation
+
+HOVER:
+
+- node brightens;
+- label becomes brighter cream/white;
+- optional subtle red accent;
+- very small horizontal response if appropriate.
+
+ACTIVE:
+
+- existing red active node remains the strongest state;
+- current case/project/role remains immediately obvious.
+
+Do not change:
+
+- rail hierarchy;
+- rail labels;
+- rail position;
+- right-rail purpose.
+
+---
+
+# 10. ROLE CARD HOVER
+
+Role cards should receive a restrained tactile interaction.
+
+REST:
+
+    existing cream card
+    black icon plate
+    cream icon
+
+HOVER:
+
+- card lifts slightly;
+- icon plate changes black → red;
+- icon stays cream;
+- CTA adopts active red treatment;
+- shadow strengthens slightly.
+
+Keep scale extremely restrained or avoid scale entirely.
+
+No layout reflow.
+
+Keyboard focus should receive equivalent visual emphasis.
+
+---
+
+# 11. PROJECT CARD FOCUS MODE
+
+This already exists.
+
+Preserve it.
+
+Current intended behavior:
+
+- surrounding Projects Overview content darkens;
+- active card rises above overlay;
+- active card remains bright;
+- subtle warm/red local glow;
+- small lift;
+- keyboard focus equivalent;
+- touch behavior remains sane.
+
+Do NOT redesign or stack more animations on top of it.
+
+Only adjust if necessary to make it compatible with the other global interaction changes.
+
+---
+
+# 12. VERTICAL RAIL DEPTH
+
+The large left and right vertical rails currently sit beside the center page but could integrate more convincingly as part of one physical interface.
+
+Add restrained depth where the rails meet the central content area.
+
+## Desired result
+
+The visual hierarchy should become:
+
+    left rail
+        ↓
+    central content plane
+        ↑
+    right rail
+
+while all three still feel connected.
+
+Explore an inward-facing shadow along:
+
+- right edge of left rail;
+- left edge of right rail.
+
+Possibly combine:
+
+- small hard edge shadow;
+- subtle ambient shadow.
+
+Do NOT add giant shadows around the outer viewport.
+
+Do NOT make rails appear detached or floating far above the page.
+
+This should simply clarify the layering.
+
+---
+
+# 13. CONSISTENT MEDIA FRAMING
+
+Audit every major media instance.
+
+They should use the same conceptual hierarchy:
+
+    angular tactile outer frame
+    ↓
+    small inner padding
+    ↓
+    rounded media viewport
+    ↓
+    correct-aspect image/video
+
+Side navigation arrows must feel attached to their corresponding media/frame.
+
+Avoid:
+
+- distorted media;
+- inconsistent border thickness;
+- different random radii;
+- arrows floating far away from media;
+- screenshots touching outer frame corners.
+
+---
+
+# 14. SHARED MOTION LANGUAGE
+
+Use one consistent motion vocabulary.
+
+Target duration:
+
+    ~120–200ms
+
+Use existing motion tokens whenever possible.
+
+Desired feel:
+
+- immediate;
+- tactile;
+- game-menu-like;
+- controlled.
+
+Avoid:
+
+- slow web fades;
+- spring animations;
+- overshoot;
+- looping effects;
+- large scale transforms;
+- exaggerated bouncing.
+
+---
+
+# 15. REDUCED MOTION
+
+Respect:
+
+    prefers-reduced-motion: reduce
+
+Reduced motion should:
+
+- retain all color/state hierarchy;
+- retain selected/focused states;
+- remove or minimize lifts, nudges and wiggle;
+- avoid breaking usability.
+
+Color feedback must remain.
+
+---
+
+# 16. DECORATIVE LANGUAGE
+
+Keep shared interface decoration neutral.
+
+Do NOT use:
+
+    assets/ui/decorative/ui_decorative_architecture-gothic_01.webp
+
+That asset does not represent the final visual identity and should not become part of the shared interface.
+
+Do not add project-specific gothic/fantasy/scifi imagery to generic site chrome.
+
+The shared shell needs to support equally:
+
+- Hollow Graves;
+- Reditus Umbrae;
+- Dreadwoods.
+
+Project identity belongs primarily inside project media/art.
+
+If project-specific backgrounds are explored later, that will be a separate design pass.
+
+---
+
+# 17. BACKGROUND — EXPLICITLY DEFERRED
+
+The global background remains unresolved.
+
+The current black-background experiment was not approved.
+
+Do NOT:
+
+- activate it;
+- delete the cream background;
+- replace the background with grey;
+- introduce a new colored background;
+- make project-specific backgrounds.
+
+For this pass:
+
+KEEP THE CURRENT BACKGROUND.
+
+Use shadow/depth improvements to investigate whether sufficient separation can be achieved without replacing it.
+
+We will make the background decision separately after reviewing this pass.
+
+---
+
+# 18. ACCESSIBILITY
+
+Every hover state must have an equivalent keyboard-focus treatment when appropriate.
+
+Preserve visible focus indication.
+
+Do not communicate state through motion alone.
+
+Maintain usable contrast.
+
+Touch devices must not enter broken/sticky hover states.
+
+---
+
+# 19. PERFORMANCE
+
+Prefer:
+
+- transform;
+- opacity;
+- background-color;
+- border-color;
+- simple box-shadow/drop-shadow;
+- lightweight pseudo-elements.
+
+Avoid:
+
+- JavaScript mouse tracking;
+- canvas;
+- WebGL;
+- backdrop blur;
+- huge animated filter chains;
+- cursor-following gradients;
+- layout-thrashing animation.
+
+No interaction in this task requires a continuous animation loop.
+
+---
+
+# 20. NO NEW ART ASSETS
+
+Do not generate, fabricate or replace:
+
+- project hero art;
+- role evidence;
+- case-study evidence;
+- About portrait;
+- backgrounds.
+
+Those are separate asset-production tasks.
+
+Use the current real assets.
+
+---
+
+# 21. REGRESSION REQUIREMENTS
+
+Verify:
+
+## Overview
+
+[ ] full composition fits supported desktop/laptop viewports  
+[ ] role cards remain aligned  
+[ ] project showcase retains correct aspect  
+[ ] author banner remains properly framed  
+[ ] no vertical page scroll  
+
+## Projects Overview
+
+[ ] three-card composition remains intact  
+[ ] focus mode still works  
+[ ] hover transfers correctly  
+[ ] project links still work  
+[ ] no layout shift  
+[ ] no vertical page scroll  
+
+## Project Detail
+
+[ ] video remains 16:9  
+[ ] gallery remains correctly framed  
+[ ] media corners are rounded inside angular frame  
+[ ] Build panel remains readable  
+[ ] project case-study CTA remains available  
+[ ] no vertical page scroll  
+
+## Roles Overview
+
+[ ] six-role grid remains intact  
+[ ] role-card hover works  
+[ ] role icons remain crisp  
+[ ] Watch Overview remains functional  
+[ ] no vertical page scroll  
+
+## Role Detail
+
+[ ] four-panel composition stays intact  
+[ ] In Practice media uses new media-radius rule  
+[ ] selected experience remains readable  
+[ ] approach content remains readable  
+[ ] featured strip remains in composition  
+[ ] no vertical page scroll  
+
+## Case Studies Overview
+
+[ ] carousel composition remains intact  
+[ ] three-card desktop presentation preserved  
+[ ] arrows/index states follow shared interactions  
+[ ] no vertical page scroll  
+
+## Case Study Step
+
+[ ] single evidence image remains correct  
+[ ] explanation panel remains readable  
+[ ] bottom step rail remains in view  
+[ ] right case-study rail remains in view  
+[ ] no vertical page scroll  
+
+## About / CV / Contact
+
+Audit them too.
+
+They use the same shell and should follow the same viewport-fit and surface-depth rules where relevant.
+
+---
+
+# 22. RESOLUTION TEST REPORT
+
+Explicitly test and report results for:
+
+- 1280 × 720
+- 1366 × 768
+- 1440 × 900
+- 1600 × 900
+- 1920 × 1080
+- 2560 × 1440
+
+For every resolution, verify:
+
+- no unintended page-level horizontal scroll;
+- no unintended page-level vertical scroll;
+- no clipped essential content;
+- no overlapping rails;
+- no overlapping panels;
+- no unreadably small text;
+- no stretched media;
+- no broken controls.
+
+If one screen fails to fit, fix the screen.
+
+Do not hide the overflow and call the test successful.
+
+---
+
+# 23. IMPLEMENTATION STRATEGY
+
+Prefer modifying/extending the existing shared foundations instead of adding isolated screen hacks.
+
+Likely shared concepts:
+
+    --ui-media-radius
+    --ui-shadow-ambient
+    shared hover-state colors
+    shared responsive density/spacing tokens
+
+Reuse existing:
+
+    --ui-red
+    --ui-red-dark
+    --ui-surface
+    --ui-black
+    --ui-hover-lift
+    --ui-pressed-offset
+    --ui-duration
+    --ui-ease
+
+Do not fork the design system unless necessary.
+
+Screen-specific overrides are acceptable when a shared rule genuinely cannot express the design.
+
+---
+
+# 24. IMPORTANT VISUAL PRINCIPLES
+
+Preserve these throughout implementation:
+
+### Interface hierarchy
+
+BLACK / DARK
+= structure, rails, typography, pressed state
+
+CREAM
+= physical information surface
+
+RED
+= selection, action, active interaction
+
+### Geometry
+
+sharp/angular
+= interface structure
+
+slightly rounded
+= contained media only
+
+### Motion
+
+small
+fast
+intentional
+tactile
+
+### Depth
+
+physical layered print/game-menu feeling
+
+not generic SaaS cards
+
+---
+
+# 25. DO NOT DO
+
+Do NOT:
+
+- redesign approved layouts;
+- activate black-background.css;
+- add gothic architecture art;
+- add new decorative art;
+- create new content;
+- introduce scrollbars as responsive solutions;
+- hide overflow to fake viewport fit;
+- reduce text until it becomes unreadable;
+- distort images or videos;
+- use giant border radii;
+- round tactile containers;
+- replace project focus mode;
+- add continuous animations;
+- create bespoke hover logic for every individual page when one shared primitive works.
+
+---
+
+# 26. FINAL REPORT
+
+When complete, report:
+
+1. exact files modified;
+2. shared tokens added or changed;
+3. media-radius implementation;
+4. container-depth/shadow treatment;
+5. button color interaction implementation;
+6. arrow microinteraction implementation;
+7. index-tab changes;
+8. left-nav hover changes;
+9. right-rail hover changes;
+10. role-card interaction changes;
+11. confirmation that Project focus mode was preserved;
+12. vertical-rail depth treatment;
+13. responsive-fit strategy;
+14. exact resolution test results;
+15. any routes that still scroll and WHY;
+16. reduced-motion behavior;
+17. keyboard/focus behavior;
+18. touch behavior;
+19. performance considerations;
+20. any deviation from this specification and why.
+
+Do not declare the responsive pass complete if any supported desktop/laptop viewport still requires vertical scrolling.
+
+Suggested commit:
+
+    Polish global interface interactions and viewport fit

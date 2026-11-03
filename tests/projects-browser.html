@@ -22,7 +22,7 @@ try{
   assert(w.getComputedStyle(cards[1].querySelector('.project-card__frame')).filter.includes('6px'),'Warm highlight follows clipped frame silhouette');
   assert(w.getComputedStyle(cards[1]).outlineWidth==='3px','Visible focus outline');
   assert(JSON.stringify(dimensions)===JSON.stringify(cards.map(card=>[card.offsetWidth,card.offsetHeight,card.offsetLeft,card.offsetTop])),'Focus does not reflow card geometry');
-  selector.querySelector('[data-ui-index="0"]').focus();await tick();await new Promise(r=>setTimeout(r,220));assert(Number(shade().opacity)===0,'Focus shade clears outside cards');
+  selector.querySelector('[data-ui-index="0"]').focus();await tick();await new Promise(r=>setTimeout(r,220));const pointerActive=w.matchMedia('(hover:hover) and (pointer:fine)').matches&&cards.some(card=>card.matches(':hover'));assert(Number(shade().opacity)===(pointerActive?1:0),'Focus shade clears unless a real pointer still hovers a card');
   assert(!d.querySelector('.video-frame,.split-intro,.carousel-count,.project-slide'),'Old featured overview removed');
   for(let i=0;i<Projects.length;i++){
    assert(cards[i].getAttribute('href')==='#games/projects/'+Projects[i].id,'Card destination');
@@ -46,6 +46,7 @@ try{
    assert(w.getComputedStyle(d.querySelector('.project-build-link')).backgroundColor==='rgb(188, 17, 24)','Primary action red');
    assert(d.querySelector('.ui-project-rail [aria-current="page"]').getAttribute('href')==='#games/projects/'+project.id,'Current project rail');
    ratio(d.querySelector('.video-frame'),'video');ratio(d.querySelector('.selected-image .media'),'screenshot');
+   assert(w.getComputedStyle(d.querySelector('.project-media-panel .ui-media-frame__viewport')).borderTopLeftRadius==='11px','Media softened inside angular frame');
    const gallery=d.querySelector('[data-project-gallery]');
    assert(!gallery.querySelector('.gallery-count,.gallery-thumbnails,.carousel-controls'),'No old gallery controls');
    assert(gallery.querySelectorAll('[data-gallery-index]').length===project.gallery.length,'Real screenshot count');

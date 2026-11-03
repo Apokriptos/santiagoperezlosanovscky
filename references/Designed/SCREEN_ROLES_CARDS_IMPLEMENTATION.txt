@@ -1,0 +1,512 @@
+# CODEX — ROLES OVERVIEW CARD REDESIGN PASS
+
+## STATUS
+
+Approved follow-up to the previously supplied **Global Interface Polish + Responsive Fit Pass**.
+
+The attached/current Roles Overview mockup is the visual reference for this task.
+
+Do not reinterpret the overall page. The purpose of this pass is specifically to redesign the **six role cards** and introduce role-specific visual identity while preserving the approved site system.
+
+---
+
+# 1. SCREEN TO MODIFY
+
+Roles Overview / `AREAS OF WORK`
+
+Preserve:
+
+- existing left global navigation;
+- page header;
+- `AREAS OF WORK` title;
+- intro copy area;
+- Watch Overview button;
+- `MY ROLES` section;
+- 3 × 2 desktop role-card grid;
+- right contextual Roles rail;
+- overall screen composition;
+- existing angular tactile language.
+
+The previously approved responsive-fit rules still apply.
+
+The screen must remain fully contained within the viewport on supported desktop/laptop resolutions.
+
+---
+
+# 2. ROLE CARD ARCHITECTURE — CHANGE
+
+The current cards are too horizontally segmented:
+
+- small icon;
+- title strip;
+- small body text;
+- oversized full-width View Role footer.
+
+Replace that card structure with the architecture shown in the supplied mockup.
+
+Each card becomes:
+
+```text
+┌──────────┬──────────────────────────────┐
+│          │ ROLE TITLE                   │
+│          │                              │
+│  LARGE   │ Description text             │
+│  ROLE    │ with improved readable size. │
+│  ICON    │                              │
+│          │                 VIEW ROLE →  │
+└──────────┴──────────────────────────────┘
+```
+
+---
+
+# 3. LEFT ROLE IDENTITY SLAB
+
+Approximately:
+
+    16–18% of card width
+
+Use the mockup as the visual target.
+
+The slab:
+
+- spans almost/full card height inside the tactile frame;
+- contains the role icon;
+- uses the role's unique accent color;
+- makes the icon considerably larger than the current version;
+- vertically centers the icon;
+- visually anchors the card.
+
+The icon should now function as a strong identity marker rather than a small decoration.
+
+Keep the existing SVG role icons.
+
+Do NOT generate replacement icon artwork.
+
+---
+
+# 4. ROLE-SPECIFIC COLORS
+
+Introduce a restrained color identity for each role.
+
+Suggested starting palette:
+
+    Technical Game Design
+    #3F78A8
+    muted technical blue
+
+    Level Design
+    #C69A3A
+    architectural ochre
+
+    Gameplay Development
+    #C45D36
+    burnt orange
+
+    Creative Leadership
+    #76558E
+    muted violet
+
+    Technical Animation
+    #3D8F91
+    cyan / teal
+
+    Product Ownership
+    #71824B
+    desaturated olive green
+
+These values are starting points, not immutable requirements.
+
+Tune slightly if necessary so they sit naturally beside the existing:
+
+- cream;
+- black;
+- red;
+- paper;
+- screenprint;
+
+palette.
+
+## Important distinction
+
+ROLE COLOR = identity / categorization
+
+RED = action / interaction / selection
+
+Do NOT replace the site's interaction red with role colors.
+
+Buttons and interactive hover states continue using the global red interaction language defined in the previous prompt.
+
+---
+
+# 5. COLOR APPLICATION
+
+Keep role colors restrained.
+
+Use primarily on:
+
+- vertical icon slab;
+- small associated edge/underslab detail if useful;
+- potentially a subtle card shadow/edge tint.
+
+Do NOT:
+
+- color the full card;
+- color large text areas;
+- recolor buttons by role;
+- create rainbow backgrounds;
+- overpower the cream/black/red visual identity.
+
+The six cards should feel individually recognizable while still belonging to one interface system.
+
+---
+
+# 6. ROLE TITLE AREA
+
+The role title remains in a strong black angular plate.
+
+Compared with the current implementation:
+
+- title can be larger;
+- text should have more breathing room;
+- multi-line titles are acceptable where necessary;
+- maintain condensed display typography;
+- retain angular geometry;
+- retain the small red structural slash/edge where appropriate.
+
+Examples:
+
+    TECHNICAL GAME DESIGN
+
+    LEVEL DESIGN
+
+    GAMEPLAY
+    DEVELOPMENT
+
+    CREATIVE
+    LEADERSHIP
+
+    TECHNICAL
+    ANIMATION
+
+    PRODUCT
+    OWNERSHIP
+
+Do not artificially shrink long titles just to keep them on one line.
+
+---
+
+# 7. DESCRIPTION TEXT
+
+One major purpose of this redesign is to increase readability.
+
+Increase role-description size compared with the current screen.
+
+Use the available card body area efficiently.
+
+Descriptions should feel like meaningful card content rather than tiny annotations.
+
+Use the actual professional copy supplied in the project data/profile-content pass.
+
+Do NOT return to placeholder copy such as:
+
+    Selected experience will be added...
+
+or generic temporary text if final copy is available.
+
+Maintain sensible line-height.
+
+Avoid excessive line count.
+
+---
+
+# 8. VIEW ROLE CTA — SHORTEN
+
+The existing full-width View Role button consumes too much visual space.
+
+Replace it with a compact CTA in the lower-right area of the content portion.
+
+Target roughly:
+
+    30–40% of content-area width
+
+depending on responsive constraints.
+
+Structure:
+
+    VIEW ROLE | →
+
+or the existing equivalent component.
+
+It should feel attached to the card but no longer dominate its full width.
+
+Use the global button behavior from the previous prompt:
+
+REST:
+
+    cream + black
+
+HOVER:
+
+    red + cream
+
+PRESSED:
+
+    black + cream
+
+The arrow receives the previously specified directional nudge.
+
+---
+
+# 9. CARD HOVER
+
+Retain the global role-card hover logic but adapt it to this architecture.
+
+Suggested behavior:
+
+- whole card lifts approximately 2px;
+- ambient/hard shadow strengthens slightly;
+- role identity slab may become subtly brighter or deeper;
+- View Role CTA becomes red according to global interaction rules;
+- title/content remains stable;
+- no layout reflow.
+
+Do NOT replace role color with red on the entire slab just because the card is hovered.
+
+We want:
+
+    role color = WHO this card is
+    red = WHAT I am interacting with
+
+Keyboard focus must receive equivalent treatment.
+
+---
+
+# 10. OUTER CARD GEOMETRY
+
+Preserve the site's tactile angular card language:
+
+- cream card body;
+- black outline;
+- cut corners;
+- red underslab / structural accent;
+- compact physical shadow.
+
+The colored identity slab lives INSIDE that architecture.
+
+Do not round the outer card.
+
+Do not turn these into generic modern web cards.
+
+---
+
+# 11. SPACING
+
+The new architecture should use the card area more efficiently.
+
+Priorities:
+
+1. strong icon;
+2. strong title;
+3. readable description;
+4. compact CTA.
+
+Avoid excessive dead space.
+
+At the same time, do not cram the text against edges.
+
+The supplied mockup should guide proportions.
+
+---
+
+# 12. RESPONSIVE BEHAVIOR
+
+This redesign must respect the viewport-fit work from the global pass.
+
+On canonical desktop/laptop sizes:
+
+- retain 3 × 2 grid;
+- keep cards fully visible;
+- no vertical page scroll;
+- no clipped buttons;
+- no text collision;
+- no icon clipping.
+
+Test especially:
+
+- 1280 × 720
+- 1366 × 768
+- 1440 × 900
+- 1600 × 900
+- 1920 × 1080
+- 2560 × 1440
+
+At smaller desktop heights, adjust:
+
+- card gaps;
+- internal padding;
+- icon size;
+- title size;
+- body size;
+- CTA height;
+
+using responsive values.
+
+Do not solve this by hiding descriptions.
+
+---
+
+# 13. ROLE DETAIL COLOR CONTINUITY
+
+If the current architecture supports it cleanly, expose the role accent color as reusable role metadata/token so the same identity can later appear on Role Detail pages.
+
+Potential later uses:
+
+- small title slash;
+- section marker;
+- active role marker;
+- subtle media-frame accent.
+
+However, do NOT perform a broad Role Detail redesign in this task.
+
+The immediate task is Roles Overview.
+
+Prepare the data/CSS architecture so the color is reusable.
+
+---
+
+# 14. DATA MODEL
+
+Prefer defining the accent color once per role rather than hardcoding selectors everywhere.
+
+For example, adapt the current role data with an appropriate property such as:
+
+    accent
+    accentColor
+    themeColor
+
+or use semantic CSS custom properties attached to each role-card element.
+
+Example concept:
+
+    --role-accent
+
+Then shared card CSS can consume it.
+
+Avoid six separate duplicated card implementations.
+
+---
+
+# 15. EXISTING ICONS
+
+Reuse the canonical SVG role icons:
+
+- `ui_role_icon_technical-game-design`
+- `ui_role_icon_level-design`
+- `ui_role_icon_gameplay-development`
+- `ui_role_icon_creative-leadership`
+- `ui_role_icon_technical-animation`
+- `ui_role_icon_product-ownership`
+
+The icon should render in cream/white over the colored slab.
+
+Ensure:
+
+- no rasterization;
+- no blur;
+- correct aspect ratio;
+- consistent visual size.
+
+Because the SVG shapes differ, optical sizing may need minor per-icon adjustment.
+
+That is acceptable.
+
+---
+
+# 16. SCREEN REFERENCE
+
+Use the supplied mockup as the intended composition:
+
+- vertical colored slab;
+- large white icon;
+- black angular title plate;
+- larger description text;
+- compact CTA in lower-right;
+- same 3 × 2 layout;
+- six distinct role colors.
+
+Do not reproduce accidental image-generation artifacts.
+
+Interpret the mockup through the actual existing design system.
+
+---
+
+# 17. CONTENT
+
+Use the final role copy supplied in the project's professional-profile content.
+
+Do NOT invent new claims.
+
+Do NOT expand the professional positioning beyond the supplied content.
+
+If `profile-content.js` is supplied with this task, integrate it according to the previously supplied profile-content hook/instructions.
+
+---
+
+# 18. DO NOT CHANGE
+
+Do NOT change:
+
+- overall Roles Overview page structure;
+- navigation architecture;
+- header composition;
+- Watch Overview behavior;
+- right role rail;
+- role ordering;
+- global typography system;
+- overall cream/black/red site identity;
+- routes;
+- content hierarchy;
+- project pages;
+- case-study pages.
+
+This is a focused Role-card redesign.
+
+---
+
+# 19. SUCCESS CRITERIA
+
+The redesign succeeds if:
+
+- the six role cards no longer feel repetitive;
+- each role is visually identifiable at a glance;
+- icons have substantially more presence;
+- description copy is easier to read;
+- View Role no longer wastes an entire horizontal band;
+- cards still unmistakably belong to the same site;
+- red remains the universal interaction color;
+- role colors do not overwhelm the interface;
+- 3 × 2 composition remains intact;
+- the page fits supported desktop/laptop viewports without page scrolling.
+
+---
+
+# 20. FINAL REPORT
+
+When complete, report:
+
+1. files modified;
+2. role-color data structure;
+3. exact final accent colors;
+4. role-card structural changes;
+5. icon sizing strategy;
+6. title treatment;
+7. description typography changes;
+8. View Role CTA changes;
+9. hover/focus behavior;
+10. responsive behavior;
+11. tested resolutions;
+12. any deviations from the supplied mockup and why.
+
+Suggested commit:
+
+    Redesign role cards with role identity colors

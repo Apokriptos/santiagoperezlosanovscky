@@ -102,3 +102,8 @@ Supplied black artwork replaces cream page backgrounds; cream component surfaces
 
 Cream background restored; black trial stylesheet is no longer loaded. Shared game entries now favor larger media, narrower build/description columns and compact case/download/play actions. Overview focus interaction and all role changes remain. See docs/project-entry-rebalance-12.md.
 
+
+## Global polish and role identities — Pass 13
+
+Roles Overview now uses six full-height colored identity slabs with canonical SVGs, larger descriptions and compact lower-right CTAs. Professional About and six-role copy is centralized in src/profile-content.js and applied once by src/data.js. Shared motion, red hover/black pressed states, 11px inner media corners, physical ambient separation and responsive desktop density are owned by styles/global-polish.css. Cream background, rails, routes, author banner, Project focus mode and Cases preview are retained. See docs/global-polish-13.md and tests/global-fit-results.json.
+

@@ -5,10 +5,10 @@ import { renderPage } from '../src/pages.js';
 import { roleCard,rolePractice,roleCaseStudyCard,roleDetailPanel } from '../src/role-ui.js';
 const ownership=Roles.find(role=>role.id==='product-ownership');
 assert.ok(ownership);
-assert.equal(ownership.subtitle,'Vision, planning, production, and cross-disciplinary coordination.');
+assert.equal(ownership.subtitle,'Connecting vision, priorities, scope and delivery across design, production and multidisciplinary teams.');
 assert.equal(resolveRoute('#games/roles/product-ownership').item,ownership);
 const index=renderPage(resolveRoute('#games/roles'));
-assert.equal((index.match(/role-card__heading/g)||[]).length,Roles.length);
+assert.equal((index.match(/role-card__content/g)||[]).length,Roles.length);
 for(const role of Roles){
  const card=roleCard(role);assert.equal((card.match(/<a /g)||[]).length,1);
  assert.ok(card.includes(role.id)&&card.includes('ui-role-icon')&&card.includes('ui-header-plate'));

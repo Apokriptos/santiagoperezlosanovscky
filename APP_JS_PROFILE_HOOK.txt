@@ -1,0 +1,16 @@
+APP.JS HOOK
+
+Add this import near the other imports:
+
+import { applyProfessionalProfileContent } from './profile-content.js';
+
+Then call it once after the import block and before:
+
+const app=document.querySelector('#app');
+
+Like this:
+
+applyProfessionalProfileContent();
+const app=document.querySelector('#app');
+
+No layout/render code needs to change.

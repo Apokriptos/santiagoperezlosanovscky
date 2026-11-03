@@ -1,0 +1,426 @@
+# CODEX ADDENDUM — CREATE `profile-content.js` DIRECTLY
+
+Do NOT expect a supplied `profile-content.js` attachment.
+
+Create the file yourself inside the repository.
+
+Use the existing project architecture and inspect `src/data.js`, `src/pages.js`, and `src/app.js` before deciding the exact integration point.
+
+## Goal
+
+Create a dedicated professional-profile content module containing the final:
+
+- About Me copy;
+- Roles Overview summaries;
+- Role Detail positioning;
+- Role Detail summaries;
+- selected experience;
+- approach sections;
+- featured case/project references where appropriate.
+
+The content must populate the existing data-driven site rather than duplicating page markup.
+
+Prefer:
+
+    src/profile-content.js
+
+or the nearest equivalent that fits the current source structure.
+
+---
+
+## ABOUT ME
+
+### Biography
+
+Game and systems designer with 7+ years of professional experience across game design, level design, gameplay systems, mobile and VR production, product ownership and design leadership. I work hands-on in Unreal Engine and Blueprints, turning ambiguous creative intent into mechanics, spaces, documentation and implementable content while collaborating across design, engineering, art, narrative and QA.
+
+### Focus
+
+Hands-on design roles where systems design, level design, player experience and implementation overlap — especially Technical Game Design, Level Design, Systems/Gameplay Design and Unreal-heavy prototyping.
+
+### Currently
+
+Developing independent Unreal Engine projects while teaching Game Design, Systems Design, Level Design, Unreal Engine Blueprints and Game Prototyping at Image Campus.
+
+### Trajectory
+
+**2025–Present — Independent Unreal Engine Development**
+
+Leading design and implementation on Hollow Graves, spanning systems, levels, narrative/worldbuilding, investigation design, UI/UX, Blueprint architecture and production planning.
+
+**2022–Present — Professor — Image Campus**
+
+Design and teach original curricula across Game Design, Systems Design, Level Design, Unreal Engine Blueprints and Game Prototyping.
+
+**2022–2024 — Product Owner / Lead Game Designer — Aconcagua Games**
+
+Owned gameplay, systems and level design across multiple mobile projects while leading a small design team and coordinating programming, art, QA and production.
+
+**2020–2022 — Game & Level Design — Pixowl / VR Health**
+
+Worked across level production, mechanics, balancing, progression and multidisciplinary VR design, including accessibility and specialist-driven constraints.
+
+**2019–2020 — Lead Game Designer / Producer — Independent Studio**
+
+Co-founded a six-person Unreal Engine project, leading design and documentation while managing backlog, sprint planning, scope, milestones and reviews.
+
+### Skills
+
+- Game Design
+- Systems Design
+- Level Design
+- Technical Design
+- Unreal Engine
+- Blueprints
+- Gameplay Prototyping
+- AI / Behavior Trees / Navigation
+- Level Building & Scene Implementation
+- Environmental Storytelling
+- Documentation
+- Playtesting & QA
+
+### Location
+
+Buenos Aires, Argentina
+
+### Languages
+
+English — Native/Bilingual
+
+---
+
+# ROLES OVERVIEW INTRO
+
+I work across game, systems, level and technical design, with hands-on Unreal Engine implementation and experience in product ownership and design leadership.
+
+My roles overlap by design: I translate creative intent into mechanics, spaces, prototypes, documentation and production-ready systems while collaborating across design, engineering, art, narrative and QA.
+
+---
+
+# ROLE OVERVIEW SUMMARIES
+
+## Technical Game Design
+
+Designing and implementing gameplay systems, from mechanics and AI to UI, data-driven content and Blueprint architecture.
+
+## Level Design
+
+Turning game and narrative goals into spaces, gameplay beats, exploration and iterative in-engine levels.
+
+## Gameplay Development
+
+Implementing gameplay behavior and interactions through Blueprints, AI, UI and systemic game logic.
+
+## Creative Leadership
+
+Turning creative vision into clear direction, shared standards and aligned multidisciplinary work.
+
+## Technical Animation
+
+Connecting gameplay and animation through Unreal Engine animation systems, runtime logic and technical setup.
+
+## Product Ownership
+
+Connecting vision, priorities, scope and delivery across design, production and multidisciplinary teams.
+
+---
+
+# TECHNICAL GAME DESIGN
+
+## Positioning
+
+BRIDGING DESIGN AND TECHNOLOGY TO CREATE PLAYABLE, SCALABLE SYSTEMS.
+
+## Summary
+
+I design, prototype and implement gameplay systems, turning mechanics, behaviors and ideas into playable, testable experiences. I tend to work where design meets implementation: building directly in Unreal Engine with Blueprints, level scripting, UI, data-driven content and gameplay logic to prove ideas early and make them easier to iterate, communicate and maintain.
+
+## Selected Experience
+
+**Hollow Graves**
+
+Investigation and clue systems, UI/UX, data-driven content, enemy and gameplay logic, Blueprint architecture and balancing.
+
+**Drill to the Rend**
+
+Adaptive enemies, Behavior Trees and navigation, weapon switching, elemental combat, progression, configurable encounter waves and boss systems.
+
+**Aconcagua Games**
+
+Gameplay and systems design across mechanics, controls, progression, stats, upgrades, difficulty, scoring, rewards and tutorials.
+
+**Teaching**
+
+Unreal Engine Blueprints, gameplay systems, AI, Behavior Trees, navigation, UI/widgets and rapid prototyping.
+
+## My Approach
+
+**Prototype early.**  
+Build enough of the real interaction to expose the actual design problem.
+
+**Make systems readable.**  
+Mechanics should communicate their state, rules and consequences clearly to both players and developers.
+
+**Design for iteration.**  
+Expose useful variables, separate responsibilities and make tuning inexpensive.
+
+**Bridge disciplines.**  
+Use working prototypes and clear documentation to align design, engineering, art and production.
+
+Use Hollow Graves / Investigation as the featured case where the current data architecture supports it.
+
+---
+
+# LEVEL DESIGN
+
+## Positioning
+
+TURNING DESIGN GOALS INTO SPACES THAT GUIDE, REWARD AND REACT TO THE PLAYER.
+
+## Summary
+
+I approach level design as the spatial expression of the game's systems, narrative and player experience. I translate high-level goals into design criteria, gameplay beats, set pieces, diagrams and greyboxes before moving into iterative in-engine implementation. My focus is on readable navigation, pacing, player agency, discovery and the relationship between mechanics and space.
+
+## Selected Experience
+
+**Hollow Graves**
+
+Built a structured level-design pipeline connecting game and narrative goals to criteria, gameplay beats, set pieces, spatial diagrams, greyboxes and in-engine iteration.
+
+**Match Island — Pixowl**
+
+Hands-on level design, balancing, progression and high-volume content production for a public Match-3/city-builder.
+
+**Aconcagua Games**
+
+Designed and balanced level content, established representative levels and created production guidelines for level-design teams.
+
+**VR Health**
+
+Translated therapeutic and accessibility requirements into level-design and player-experience decisions for VR rehabilitation.
+
+## My Approach
+
+**Start with intent.**  
+Define what the player should understand, feel and decide before deciding what the space looks like.
+
+**Design the beats first.**  
+Structure progression, information, challenge and payoff before committing to detail.
+
+**Greybox early.**  
+Test scale, navigation, timing and gameplay relationships while changes are still cheap.
+
+**Protect player agency.**  
+Guide attention without reducing every problem to a forced sequence.
+
+Use Hollow Graves / Investigation as the featured case if appropriate.
+
+---
+
+# GAMEPLAY DEVELOPMENT
+
+## Positioning
+
+TURNING DESIGN INTENT INTO WORKING GAMEPLAY.
+
+## Summary
+
+My gameplay-development work grows directly out of design. I prototype and implement mechanics in-engine using Unreal Engine and Blueprints, working across player interactions, AI, UI, level scripting, data-driven systems and gameplay logic. The goal is not simply to make a feature function, but to make it useful for design iteration.
+
+## Selected Experience
+
+**Hollow Graves**
+
+Hands-on Blueprint implementation across gameplay systems, UI/widgets, level scripting, data-driven content and enemy logic.
+
+**Drill to the Rend**
+
+Built a complete playable prototype with enemy AI, navigation, weapons, elemental interactions, spawning, progression and encounter systems.
+
+**Teaching**
+
+Developed and teach an Unreal Engine prototyping curriculum covering Blueprint scripting, gameplay systems, AI, Animation Blueprints, UI and interfaces.
+
+**Aconcagua Games**
+
+Worked hands-on in Unity while coordinating implementation across programming, art, QA and production.
+
+## My Approach
+
+**Build the playable question.**  
+Implementation should test the design assumption, not merely reproduce a specification.
+
+**Keep systems extensible.**  
+Prefer reusable logic and configurable data over one-off solutions.
+
+**Debug from the player's experience.**  
+Start from what the player sees, understands and can do, then trace the technical cause.
+
+**Keep design close to the implementation.**  
+Short feedback loops produce better mechanics than long hand-offs.
+
+Use Reditus Umbrae / combat as the featured case if appropriate.
+
+---
+
+# CREATIVE LEADERSHIP
+
+## Positioning
+
+TURNING CREATIVE INTENT INTO CLEAR DIRECTION AND EXECUTABLE WORK.
+
+## Summary
+
+I lead by translating creative intent into decisions other people can actually work with. That means defining the experience, setting priorities and standards, reviewing work against the project's goals and maintaining communication across disciplines. I am most effective when leadership remains close to the design and production work rather than becoming detached management.
+
+## Selected Experience
+
+**Independent Creative Direction**
+
+Led original game development from concept through prototype and directed collaborations of up to approximately sixteen contributors across design, art and development.
+
+**Aconcagua Games**
+
+Led a small Game/Level Design team while coordinating programming, art, QA and production across multiple concurrent projects.
+
+**VR Health**
+
+Served as primary designer and documentation lead, translating therapist and specialist requirements into gameplay and player-experience decisions.
+
+**Independent Game Studio**
+
+Co-founded a six-person team, leading design while managing scope, milestones, sprint planning and reviews.
+
+## My Approach
+
+**Clarify the vision.**  
+Teams need concrete priorities and decision criteria, not just inspirational language.
+
+**Translate between disciplines.**  
+Creative, technical and production constraints need to become shared problems rather than departmental conflicts.
+
+**Review against intent.**  
+Feedback should explain what the work is trying to achieve and why a change matters.
+
+**Protect scope.**  
+Good leadership preserves the core experience while being realistic about time, people and production constraints.
+
+Do not fabricate a Featured Case Study if no dedicated case exists. Use a Featured Project or Featured Experience only if the renderer/data model supports it cleanly.
+
+---
+
+# TECHNICAL ANIMATION
+
+## Positioning
+
+USING ANIMATION SYSTEMS AS GAMEPLAY INFRASTRUCTURE, NOT JUST PRESENTATION.
+
+## Summary
+
+My technical-animation work sits on the gameplay side of Unreal Engine rather than traditional character animation production. I work with Animation Blueprints, Control Rig, Sequencer and related runtime tools as part of a broader technical-design workflow, focusing on how animation state and gameplay behavior connect inside an interactive system.
+
+## Selected Experience
+
+**Image Campus**
+
+Teach Animation Blueprints as part of an Unreal Engine prototyping curriculum alongside gameplay systems, AI, interfaces, UI and level implementation.
+
+**Unreal Engine Toolset**
+
+Practical experience with Animation Blueprints, Sequencer and Control Rig within a broader Blueprint-heavy workflow.
+
+**Gameplay Prototyping**
+
+Use animation systems as part of playable prototypes and technical implementation rather than as isolated presentation work.
+
+## My Approach
+
+**Start from gameplay state.**  
+Animation logic should respond clearly to what the character and game systems are doing.
+
+**Keep transitions readable.**  
+State changes should support both player feedback and implementation clarity.
+
+**Use procedural tools where they earn their cost.**  
+Technical animation should solve recurring gameplay problems rather than add complexity for its own sake.
+
+**Treat animation as a system.**  
+Character motion works best when animation, controls, AI and gameplay logic are designed together.
+
+Do not position this as traditional character-animation expertise.
+
+---
+
+# PRODUCT OWNERSHIP
+
+## Positioning
+
+CONNECTING CREATIVE VISION, PRIORITIES AND PRODUCTION.
+
+## Summary
+
+I approach product ownership from a design background. I define what a feature or product needs to achieve, translate ambiguous requirements into actionable work, maintain priorities and documentation, coordinate across disciplines and protect the experience while balancing scope, time and production realities.
+
+## Selected Experience
+
+**Aconcagua Games**
+
+Product Owner and Lead Game Designer across multiple mobile titles spanning sports, racing, puzzle, survival and strategy projects.
+
+**Independent Game Studio**
+
+Managed backlog, sprint planning, scope, milestones and reviews as Lead Game Designer, Producer and ScrumMaster.
+
+**Independent Creative Direction**
+
+Combined creative direction with production, workflow definition, documentation and multidisciplinary coordination.
+
+**Hollow Graves**
+
+Own production planning alongside creative direction, systems design, level design, implementation and documentation.
+
+## My Approach
+
+**Define the outcome.**  
+Start with the player, product and production problem before turning it into tasks.
+
+**Reduce ambiguity.**  
+Convert broad creative intent into priorities, specifications, criteria and concrete next steps.
+
+**Prioritize deliberately.**  
+Protect the work that creates the most value and cut complexity that does not support the core experience.
+
+**Keep disciplines aligned.**  
+Design, engineering, art, QA and production should understand both what is being built and why.
+
+**Document enough to move.**  
+Documentation should accelerate decisions and implementation rather than become an end in itself.
+
+Do not fabricate a case study if the portfolio does not currently contain one.
+
+---
+
+# IMPLEMENTATION REQUIREMENTS
+
+1. Create the professional-profile content module directly in the repo.
+2. Integrate it with the existing data model rather than duplicating HTML.
+3. Replace placeholder/forthcoming role and About copy.
+4. Preserve current route IDs and role IDs.
+5. Do not invent professional claims.
+6. Do not change page layout as part of this content task.
+7. Keep content editable from one centralized source.
+8. If the existing architecture makes a separate file unnecessary, it is acceptable to place the content directly into `src/data.js`, but keep it clearly structured and centralized.
+9. If you create `src/profile-content.js`, import/apply it from the appropriate application initialization point exactly once.
+10. Verify that no circular import is introduced.
+
+At completion, report:
+
+- whether you used `src/profile-content.js` or integrated into `src/data.js`;
+- files changed;
+- how content is initialized;
+- whether any existing placeholders remain;
+- whether any renderer limitation prevented a Featured Project/Experience from being represented accurately.
+
+Suggested commit:
+
+    Add final professional profile content

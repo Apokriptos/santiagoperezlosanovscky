@@ -101,3 +101,5 @@ await import('./ui-foundation.mjs');
 await import('./projects.mjs');
 await import('./roles.mjs');
 await import('./cases.mjs');
+
+await import('./profile.mjs');

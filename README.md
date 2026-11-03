@@ -27,6 +27,8 @@ Buildless, semantic HTML, CSS, and vanilla JavaScript. Serve this folder with an
 
 ## Content and configuration
 
+Approved professional copy now lives in `src/profile-content.js`: About biography/focus/current work/trajectory/skills/location/languages, Roles intro, six role summaries, positioning, experience, approach and accent colors. `src/data.js` calls its import-free initializer exactly once after creating stable records. Edit that module for professional profile changes; keep route/project identities in `src/data.js`. No evidence images or new professional claims are generated. See `docs/global-polish-13.md`.
+
 Edit `src/data.js`: `config`, `navigation`, `Projects`, `Roles`, and `CaseStudies` are the centralized sources. IDs are stable URL segments. Records and step counts are arbitrary; the sample data deliberately contains cases with different step counts. The six approved roles are present, including Product Ownership. Technical Animation describes in-engine integration, not traditional character animation.
 
 Projects support descriptions, role IDs, tags, thumbnail, hero media, video, gallery, build status/URL, external URL, and related case IDs. Roles support summary, experience (`{title,body,projectId}`), practice media, approach, and an optional featured case ID. Cases reference project and role IDs and contain arbitrary steps with body, media, and captions. Empty optional arrays are valid.

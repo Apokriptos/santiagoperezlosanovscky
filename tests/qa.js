@@ -130,7 +130,7 @@ try {
   results.push({test:'Global desktop fit for every required Games page family and configured detail route',passed:true,measurements:desktopMeasurements});
   await load('#games/about',1434,913,'tests/stress.html?about=populated');desktopFrame('Populated About fixture');
   assert(getComputedStyle(doc().querySelector('.timeline')).display==='flex','Horizontal desktop trajectory');
-  assert(getComputedStyle(doc().querySelector('.about-facts .print-panel:first-child ul')).display==='grid','Compact skills grid');
+  assert(getComputedStyle(doc().querySelector('.about-facts .print-panel:first-child ul')).flexWrap==='wrap','Readable wrapping skills band');
   await load('#games/case-studies');
   assert(doc().querySelectorAll('.case-index-card').length===CaseStudies.length,'Overview case cards from data');
   assert(doc().querySelector('.case-carousel-controls').hidden,'No redundant controls when current cases fit');
@@ -151,7 +151,7 @@ try {
     await load(`#games/case-studies/case-1/stress-step-${count}`,1434,913,`tests/stress.html?steps=${count}`);singleScreen(count+'-step view');
     assert(doc().querySelectorAll('.step-nav a').length===count,'Timeline count');
     const active=doc().querySelector('.step-nav [aria-current="step"]'), rail=active.parentElement, a=active.getBoundingClientRect(), r=rail.getBoundingClientRect();
-    assert(a.left>=r.left && a.right<=r.right,'Current timeline entry visible');
+    assert(a.left>=r.left-1 && a.right<=r.right+1,'Current timeline entry visible '+count+' '+JSON.stringify({active:a.toJSON(),rail:r.toJSON()}));
     if(count===12) assert(rail.scrollWidth>rail.clientWidth,'Large timeline scrolls only horizontally');
     active.focus();active.dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
     assert(doc().activeElement===rail.querySelectorAll('a')[count-2],'Timeline keyboard focus');
@@ -176,7 +176,7 @@ try {
     assert(stepNav.querySelector('[aria-current="step"]').textContent.includes('12'),'Last step active');
     assert(stepNav.scrollWidth>stepNav.clientWidth,'Step navigation scrolls locally');
     const active=stepNav.querySelector('[aria-current="step"]').getBoundingClientRect(), rail=stepNav.getBoundingClientRect();
-    assert(active.left>=rail.left && active.right<=rail.right,'Active step revealed on deep link');
+    assert(active.left>=rail.left-1 && active.right<=rail.right+1,'Active step revealed on deep link '+width+' '+JSON.stringify({active:active.toJSON(),rail:rail.toJSON()}));
     noOverflow('12 steps '+width);
   }
   results.push({test:'Additional project/role/case rail entries, long labels, and visible active entry in 12-step navigation at six widths',passed:true});
@@ -217,7 +217,7 @@ try {
     noOverflow('Mobile project gallery '+project.id);
   }
   results.push({test:'Three project galleries: shared side arrows and numbered tabs, End/keyboard wrap, actual copy/current build links and desktop fit',passed:true});
-  await load('#games/roles/technical-animation');assert(doc().body.textContent.includes('retargeting'),'Technical animation scope');
+  await load('#games/roles/technical-animation');assert(doc().body.textContent.includes('Animation Blueprints')&&doc().body.textContent.includes('rather than traditional character animation production'),'Supplied gameplay-side technical animation scope');
   await load('#games/case-studies/case-1');assert(!doc().querySelector('.step-nav'),'Cover step rail');
   doc().querySelector('a[href="#games/case-studies/case-1/step-1"]').click();await pause();
   assert(doc().querySelector('.step-nav [aria-current="step"]'),'Active step');

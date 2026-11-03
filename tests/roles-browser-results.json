@@ -11,8 +11,9 @@
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
       "watchOverviewModal": true,
-      "alignedCardHeaders": true,
-      "fullWidthPractice": true,
+      "identitySlabs": true,
+      "compactCTA": true,
+      "containedPractice": true,
       "swappedSummaryApproach": true
     },
     {
@@ -25,8 +26,9 @@
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
       "watchOverviewModal": true,
-      "alignedCardHeaders": true,
-      "fullWidthPractice": true,
+      "identitySlabs": true,
+      "compactCTA": true,
+      "containedPractice": true,
       "swappedSummaryApproach": true
     },
     {
@@ -39,8 +41,9 @@
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
       "watchOverviewModal": true,
-      "alignedCardHeaders": true,
-      "fullWidthPractice": true,
+      "identitySlabs": true,
+      "compactCTA": true,
+      "containedPractice": true,
       "swappedSummaryApproach": true
     },
     {
@@ -53,8 +56,9 @@
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
       "watchOverviewModal": true,
-      "alignedCardHeaders": true,
-      "fullWidthPractice": true,
+      "identitySlabs": true,
+      "compactCTA": true,
+      "containedPractice": true,
       "swappedSummaryApproach": true
     },
     {
@@ -67,8 +71,9 @@
       "allEntryRoutes": true,
       "fixturePracticeAndCaseLinks": true,
       "watchOverviewModal": true,
-      "alignedCardHeaders": true,
-      "fullWidthPractice": true,
+      "identitySlabs": true,
+      "compactCTA": true,
+      "containedPractice": true,
       "swappedSummaryApproach": true
     }
   ]
