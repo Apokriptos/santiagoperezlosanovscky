@@ -1,3 +1,4 @@
+import { aboutComposition } from './about-ui.js';
 import { caseStudyStep } from './case-ui.js';
 import { roleCard, roleDetailPanel, rolePractice, roleCaseStudyCard, roleOverviewDialog } from './role-ui.js';
 import { projectSelector, projectDetailPanel } from './project-ui.js';
@@ -85,14 +86,7 @@ function cases(study, step) {
 }
 
 function about() {
-  const a=config.about;
-  return `${heading('ABOUT ME')}
-    <div class="about-layout"><div class="about-portrait">${media(config.portrait,'Portrait')}</div><div>
-      ${printSection(config.name,`<p class="lead">${e(a.biography)}</p>`,'biography-panel')}
-      <div class="about-focus">${printSection('FOCUS',`<p>${e(a.focus)}</p>`)}${printSection('CURRENTLY',`<p>${e(a.currently)}</p>`)}</div>
-    </div></div>
-    ${printSection('TRAJECTORY',a.trajectory.length ? `<ol class="timeline">${a.trajectory.map(t=>`<li><strong>${e(t.date)}</strong><h3>${e(t.title)}</h3><p>${e(t.body)}</p></li>`).join('')}</ol>` : emptyState('Timeline forthcoming','Professional trajectory details will be supplied here.'))}
-    <div class="about-facts">${printSection('SKILLS',list(a.skills))}${printSection('LOCATION',`<p>${e(a.location || 'Location forthcoming.')}</p>`)}${printSection('LANGUAGES',list(a.languages))}</div>`;
+  return heading('ABOUT ME')+aboutComposition(config.about,config.name,config.portrait);
 }
 
 function cv() {
@@ -109,13 +103,19 @@ function cv() {
 }
 
 function contact() {
-  const entries=[['Email',config.contact.email ? 'mailto:'+config.contact.email : null,'@'],['LinkedIn',assetUrl(config.contact.linkedin),'in'],['GitHub',assetUrl(config.contact.github),'GH'],['Download CV',assetUrl(config.cv.url),'PDF']];
-  return `${heading('CONTACT')}<p class="lead contact-intro">${e(config.copy.contact)}</p>
-    <div class="destination-grid">${entries.map(([label,url,icon])=>{
-      const contents=`<span class="destination-icon" aria-hidden="true">${icon}</span><span><strong>${e(label)}</strong><small>${url ? (label==='Download CV' ? 'Download PDF' : 'Open destination') : 'Forthcoming'}</small></span><span class="destination-arrow" aria-hidden="true">${url ? '↗' : '—'}</span>`;
-      return url ? `<a class="destination-card" href="${e(url)}" ${label==='Download CV' ? 'download' : label!=='Email' ? 'target="_blank" rel="noopener noreferrer"' : ''}>${contents}</a>` : `<div class="destination-card unavailable" aria-disabled="true">${contents}</div>`;
-    }).join('')}</div>
-    ${printSection('COLLABORATION & OPPORTUNITIES',`<p>${e(config.copy.opportunities)}</p>`,'collaboration-panel')}`;
+  const camera='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>';
+  const entries=[
+    {id:'email',label:'Email',support:'Write directly',value:config.contact.email,url:config.contact.email?'mailto:'+config.contact.email:null,glyph:'@'},
+    {id:'linkedin',label:'LinkedIn',support:'Professional profile',url:assetUrl(config.contact.linkedin),glyph:'in'},
+    {id:'instagram',label:'Instagram',support:'Studio / creative presence',url:assetUrl(config.contact.instagram),glyph:camera},
+  ];
+  return `${heading('CONTACT')}<p class="lead contact-intro">${e(config.copy.contact)}</p><div class="contact-composition">
+    <nav class="contact-methods" aria-label="Direct contact and profiles">${entries.map(item=>{
+      const content=`<span class="contact-method__icon contact-method__icon--${item.id}" aria-hidden="true">${item.glyph}</span><span class="contact-method__copy"><strong>${e(item.label)}</strong><span class="contact-method__support">${e(item.support)}</span>${item.value?`<span class="contact-method__value">${e(item.value)}</span>`:''}</span><span class="contact-method__arrow" aria-hidden="true">${icon(item.id==='email'?'arrow-right':'external-link')}</span>`;
+      const frame=surface(content,{className:'contact-method__frame',accent:true});
+      return item.url?`<a class="contact-method" href="${e(item.url)}"${item.id==='email'?'':` target="_blank" rel="noopener noreferrer" aria-label="${e(item.label)}: ${e(item.support)} (opens in a new tab)"`}>${frame}</a>`:`<div class="contact-method contact-method--unavailable" aria-disabled="true">${frame}</div>`;
+    }).join('')}</nav>
+    ${printSection('COLLABORATION & OPPORTUNITIES',`<p>${e(config.copy.opportunities)}</p>`,'collaboration-panel')}</div>`;
 }
 export function renderPage(r) {
   const pageClass = r.section === '' ? 'overview-page' : `publication-page ${r.section}-page ${r.item ? 'detail-page' : 'index-page'}${r.step ? ' case-step-page' : ''}`;

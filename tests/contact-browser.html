@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Contact viewport checks</title><style>body{font:13px monospace}pre{white-space:pre-wrap}iframe{display:block;border:0}</style><pre id="report">Running…</pre><iframe title="Contact verification"></iframe><script type="module">
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const sizes=[[1280,720],[1366,768],[1440,900],[1600,900],[1920,1080],[2560,1440],[768,1024],[390,844],[320,720]];
+try { for(const [width,height] of sizes){
+ frame.width=width;frame.height=height;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/?contact-test='+width+'#games/contact';});
+ const d=frame.contentDocument,w=frame.contentWindow;await d.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+ const issues=[],cards=[...d.querySelectorAll('.contact-method')],page=d.querySelector('.contact-page'),main=d.querySelector('main');
+ if(cards.length!==3)issues.push('Contact count');
+ const expected=['mailto:santiagolovsky@gmail.com','https://www.linkedin.com/in/santiago-perez-losanovscky-a91877172/','https://www.instagram.com/capi.gamedev/'];
+ cards.forEach((c,i)=>{if(c.getAttribute('href')!==expected[i])issues.push('Wrong destination '+i);if(i&&(!c.rel.includes('noopener')||c.target!=='_blank'))issues.push('External link safety');});
+ if(!cards[0].textContent.includes('santiagolovsky@gmail.com'))issues.push('Email not visible');
+ if(page.querySelector('a[download],a[href*="github.com"],form'))issues.push('Removed Contact content present');
+ if(d.documentElement.scrollWidth>width||main.scrollWidth>main.clientWidth)issues.push('Horizontal overflow');
+ if(d.documentElement.scrollHeight>height||main.scrollHeight>main.clientHeight)issues.push('Vertical overflow '+d.documentElement.scrollHeight+'/'+main.scrollHeight+'/'+main.clientHeight);
+ const rects=cards.map(c=>c.getBoundingClientRect());
+ if(width>1000&&rects.some(b=>Math.abs(b.top-rects[0].top)>1||b.height>165))issues.push('Desktop cards not compact row');
+ if(width<=1000&&rects[1].top<=rects[0].bottom)issues.push('Narrow cards not stacked');
+ for(const n of page.querySelectorAll('h1,h2,p,.contact-method')){const b=n.getBoundingClientRect();if(b.bottom>height+1||b.left<0||b.right>width+1)issues.push('Content outside viewport '+n.className);}
+ cards[0].focus();await new Promise(r=>setTimeout(r,180));
+ if(w.getComputedStyle(cards[0]).outlineWidth!=='3px')issues.push('Missing keyboard focus outline');
+ results.push({width,height,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
+ } report.textContent=JSON.stringify({passed:results.every(r=>r.passed),results},null,2);
+}catch(e){report.textContent=JSON.stringify({passed:false,error:e.message,results},null,2);}
+</script></html>

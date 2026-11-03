@@ -1,9 +1,10 @@
 // User-supplied professional copy. No imports: initialization cannot create a cycle.
 export const profileContent = {
   "about": {
-    "biography": "Game and systems designer with 7+ years of professional experience across game design, level design, gameplay systems, mobile and VR production, product ownership and design leadership. I work hands-on in Unreal Engine and Blueprints, turning ambiguous creative intent into mechanics, spaces, documentation and implementable content while collaborating across design, engineering, art, narrative and QA.",
-    "focus": "Hands-on design roles where systems design, level design, player experience and implementation overlap — especially Technical Game Design, Level Design, Systems/Gameplay Design and Unreal-heavy prototyping.",
-    "currently": "Developing independent Unreal Engine projects while teaching Game Design, Systems Design, Level Design, Unreal Engine Blueprints and Game Prototyping at Image Campus.",
+    "positioning": "GAME AND SYSTEMS DESIGNER / TECHNICAL DESIGNER / LEVEL DESIGNER",
+    "biography": "Game and systems designer with 7+ years of experience in game design, level design and Unreal Engine, bridging creative intent with implementation.",
+    "focus": "Systems, level and gameplay design, with a technical and Unreal focus.",
+    "currently": "Developing independent Unreal projects and teaching Game Design at Image Campus.",
     "location": "Buenos Aires, Argentina",
     "languages": [
       "English — Native/Bilingual"
@@ -16,37 +17,35 @@ export const profileContent = {
       "Unreal Engine",
       "Blueprints",
       "Gameplay Prototyping",
-      "AI / Behavior Trees / Navigation",
-      "Level Building & Scene Implementation",
+      "AI / Navigation",
       "Environmental Storytelling",
-      "Documentation",
-      "Playtesting & QA"
+      "Documentation"
     ],
     "trajectory": [
       {
         "date": "2025–Present",
-        "title": "Independent Unreal Engine Development",
-        "body": "Leading design and implementation on Hollow Graves, spanning systems, levels, narrative/worldbuilding, investigation design, UI/UX, Blueprint architecture and production planning."
+        "title": "Independent UE Development",
+        "body": "Design and implementation of original Unreal Engine projects, spanning systems, levels, narrative, UI/UX and production."
       },
       {
         "date": "2022–Present",
         "title": "Professor — Image Campus",
-        "body": "Design and teach original curricula across Game Design, Systems Design, Level Design, Unreal Engine Blueprints and Game Prototyping."
+        "body": "Teaching Game Design, Systems Design, Level Design, Unreal Engine Blueprints and Game Prototyping."
       },
       {
         "date": "2022–2024",
         "title": "Product Owner / Lead Game Designer — Aconcagua Games",
-        "body": "Owned gameplay, systems and level design across multiple mobile projects while leading a small design team and coordinating programming, art, QA and production."
+        "body": "Led gameplay, systems and level design across multiple mobile projects while coordinating multidisciplinary teams."
       },
       {
         "date": "2020–2022",
         "title": "Game & Level Design — Pixowl / VR Health",
-        "body": "Worked across level production, mechanics, balancing, progression and multidisciplinary VR design, including accessibility and specialist-driven constraints."
+        "body": "Worked across level production, mechanics, balancing, progression and multidisciplinary VR design."
       },
       {
         "date": "2019–2020",
         "title": "Lead Game Designer / Producer — Independent Studio",
-        "body": "Co-founded a six-person Unreal Engine project, leading design and documentation while managing backlog, sprint planning, scope, milestones and reviews."
+        "body": "Co-founded a six-person Unreal project, leading design, documentation, scope and production planning."
       }
     ]
   },

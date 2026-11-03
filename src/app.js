@@ -1,3 +1,4 @@
+import { bindAboutUI } from './about-ui.js';
 import { applyCaseAvailability } from './case-availability.js';
 import { bindRoleUI } from './role-ui.js';
 import { bindProjectSelector } from './project-ui.js';
@@ -28,6 +29,7 @@ function render() {
     bindComponents(app);
     bindProjectSelector(app);
     bindRoleUI(app);
+    bindAboutUI(app);
     applyCaseAvailability(app);
   }
   document.title=`${r.item?.title || navigation.find(n=>n.id===r.section)?.title || (r.branch==='books' ? 'Books' : 'Portfolio')} — ${config.name}`;

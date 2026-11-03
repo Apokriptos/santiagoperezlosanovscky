@@ -5,7 +5,7 @@ export const config = {
   introduction: 'Professional introduction forthcoming. Explore the portfolio structure by area of work, project, or case study.',
   studioUrl: 'https://apokriptos.github.io/aobscuragames/',
   overviewVideos: { projects: null, roles: null, 'case-studies': null },
-  portrait: null,
+  portrait: {src:'assets/ui/identity/about-portrait-v1.png',alt:'Santiago Pérez Losanovscky, resting his cheek on his tattooed hand against a charcoal background.'},
   // Preview styling only. Case routes stay available while the interface is developed.
   caseStudies: { comingSoon: true, label: 'Coming soon!' },
   // Overview is a curated window into Roles[], not a second role definition.
@@ -13,8 +13,8 @@ export const config = {
   copy: {
     projects: 'Project introduction forthcoming.',
     roles: 'Explore the areas of work below. Selected experience will be added with the final content.',
-    contact: 'Collaboration and opportunity information forthcoming.',
-    opportunities: 'Availability and collaboration details forthcoming.',
+    contact: 'Let’s talk about roles, projects, collaboration, or opportunities.',
+    opportunities: 'Available for technical game design, level design, systems design, gameplay design, and selected leadership or product-oriented roles. Open to remote collaborations, studio opportunities, and professional conversations.',
     caseStudies: 'Deep dives into design problems, implementation, iteration, and outcomes. Case content forthcoming.',
   },
   cv: {
@@ -23,7 +23,7 @@ export const config = {
     source: 'documentation/CV — Technical Game Designer — Santiago Perez Losanovscky.docx',
     summary: 'Game and systems designer with 7+ years of professional experience across game design, level design, gameplay systems, mobile and VR production, product ownership, and design leadership.',
   },
-  contact: { email: null, linkedin: null, github: 'https://github.com/Apokriptos' },
+  contact: { email: 'santiagolovsky@gmail.com', linkedin: 'https://www.linkedin.com/in/santiago-perez-losanovscky-a91877172/', instagram: 'https://www.instagram.com/capi.gamedev/' },
   about: {
     biography: 'Professional biography forthcoming.', focus: 'Focus statement forthcoming.',
     currently: 'Current work forthcoming.', trajectory: [], skills: [], location: null, languages: [],

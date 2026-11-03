@@ -53,7 +53,7 @@ function desktopFrame(label) {
   if(thumbs){const r=thumbs.getBoundingClientRect();assert(r.top>=bounds.top && r.bottom<=bounds.bottom,'Thumbnail rail remains inside desktop viewport');}
   const cta=doc().querySelector('.roles-page.detail-page .cta-strip'), grid=doc().querySelector('.role-detail-grid');
   if(cta)assert(cta.getBoundingClientRect().top>=grid.getBoundingClientRect().bottom-1,'Featured case CTA overlaps role content');
-  const about=doc().querySelector('.about-layout'), trajectory=doc().querySelector('.about-page > .print-panel');
+  const about=doc().querySelector('.about-profile'), trajectory=doc().querySelector('.about-trajectory');
   if(about)assert(trajectory.getBoundingClientRect().top>=about.getBoundingClientRect().bottom-1,'About regions overlap');
   const gallery=doc().querySelector('.project-gallery'), video=doc().querySelector('.project-video');
   if(gallery)assert(gallery.getBoundingClientRect().top>=video.getBoundingClientRect().bottom-1,'Project rows overlap');
@@ -129,8 +129,8 @@ try {
   results.push({test:'Every Case Studies index, cover, and step fits one canonical viewport with no vertical scroll; step rail remains visible',passed:true,measurements:caseMeasurements});
   results.push({test:'Global desktop fit for every required Games page family and configured detail route',passed:true,measurements:desktopMeasurements});
   await load('#games/about',1434,913,'tests/stress.html?about=populated');desktopFrame('Populated About fixture');
-  assert(getComputedStyle(doc().querySelector('.timeline')).display==='flex','Horizontal desktop trajectory');
-  assert(getComputedStyle(doc().querySelector('.about-facts .print-panel:first-child ul')).flexWrap==='wrap','Readable wrapping skills band');
+  assert(getComputedStyle(doc().querySelector('.trajectory-track')).gridAutoFlow==='column','Horizontal desktop trajectory');
+  assert(getComputedStyle(doc().querySelector('.about-skill-chips')).flexWrap==='wrap','Readable wrapping skills band');
   await load('#games/case-studies');
   assert(doc().querySelectorAll('.case-index-card').length===CaseStudies.length,'Overview case cards from data');
   assert(doc().querySelector('.case-carousel-controls').hidden,'No redundant controls when current cases fit');
@@ -251,7 +251,7 @@ try {
   const pdf=doc().querySelector('a[download]').href, response=await fetch(pdf);assert(response.ok,'CV PDF served');assert(response.headers.get('Content-Type').includes('application/pdf'),'PDF MIME type');
   assert((await response.text()).startsWith('%PDF-'),'CV file is a PDF');
   assert(doc().querySelector('a[download]').href===pdf,'Download uses the same supplied PDF');
-  await load('#games/contact');assert(doc().querySelector('a[href="https://github.com/Apokriptos"]'),'GitHub config link');assert(!doc().querySelector('form'),'No contact form');
+  await load('#games/contact');assert(doc().querySelector('a[href="mailto:santiagolovsky@gmail.com"]'),'Email config link');assert(doc().querySelector('a[href="https://www.instagram.com/capi.gamedev/"]'),'Instagram config link');assert(doc().querySelectorAll('.contact-method').length===3,'Three direct contact methods');assert(!doc().querySelector('.contact-page a[download],.contact-page a[href*="github.com"],form'),'No Contact CV, GitHub or form');
   await load('#books');assert(doc().querySelector('h1').textContent==='BOOKS','Books');
   await load('');assert(doc().querySelectorAll('main a').length===2,'Root branches only');
   for(const width of [320,360,390,768,1000,1200,1434]) {await load('',width);noOverflow('Landing '+width);}

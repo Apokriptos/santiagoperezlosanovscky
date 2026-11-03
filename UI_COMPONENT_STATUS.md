@@ -107,3 +107,15 @@ Cream background restored; black trial stylesheet is no longer loaded. Shared ga
 
 Roles Overview now uses six full-height colored identity slabs with canonical SVGs, larger descriptions and compact lower-right CTAs. Professional About and six-role copy is centralized in src/profile-content.js and applied once by src/data.js. Shared motion, red hover/black pressed states, 11px inner media corners, physical ambient separation and responsive desktop density are owned by styles/global-polish.css. Cream background, rails, routes, author banner, Project focus mode and Cases preview are retained. See docs/global-polish-13.md and tests/global-fit-results.json.
 
+## Contact revision — Pass 14
+
+Compact Email, LinkedIn and Instagram cards replace the former destination rows, with final collaboration copy and native configured links. Contact-only responsive styling fits all nine tested desktop/tablet/phone viewports without page overflow. GitHub and CV downloads are removed from Contact. See docs/contact-revision-14.md and tests/contact-browser-results.json.
+
+## About Me redesign — Pass 15
+
+About now uses a concise identity profile, compact Focus/Currently panels, responsive 3/2/1-card horizontal career carousel, angular skill chips and one metadata strip. Existing local fonts provide distinct display/body voices. The portrait remains a clean configured placeholder. See docs/about-redesign-15.md and tests/about-browser-results.json.
+
+## About portrait — Pass 16
+
+About now displays `assets/ui/identity/about-portrait-v1.png`, a photographic 3:4 variant derived from the supplied author banner. `config.portrait` owns its path and alt text. The Overview banner and existing layout remain unchanged. See docs/about-portrait-16.md.
+

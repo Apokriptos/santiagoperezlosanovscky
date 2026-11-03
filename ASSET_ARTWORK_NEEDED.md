@@ -22,6 +22,8 @@ Contracts override exploratory images. The Case Study Step contract calls for **
 
 ### `assets/ui/identity/ui_identity_portrait-treatment_01.webp` — optional future standalone treatment
 
+**About portrait fulfilled in Pass 16:** `assets/ui/identity/about-portrait-v1.png` now supplies the About frame, derived from the existing author banner at the user's request. A separate transparent cutout remains optional; About no longer waits for a portrait.
+
 **Current Games landing fulfilled:** the user-supplied `assets/ui/identity/authorbanner.png` is integrated unchanged. The original separate transparent portrait treatment below remains a future option, not a blocker for the landing.
 
 - Screens: Games Overview identity rail.

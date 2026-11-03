@@ -153,6 +153,8 @@ Every existing image/video is inventoried below at its original filename. No con
 
 ## Identity / Portrait
 
+Current About portrait: `assets/ui/identity/about-portrait-v1.png` — 1086×1448, 3:4 opaque PNG, generated edit derived from the existing supplied author banner at the user's request. Integrated through `config.portrait`. The source `authorbanner.png` is unchanged and remains the Overview banner. See `docs/about-portrait-16.md`.
+
 | Canonical filename | Type | Status | Reuse | Screens | Notes |
 | --- | --- | --- | --- | --- | --- |
 | `assets/ui/identity/authorbanner.png` | PNG | SUPPLIED / INTEGRATED | Owner identity | Games Overview identity rail | User-supplied 715×1671 composite, copied unchanged. Preserve the full image/embedded text using contain fitting. |

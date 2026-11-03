@@ -1,0 +1,78 @@
+/* Contact-only compact composition. Shared shell and background are untouched. */
+.games-shell .contact-page .contact-intro { font-size:16px; line-height:1.5; margin:0 0 28px; }
+.contact-composition { width:100%; max-width:1240px; margin:0 auto; }
+.contact-methods { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.contact-method { display:block; min-width:0; color:var(--ui-black); text-decoration:none; transition:transform var(--ui-duration) var(--ui-ease); }
+.contact-method__frame { --ui-cut:10px; --ui-surface-padding:20px; height:100%; }
+.contact-method__frame > .ui-surface__edge > .ui-surface__body { display:grid; grid-template-columns:48px minmax(0,1fr) 24px; gap:16px; align-items:center; min-height:132px; }
+.contact-method__icon { width:48px; height:48px; display:grid; place-items:center; background:var(--ui-black); color:var(--ui-surface); font:700 25px/1 Georgia,serif; transition:background-color var(--ui-duration) var(--ui-ease); }
+.contact-method__icon svg { width:28px; height:28px; }
+.contact-method__copy { min-width:0; display:flex; flex-direction:column; gap:5px; }
+.contact-method__copy strong { font:26px/1.1 var(--ui-font-display); text-transform:uppercase; }
+.contact-method__support { font:14px/1.4 var(--ui-font-body); color:var(--ui-muted); }
+.contact-method__value { font:13px/1.4 var(--ui-font-body); overflow-wrap:anywhere; }
+.contact-method__arrow { color:var(--ui-red); display:flex; transition:transform var(--ui-duration) var(--ui-ease); }
+.games-shell .contact-page .collaboration-panel { margin:26px 0 0; padding:22px 26px; }
+.games-shell .contact-page .collaboration-panel h2 { font-size:28px; margin:0 0 12px; }
+.games-shell .contact-page .collaboration-panel p { font-size:16px; line-height:1.6; margin:0; max-width:100ch; }
+.contact-method:focus-visible { outline:3px solid var(--ui-red); outline-offset:5px; transform:translateY(-2px); }
+.contact-method:focus-visible .contact-method__icon { background:var(--ui-red); }
+.contact-method:focus-visible .contact-method__arrow { transform:translateX(3px); }
+@media(hover:hover) and (pointer:fine) {
+ .contact-method:hover { transform:translateY(-2px); }
+ .contact-method:hover .contact-method__icon { background:var(--ui-red); }
+ .contact-method:hover .ui-surface__edge { background:var(--ui-red); }
+ .contact-method:hover .contact-method__arrow { transform:translateX(3px); }
+}
+.contact-method:active { transform:translateY(1px); }
+.contact-method:active .contact-method__frame { --ui-surface-fill:var(--ui-black); --ui-surface-ink:var(--ui-surface); }
+.contact-method:active :is(.contact-method__support,.contact-method__value,.contact-method__arrow) { color:var(--ui-surface); }
+@media(min-width:1001px) {
+ .games-shell .contact-page { display:block; }
+ .games-shell .contact-page .contact-composition { margin-top:clamp(20px,3dvh,34px); }
+}
+@media(min-width:1001px) and (max-width:1400px) {
+ .contact-methods { gap:16px; }
+ .contact-method__frame { --ui-surface-padding:16px; }
+ .contact-method__frame > .ui-surface__edge > .ui-surface__body { grid-template-columns:40px minmax(0,1fr) 20px; gap:12px; }
+ .contact-method__icon { width:40px; height:40px; }
+ .contact-method__copy strong { font-size:24px; }
+}
+@media(max-width:1000px) {
+ .contact-methods { grid-template-columns:1fr; gap:16px; }
+ .contact-method__frame > .ui-surface__edge > .ui-surface__body { min-height:100px; }
+ .games-shell .contact-page .collaboration-panel { margin-top:20px; padding:20px; }
+}
+@media(max-width:500px) {
+ .games-shell .contact-page { padding:18px; }
+ .games-shell .contact-page .page-header { margin-bottom:16px; padding-bottom:14px; }
+ .games-shell .contact-page .contact-intro { font-size:14px; line-height:1.4; margin-bottom:18px; }
+ .contact-method__frame { --ui-surface-padding:12px; }
+ .contact-method__frame > .ui-surface__edge > .ui-surface__body { grid-template-columns:36px minmax(0,1fr) 18px; gap:10px; min-height:90px; }
+ .contact-method__icon { width:36px; height:36px; font-size:22px; }
+ .contact-method__icon svg { width:24px; height:24px; }
+ .contact-method__copy strong { font-size:23px; }
+ .contact-method__support { font-size:13px; }
+ .contact-method__value { font-size:12px; }
+ .games-shell .contact-page .collaboration-panel { padding:16px; }
+ .games-shell .contact-page .collaboration-panel h2 { font-size:23px; margin-bottom:10px; }
+ .games-shell .contact-page .collaboration-panel p { font-size:14px; line-height:1.45; }
+}
+@media(max-width:500px) and (max-height:760px) {
+ .games-shell .contact-page { padding:12px; }
+ .games-shell .contact-page .page-header { margin-bottom:10px; padding-bottom:8px; }
+ .games-shell .contact-page .page-header h1 { font-size:34px; line-height:1.05; }
+ .games-shell .contact-page .contact-intro { margin-bottom:10px; }
+ .contact-methods { gap:10px; }
+ .contact-method__frame { --ui-surface-padding:10px; }
+ .contact-method__frame > .ui-surface__edge > .ui-surface__body { min-height:72px; grid-template-columns:32px minmax(0,1fr) 16px; gap:8px; }
+ .contact-method__icon { width:32px; height:32px; }
+ .contact-method__copy { gap:3px; }
+ .games-shell .contact-page .collaboration-panel { margin-top:14px; padding:12px; }
+ .games-shell .contact-page .collaboration-panel h2 { font-size:20px; margin-bottom:8px; }
+ .games-shell .contact-page .collaboration-panel p { font-size:13.5px; line-height:1.4; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .contact-method,.contact-method__icon,.contact-method__arrow { transition:none; }
+ .contact-method:is(:hover,:focus-visible,:active),.contact-method:is(:hover,:focus-visible) .contact-method__arrow { transform:none; }
+}

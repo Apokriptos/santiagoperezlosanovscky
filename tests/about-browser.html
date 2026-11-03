@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>About viewport and career interaction checks</title><style>body{font:13px monospace}pre{white-space:pre-wrap}iframe{display:block;border:0}</style><pre id="report">Running…</pre><iframe title="About verification"></iframe><script type="module">
+import {config} from '../src/data.js';
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const settle=()=>new Promise(r=>setTimeout(r,900));
+try{for(const [width,height] of [[1280,720],[1366,768],[1440,900],[1600,900],[1920,1080],[2560,1440],[768,1024],[390,844],[320,720]]){
+ frame.width=width;frame.height=height;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/?about-test='+width+'#games/about';});const d=frame.contentDocument,w=frame.contentWindow;await d.fonts.ready;await tick();
+ const issues=[],page=d.querySelector('.about-page'),main=d.querySelector('main'),track=d.querySelector('.trajectory-track'),cards=[...track.children],next=d.querySelector('[data-career-direction="1"]'),previous=d.querySelector('[data-career-direction="-1"]');
+ const portrait=d.querySelector('.about-photo img');if(config.portrait?.src){if(!portrait)issues.push('Configured portrait absent');else{await portrait.decode();if(!portrait.naturalWidth||!portrait.alt)issues.push('Portrait decode/alt failed');}}
+ if(d.documentElement.scrollWidth>width||main.scrollWidth>main.clientWidth)issues.push('Horizontal page overflow');
+ if(width>1000&&(d.documentElement.scrollHeight>height||main.scrollHeight>main.clientHeight))issues.push('Vertical page overflow');
+ if(cards.length!==config.about.trajectory.length)issues.push('Career array mismatch');
+ if(d.querySelectorAll('.about-skill-chips li').length!==config.about.skills.length)issues.push('Skills mismatch');
+ const visible=Number(w.getComputedStyle(d.querySelector('[data-trajectory]')).getPropertyValue('--career-visible'));
+ if(visible!==(width>=1500?3:width>600?2:1))issues.push('Responsive visible count');
+ if(track.scrollHeight>track.clientHeight+1)issues.push('Career text vertically clipped '+track.scrollHeight+'/'+track.clientHeight);
+ for(const c of cards){const inner=c.firstElementChild,b=inner.getBoundingClientRect();if(inner.scrollHeight>inner.clientHeight+1)issues.push('Card body overflow '+c.textContent.slice(0,35));for(const n of inner.children){if(n.getBoundingClientRect().bottom>b.bottom-3)issues.push('Card text exceeds padding');}}
+ for(const n of page.querySelectorAll('h1,h2,.about-biography,.about-positioning,.about-fact-copy p,.about-skill-chips,.about-metadata')){const b=n.getBoundingClientRect();if(width>1000&&(b.bottom>height+1||b.top<0))issues.push('Content outside viewport '+n.className);if(b.right>width+1)issues.push('Text outside width '+n.className);}
+ if(!previous.disabled||next.disabled)issues.push('Initial arrow state');next.click();await settle();await tick();
+ if(track.scrollLeft<10||previous.disabled)issues.push('Next failed');
+ track.focus();track.dispatchEvent(new KeyboardEvent('keydown',{key:'End',bubbles:true}));await settle();await tick();if(!next.disabled||previous.disabled)issues.push('End key failed');
+ track.dispatchEvent(new KeyboardEvent('keydown',{key:'Home',bubbles:true}));await settle();await tick();if(!previous.disabled||track.scrollLeft>1)issues.push('Home key failed');
+ track.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));await settle();await tick();if(track.scrollLeft<10)issues.push('Right arrow key failed');
+ track.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));await settle();await tick();if(track.scrollLeft>1)issues.push('Left arrow key failed');
+ if(w.getComputedStyle(track).outlineWidth!=='3px')issues.push('Missing visible keyboard focus');
+ const dots=[...d.querySelectorAll('[data-career-position]')];dots.at(-1).click();await settle();await tick();if(!next.disabled||dots.at(-1).getAttribute('aria-pressed')!=='true')issues.push('Position control failed');
+ const nativeMatch=w.matchMedia;w.matchMedia=q=>q.includes('prefers-reduced-motion')?{matches:true}:nativeMatch.call(w,q);previous.click();if(track.style.scrollSnapType==='none')issues.push('Reduced motion animated');w.matchMedia=nativeMatch;await tick();
+ if(w.getComputedStyle(track).scrollbarWidth!=='none'||w.getComputedStyle(track).scrollSnapType!=='x mandatory')issues.push('Snap/scrollbar treatment');
+ results.push({width,height,visible,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
+}report.textContent=JSON.stringify({passed:results.every(r=>r.passed),results},null,2);
+}catch(e){report.textContent=JSON.stringify({passed:false,error:e.message,results},null,2);}
+</script></html>

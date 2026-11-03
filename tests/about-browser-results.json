@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1280,
+      "height": 720,
+      "visible": 2,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "visible": 2,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "visible": 2,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 1600,
+      "height": 900,
+      "visible": 3,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "visible": 3,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "visible": 3,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "visible": 2,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "visible": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "width": 320,
+      "height": 720,
+      "visible": 1,
+      "passed": true,
+      "issues": []
+    }
+  ]
+}
