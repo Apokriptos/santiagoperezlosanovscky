@@ -15,7 +15,7 @@ export function aboutComposition(a,name,portrait) {
  const entries=a.trajectory||[];
  const career=entries.length?`<div class="trajectory-carousel" data-trajectory role="region" aria-roledescription="carousel" aria-label="Professional trajectory">
   ${carouselArrow('previous',{label:'Previous career entries',attributes:{'data-career-direction':-1,'aria-controls':'career-track'}})}
-  <ol id="career-track" class="trajectory-track" tabindex="0" aria-label="Career entries; use Left and Right arrow keys">${entries.map((t,i)=>`<li class="trajectory-card" aria-label="${i+1} of ${entries.length}"><div><p class="trajectory-date">${e(t.date)}</p><h3>${e(t.title)}</h3><p class="trajectory-description">${e(t.body)}</p></div></li>`).join('')}</ol>
+  <ol id="career-track" class="trajectory-track" tabindex="0" aria-label="Career entries; use Left and Right arrow keys">${entries.map((t,i)=>`<li class="trajectory-card" aria-label="${i+1} of ${entries.length}"><div><p class="trajectory-date">${e(t.date)}</p><h3>${e(t.title)}${t.role?` — ${e(t.role)}`:''}</h3><p class="trajectory-description">${e(t.body)}</p></div></li>`).join('')}</ol>
   ${carouselArrow('next',{label:'Next career entries',attributes:{'data-career-direction':1,'aria-controls':'career-track'}})}
   <nav class="trajectory-positions" aria-label="Career carousel positions"></nav><p class="visually-hidden trajectory-announcement" aria-live="polite" aria-atomic="true"></p>
  </div>`:'<p class="about-career-empty">Professional trajectory forthcoming.</p>';

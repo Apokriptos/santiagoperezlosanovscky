@@ -95,6 +95,7 @@
  .about-metadata { border-left:0; border-top:1px solid #333; padding:16px 0 0; }
 }
 @media(min-width:1001px) and (max-height:740px) {
+ .games-shell .about-page { grid-template-rows:auto minmax(0,1.03fr) minmax(0,1fr) auto; }
  .about-page .page-header .breadcrumb { margin-bottom:6px; }
  .about-page .page-header h1 { font-size:36px; line-height:1; }
  .about-page .page-header { padding-bottom:8px; }

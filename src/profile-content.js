@@ -23,29 +23,52 @@ export const profileContent = {
     ],
     "trajectory": [
       {
-        "date": "2025–Present",
-        "title": "Independent UE Development",
-        "body": "Design and implementation of original Unreal Engine projects, spanning systems, levels, narrative, UI/UX and production."
+        "date": "Nov 2021–Present",
+        "title": "AOBSCURA GAMES",
+        "role": "Creative Director",
+        "body": "Formerly Fin Del Mundo Games. Lead independent game development across creative direction, design, Unreal implementation and multidisciplinary collaboration."
       },
       {
-        "date": "2022–Present",
-        "title": "Professor — Image Campus",
-        "body": "Teaching Game Design, Systems Design, Level Design, Unreal Engine Blueprints and Game Prototyping."
+        "date": "Apr 2022–Present",
+        "title": "IMAGE CAMPUS",
+        "role": "Professor — Game Design",
+        "body": "Design and teach Game Design, Systems Design, Level Design, Unreal Blueprints and Game Prototyping."
       },
       {
-        "date": "2022–2024",
-        "title": "Product Owner / Lead Game Designer — Aconcagua Games",
-        "body": "Led gameplay, systems and level design across multiple mobile projects while coordinating multidisciplinary teams."
+        "date": "May 2022–Sep 2024",
+        "title": "ACONCAGUA GAMES",
+        "role": "Product Owner / Lead Game Designer",
+        "body": "Led gameplay, systems and level design across mobile titles, coordinating a design team and multidisciplinary production."
       },
       {
-        "date": "2020–2022",
-        "title": "Game & Level Design — Pixowl / VR Health",
-        "body": "Worked across level production, mechanics, balancing, progression and multidisciplinary VR design."
+        "date": "Sep 2020–Jan 2022",
+        "title": "PIXOWL — MATCH ISLAND",
+        "role": "Game Designer / Level Designer",
+        "body": "Designed and balanced high-volume levels, progression and gameplay content, contributing production standards and design reviews."
       },
       {
-        "date": "2019–2020",
-        "title": "Lead Game Designer / Producer — Independent Studio",
-        "body": "Co-founded a six-person Unreal project, leading design, documentation, scope and production planning."
+        "date": "Oct 2020–Jun 2021",
+        "title": "VR HEALTH",
+        "role": "Lead Game Designer",
+        "body": "Led design for a therapeutic VR initiative, translating specialist requirements into accessible gameplay and player experiences."
+      },
+      {
+        "date": "Jan 2019–Sep 2020",
+        "title": "INDEPENDENT GAME STUDIO",
+        "role": "Lead Game Designer / Producer",
+        "body": "Co-founded a six-person Unreal project, leading design, level implementation, documentation and production planning."
+      },
+      {
+        "date": "Apr 2019–Nov 2019",
+        "title": "COTO CICSA",
+        "role": "Game Designer",
+        "body": "Designed and tested gameplay and levels for a children's multiplayer VR project developed in Unity for Oculus."
+      },
+      {
+        "date": "2009–Present",
+        "title": "INDEPENDENT AUTHOR",
+        "role": "Author & Writer",
+        "body": "Write and independently publish original fiction, specializing in horror, worldbuilding, narrative structure and characters."
       }
     ]
   },

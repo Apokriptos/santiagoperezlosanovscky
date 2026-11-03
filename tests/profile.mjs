@@ -4,7 +4,7 @@ import {config,Roles,CaseStudies} from '../src/data.js';
 import {profileContent} from '../src/profile-content.js';
 assert.deepEqual(config.about,profileContent.about);
 assert.equal(config.copy.roles,profileContent.rolesIntro);
-assert.equal(config.about.trajectory.length,5);
+assert.equal(config.about.trajectory.length,8);
 assert.equal(config.about.skills.length,10);
 assert.equal(new Set(Roles.map(r=>r.accentColor)).size,6);
 const luminance=hex=>hex.match(/[a-f0-9]{2}/gi).map(n=>parseInt(n,16)/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4).reduce((sum,n,i)=>sum+n*[.2126,.7152,.0722][i],0);

@@ -119,3 +119,7 @@ About now uses a concise identity profile, compact Focus/Currently panels, respo
 
 About now displays `assets/ui/identity/about-portrait-v1.png`, a photographic 3:4 variant derived from the supplied author banner. `config.portrait` owns its path and alt text. The Overview banner and existing layout remain unchanged. See docs/about-portrait-16.md.
 
+## Complete professional trajectory — Pass 17
+
+The existing About carousel now displays all eight supplied professional/creative appointments, preserving exact order and overlapping dates. Employer, role, date and concise description remain centralized in `profileContent.about.trajectory`. Separate Pixowl and VR Health cards replace the combined record. See docs/complete-trajectory-17.md and tests/about-browser-results.json.
+

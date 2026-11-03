@@ -24,9 +24,13 @@ try{for(const [width,height] of [[1280,720],[1366,768],[1440,900],[1600,900],[19
  track.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));await settle();await tick();if(track.scrollLeft>1)issues.push('Left arrow key failed');
  if(w.getComputedStyle(track).outlineWidth!=='3px')issues.push('Missing visible keyboard focus');
  const dots=[...d.querySelectorAll('[data-career-position]')];dots.at(-1).click();await settle();await tick();if(!next.disabled||dots.at(-1).getAttribute('aria-pressed')!=='true')issues.push('Position control failed');
- const nativeMatch=w.matchMedia;w.matchMedia=q=>q.includes('prefers-reduced-motion')?{matches:true}:nativeMatch.call(w,q);previous.click();if(track.style.scrollSnapType==='none')issues.push('Reduced motion animated');w.matchMedia=nativeMatch;await tick();
+ const last=cards.at(-1).getBoundingClientRect(),viewport=track.getBoundingClientRect(),finalCardVisible=last.left>=viewport.left-1&&last.right<=viewport.right+1;
+ if(!finalCardVisible)issues.push('Final career card not completely visible');
+ const nativeMatch=w.matchMedia;w.matchMedia=q=>q.includes('prefers-reduced-motion')?{matches:true}:nativeMatch.call(w,q);previous.click();if(track.style.scrollSnapType==='none')issues.push('Reduced motion animated');await tick();
+ const reachable=new Set();for(const dot of dots){dot.click();await tick();const bounds=track.getBoundingClientRect();cards.forEach((card,i)=>{const b=card.getBoundingClientRect();if(b.left>=bounds.left-1&&b.right<=bounds.right+1)reachable.add(i);});}
+ w.matchMedia=nativeMatch;if(reachable.size!==cards.length)issues.push('Not all career cards reachable');
  if(w.getComputedStyle(track).scrollbarWidth!=='none'||w.getComputedStyle(track).scrollSnapType!=='x mandatory')issues.push('Snap/scrollbar treatment');
- results.push({width,height,visible,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
+ results.push({width,height,visible,reachable:reachable.size,finalCardVisible,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
 }report.textContent=JSON.stringify({passed:results.every(r=>r.passed),results},null,2);
 }catch(e){report.textContent=JSON.stringify({passed:false,error:e.message,results},null,2);}
 </script></html>
