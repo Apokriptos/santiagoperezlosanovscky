@@ -104,3 +104,4 @@ await import('./cases.mjs');
 
 await import('./profile.mjs');
 await import('./about.mjs');
+await import('./cv.mjs');

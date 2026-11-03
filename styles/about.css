@@ -1,124 +1,159 @@
-/* About-only editorial hierarchy, using existing Impact and Arial font stacks. */
-.games-shell .about-page { --about-gap:16px; --about-pad:18px; --about-body:16px; display:grid; grid-template-rows:auto auto auto auto; gap:var(--about-gap); }
+/* About-only composition. Existing display/body fonts and supplied portrait. */
+.games-shell .about-page { --about-gap:16px; --about-pad:18px; --about-body:17px; display:grid; grid-template-rows:auto auto auto auto; gap:var(--about-gap); }
 .about-page .page-header { margin:0; }
 .about-page .ui-surface { --ui-cut:17px; --ui-surface-padding:var(--about-pad); min-width:0; min-height:0; }
-.about-page .ui-surface > .ui-surface__edge { height:100%; }
-.about-page .ui-surface > .ui-surface__edge > .ui-surface__body { height:100%; min-height:0; }
-.about-page .ui-header-plate { font-size:clamp(23px,2.6vw,32px); line-height:1.05; margin:0; }
-.about-page .ui-header-plate .ui-plate { padding:5px 24px 5px 15px; width:fit-content; max-width:100%; }
-.about-profile { display:grid; grid-template-columns:minmax(150px,21%) minmax(0,1fr); gap:var(--about-gap); min-height:0; }
+.about-page .ui-surface > .ui-surface__edge,.about-page .ui-surface > .ui-surface__edge > .ui-surface__body { height:100%; min-height:0; }
+.about-page .ui-header-plate { font-size:30px; line-height:1.05; margin:0; }
+.about-page .ui-header-plate .ui-plate { padding:5px 26px 5px 16px; width:fit-content; max-width:100%; border-right-width:12px; }
+.about-profile { display:grid; grid-template-columns:minmax(150px,20%) minmax(0,1fr); gap:var(--about-gap); min-height:0; }
 .about-photo { min-height:0; }
 .about-portrait-frame { height:100%; --ui-surface-padding:0px!important; }
 .about-portrait-frame .ui-surface__body { padding:0; background:#d7c9b5; }
 .about-portrait-frame img { display:block; width:100%; height:100%; object-fit:cover; }
-.about-portrait-pending { min-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:linear-gradient(135deg,#e6dac8 15%,#f4ecde 50%,#cbbba5); color:#756452; }
+.about-portrait-pending { min-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:linear-gradient(135deg,#e6dac8,#cbbba5); color:#756452; }
 .about-portrait-pending > span { font:italic 70px/1 var(--ui-font-display); color:#9b302e; }
 .about-portrait-pending small { font:12px/1.4 var(--ui-font-body); letter-spacing:2px; text-transform:uppercase; }
-.about-profile-copy { display:grid; grid-template-rows:minmax(0,1.25fr) minmax(0,1fr); gap:var(--about-gap); min-width:0; min-height:0; }
-.about-identity .ui-surface__body { display:flex; flex-direction:column; justify-content:center; gap:12px; }
-.games-shell .about-page .about-name { font-size:40px; }
+.about-profile-copy { display:grid; grid-template-rows:minmax(0,1.2fr) minmax(0,1fr); gap:var(--about-gap); min-width:0; min-height:0; }
+.about-identity .ui-surface__body { display:flex; flex-direction:column; justify-content:center; gap:8px; }
+.games-shell .about-page .about-name { font-size:42px; }
 .about-page .about-name .ui-plate { max-width:100%; }
-.about-page .about-positioning { color:#bd1118; font:700 14px/1.4 var(--ui-font-body); margin:0; }
-.about-page .about-biography { font:600 var(--about-body)/1.45 var(--ui-font-body); margin:0; max-width:95ch; }
+.about-page .about-positioning { color:#bd1118; font:700 18px/1.3 var(--ui-font-body); margin:0; }
+.about-page .about-biography { font:600 var(--about-body)/1.4 var(--ui-font-body); margin:0; max-width:95ch; }
 .about-highlights { display:grid; grid-template-columns:1fr 1fr; gap:var(--about-gap); min-height:0; }
-.about-fact .ui-surface__body { display:flex; flex-direction:column; gap:12px; justify-content:center; }
-.about-fact-copy { display:grid; grid-template-columns:42px minmax(0,1fr); gap:16px; align-items:center; }
-.about-fact-copy > svg { width:38px; height:38px; }
-.about-page .about-fact-copy p { border-left:1px solid #333; padding-left:16px; margin:0; font:var(--about-body)/1.4 var(--ui-font-body); }
+.games-shell .about-page .about-fact { filter:drop-shadow(2px 3px 0 #19191855) drop-shadow(0 2px 3px #19191812); }
+.about-fact .ui-surface__body { display:flex; flex-direction:column; gap:10px; justify-content:center; }
+.about-fact-copy { display:grid; grid-template-columns:40px minmax(0,1fr); gap:16px; align-items:center; }
+.about-fact-copy > svg { width:36px; height:36px; }
+.about-page .about-fact-copy p { border-left:1px solid #333; padding-left:16px; margin:0; font:600 var(--about-body)/1.35 var(--ui-font-body); }
 .about-trajectory .ui-surface__body { display:flex; flex-direction:column; gap:12px; }
-.about-band-heading { display:flex; align-items:center; gap:26px; }
-.about-band-heading > span { font:700 11px/1.4 var(--ui-font-body); text-transform:uppercase; letter-spacing:1.7px; }
-.trajectory-carousel { --career-visible:3; display:grid; grid-template-columns:38px minmax(0,1fr) 38px; grid-template-rows:minmax(0,1fr) 22px; gap:10px 14px; min-height:0; flex:1; }
-.about-page .trajectory-carousel > .ui-carousel-arrow { position:static; transform:none; align-self:center; width:38px; height:40px; min-height:40px; min-width:0; padding:6px; }
-.trajectory-track { display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - (var(--career-visible) - 1)*14px)/var(--career-visible)); gap:14px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-x:contain; padding:0; margin:0; list-style:none; min-width:0; position:relative; }
+.about-band-heading { display:flex; align-items:center; gap:22px; }
+.about-band-heading > span { font:700 13px/1.4 var(--ui-font-body); text-transform:uppercase; letter-spacing:1.2px; }
+.about-band-heading::after { content:''; flex:1; height:1px; background:#292725; }
+.trajectory-carousel { --career-visible:2; display:grid; grid-template-columns:44px minmax(0,1fr) 44px; grid-template-rows:minmax(0,1fr) 30px; gap:12px 16px; min-height:0; flex:1; }
+.about-page .trajectory-carousel > .ui-carousel-arrow { position:static; transform:none; align-self:center; width:44px; height:48px; min-height:48px; min-width:0; padding:8px; }
+.about-page .trajectory-carousel > .ui-carousel-arrow--prev:not(:disabled) { background:var(--ui-black); color:var(--ui-surface); }
+.about-page .trajectory-carousel > .ui-carousel-arrow--prev:not(:disabled):is(:hover,:focus-visible) { background:var(--ui-red); }
+.about-page .trajectory-carousel > .ui-carousel-arrow:not(:disabled):active { background:var(--ui-black); color:var(--ui-surface); }
+.trajectory-track { display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - (var(--career-visible) - 1)*18px)/var(--career-visible)); gap:18px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-x:contain; padding:0; margin:0; list-style:none; min-width:0; position:relative; }
 .trajectory-track::-webkit-scrollbar { display:none; }
 .trajectory-track:focus-visible { outline:3px solid var(--ui-red); outline-offset:3px; }
-.about-page .trajectory-card { background:var(--ui-black); clip-path:polygon(13px 0,calc(100% - 13px) 0,100% 13px,100% calc(100% - 13px),calc(100% - 13px) 100%,13px 100%,0 calc(100% - 13px),0 13px); padding:1px; min-width:0; scroll-snap-align:start; }
-.trajectory-card > div { height:100%; padding:14px 18px; background:var(--ui-surface); clip-path:inherit; }
-.about-page .trajectory-date { margin:0 0 6px; font:700 14px/1.2 var(--ui-font-body); color:#bd1118; }
-.about-page .trajectory-card h3 { margin:0 0 7px; font:700 17px/1.2 var(--ui-font-body); text-transform:none; letter-spacing:0; }
-.about-page .trajectory-description { margin:0; font:15px/1.4 var(--ui-font-body); }
-.trajectory-positions { grid-column:2; display:flex; align-items:center; justify-content:center; gap:3px; }
-.games-shell .about-page .trajectory-positions button { display:grid; place-items:center; width:24px; height:24px; min-height:24px; min-width:24px; padding:5px; border:0; background:transparent; box-shadow:none; cursor:pointer; }
+.about-page .trajectory-card { background:var(--ui-black); clip-path:polygon(15px 0,calc(100% - 15px) 0,100% 15px,100% calc(100% - 15px),calc(100% - 15px) 100%,15px 100%,0 calc(100% - 15px),0 15px); padding:1px; min-width:0; scroll-snap-align:start; }
+.trajectory-card > div { height:100%; padding:20px 26px; background:var(--ui-surface); clip-path:inherit; }
+.about-page .trajectory-date { margin:0 0 5px; font:700 15px/1.2 var(--ui-font-body); text-transform:uppercase; color:#bd1118; }
+.about-page .trajectory-card h3 { margin:0 0 4px; font:800 28px/1.1 var(--ui-font-body); text-transform:none; letter-spacing:-.4px; }
+.about-page .trajectory-role { margin:0 0 8px; padding-bottom:8px; border-bottom:1px solid #49423b; font:600 18px/1.2 var(--ui-font-body); }
+.about-page .trajectory-description { margin:0; font:17px/1.4 var(--ui-font-body); }
+.trajectory-navigation { grid-column:1/-1; display:flex; align-items:center; justify-content:center; gap:20px; }
+.trajectory-navigation::before,.trajectory-navigation::after { content:''; flex:1; height:1px; background:#292725; }
+.trajectory-count { background:var(--ui-black); border-right:7px solid var(--ui-red); clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%); padding:3px 18px; color:var(--ui-surface); font:700 14px/1.3 var(--ui-font-body); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.trajectory-positions { display:flex; align-items:center; justify-content:center; gap:2px; }
+.games-shell .about-page .trajectory-positions button { display:grid; place-items:center; width:24px; height:26px; min-height:26px; min-width:24px; padding:5px; border:0; background:transparent; box-shadow:none; cursor:pointer; }
 .trajectory-announcement { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .trajectory-positions button span { display:block; width:12px; height:12px; border:1px solid var(--ui-black); background:var(--ui-surface); border-radius:50%; }
-.trajectory-positions button[aria-pressed='true'] span { background:var(--ui-red); }
-.trajectory-positions button:is(:hover,:focus-visible) span { background:var(--ui-red); }
+.trajectory-positions button[aria-pressed='true'] span,.trajectory-positions button:is(:hover,:focus-visible) span { background:var(--ui-red); }
 .trajectory-positions button:active span { background:var(--ui-black); }
 .trajectory-positions button:focus-visible { outline:2px solid var(--ui-red); outline-offset:1px; }
-.about-capabilities .ui-surface__body { display:grid; grid-template-columns:minmax(0,1fr) minmax(210px,26%); gap:20px; align-items:center; }
-.about-skills { display:flex; align-items:flex-start; gap:20px; }
-.about-page .about-skill-chips { display:flex; flex-wrap:wrap; list-style:none; gap:8px; padding:0; margin:0; flex:1; }
-.about-skill-chips li { padding:1px; background:#222; clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,9px 100%,0 50%); }
-.about-skill-chips li span { display:block; padding:6px 12px; background:var(--ui-surface); clip-path:inherit; font:700 13px/1.2 var(--ui-font-body); }
+.about-capabilities .ui-surface__body { display:grid; grid-template-columns:minmax(0,1fr) minmax(210px,25%); gap:20px; align-items:center; }
+.about-skills { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:start; gap:16px; }
+.about-page .about-skill-chips { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); grid-auto-rows:1fr; gap:8px; list-style:none; padding:0; margin:0; }
+.about-skill-chips li { display:flex; padding:1px; background:#222; clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,9px 100%,0 50%); }
+.about-skill-chips li span { display:grid; place-items:center; width:100%; min-height:32px; padding:5px 10px; background:var(--ui-surface); clip-path:inherit; font:700 13px/1.2 var(--ui-font-body); text-align:center; }
 .about-metadata { border-left:1px solid #222; padding-left:18px; }
-.about-page .about-metadata p { display:flex; align-items:center; gap:12px; font:700 14px/1.4 var(--ui-font-body); margin:0; }
-.about-metadata p+p { margin-top:14px; }
+.about-page .about-metadata p { display:flex; align-items:center; gap:12px; font:700 15px/1.35 var(--ui-font-body); margin:0; }
+.about-metadata p+p { margin-top:16px; }
 .about-metadata svg { width:25px; height:25px; flex-shrink:0; }
+.about-metadata p span { position:relative; padding-bottom:6px; }
+.about-metadata p span::after { content:''; position:absolute; bottom:0; left:0; width:54px; height:2px; background:var(--ui-red); }
 @media(min-width:1001px) and (min-height:700px) {
- .games-shell .about-page { height:100dvh; grid-template-rows:auto minmax(0,1.2fr) minmax(0,1fr) auto; --about-gap:clamp(10px,1.5dvh,18px); --about-pad:clamp(12px,1.7dvh,20px); }
- .about-profile { grid-template-columns:minmax(150px,min(23%,28dvh)) minmax(0,1fr); }
+ .games-shell .about-page { height:100dvh; grid-template-rows:auto minmax(0,.9fr) minmax(0,1.1fr) auto; --about-gap:clamp(10px,1.4dvh,16px); --about-pad:clamp(11px,1.5dvh,20px); }
+ .about-profile { grid-template-columns:minmax(150px,min(22%,27dvh)) minmax(0,1fr); }
 }
 @media(min-width:1001px) and (max-width:1499px) {
- .trajectory-carousel { --career-visible:2; }
  .games-shell .about-page .about-name { font-size:36px; }
- .about-page .about-positioning { font-size:12px; }
- .about-skills { gap:14px; }
- .about-skill-chips li span { font-size:12px; padding:5px 10px; }
+ .about-page .about-positioning { font-size:15px; }
+ .about-page .trajectory-card h3 { font-size:25px; }
+ .about-page .trajectory-role { font-size:16px; }
+ .about-page .trajectory-description { font-size:16px; }
+ .trajectory-card > div { padding:16px 20px; }
+ .about-skills { gap:10px; }
+ .about-skill-chips li span { font-size:12px; padding:4px 8px; min-height:34px; }
  .about-page .about-metadata p { font-size:13px; }
 }
 @media(min-width:1001px) and (max-height:800px) {
- .games-shell .about-page { --about-body:14px; --about-pad:11px; --about-gap:10px; }
- .about-page .page-header { padding-bottom:10px; }
+ .games-shell .about-page { --about-body:14px; --about-pad:10px; --about-gap:10px; grid-template-rows:auto 234px minmax(0,1fr) auto; }
+ .about-page .page-header { padding-bottom:8px; }
+ .about-page .page-header .breadcrumb { margin-bottom:6px; }
+ .about-page .page-header h1 { font-size:36px; line-height:1; }
  .about-page .ui-header-plate { font-size:24px; }
  .games-shell .about-page .about-name { font-size:30px; }
- .about-identity .ui-surface__body,.about-fact .ui-surface__body { gap:8px; }
- .about-fact-copy { gap:10px; grid-template-columns:32px minmax(0,1fr); }
- .about-fact-copy > svg { width:30px; height:30px; }
+ .about-page .about-positioning { font-size:13px; }
+ .about-identity .ui-surface__body,.about-fact .ui-surface__body { gap:6px; }
+ .about-fact-copy { gap:10px; grid-template-columns:30px minmax(0,1fr); }
+ .about-fact-copy > svg { width:28px; height:28px; }
  .about-page .about-fact-copy p { padding-left:10px; }
- .trajectory-card > div { padding:12px 16px; }
- .about-page .trajectory-card h3 { font-size:16px; margin-bottom:6px; }
- .about-page .trajectory-description { font-size:14px; line-height:1.35; }
- .about-page .trajectory-date { font-size:13px; }
  .about-trajectory .ui-surface__body { gap:8px; }
- .about-skill-chips li span { padding:4px 9px; }
- .about-page .about-metadata p { font-size:12px; }
+ .about-band-heading { gap:16px; }
+ .about-band-heading > span { font-size:11px; }
+ .trajectory-carousel { grid-template-columns:36px minmax(0,1fr) 36px; grid-template-rows:minmax(0,1fr) 26px; gap:8px 10px; }
+ .about-page .trajectory-carousel > .ui-carousel-arrow { width:36px; height:42px; min-height:42px; padding:6px; }
+ .trajectory-card > div { padding:11px 15px; }
+ .about-page .trajectory-date { font-size:13px; margin-bottom:4px; }
+ .about-page .trajectory-card h3 { font-size:21px; margin-bottom:3px; }
+ .about-page .trajectory-role { font-size:14px; padding-bottom:5px; margin-bottom:5px; }
+ .about-page .trajectory-description { font-size:14px; line-height:1.4; }
+ .about-skills .ui-header-plate { font-size:22px; }
+ .about-skills { gap:8px; }
+ .about-page .about-skill-chips { gap:6px; }
+ .about-skill-chips li span { padding:4px 7px; min-height:34px; }
+ .about-capabilities .ui-surface__body { grid-template-columns:minmax(0,1fr) 208px; gap:14px; }
+ .about-metadata { padding-left:14px; }
+ .about-page .about-metadata p { font-size:12px; gap:8px; }
+ .about-metadata p+p { margin-top:10px; }
+ .trajectory-navigation { gap:12px; }
+}
+@media(min-width:1500px) and (min-height:801px) and (max-height:950px) {
+ .about-page .about-identity { --ui-surface-padding:12px; }
+ .about-identity .ui-surface__body { gap:6px; }
+ .games-shell .about-page .about-name { font-size:40px; }
 }
 @media(max-width:1000px) {
  .about-profile { grid-template-columns:24% minmax(0,1fr); }
  .about-profile-copy { grid-template-rows:auto auto; }
  .about-highlights { grid-template-columns:1fr; }
  .games-shell .about-page .about-name { font-size:28px; }
- .about-page .about-positioning { font-size:12px; }
- .trajectory-carousel { --career-visible:2; min-height:220px; }
+ .about-page .about-positioning { font-size:14px; }
+ .trajectory-carousel { min-height:310px; }
+ .trajectory-card > div { padding:16px; }
+ .about-page .trajectory-card h3 { font-size:23px; }
+ .about-page .trajectory-role { font-size:16px; }
+ .about-page .trajectory-description { font-size:15px; }
  .about-capabilities .ui-surface__body { grid-template-columns:1fr; }
  .about-metadata { border-left:0; border-top:1px solid #333; padding:16px 0 0; }
 }
 @media(min-width:1001px) and (max-height:740px) {
- .games-shell .about-page { grid-template-rows:auto minmax(0,1.03fr) minmax(0,1fr) auto; }
- .about-page .page-header .breadcrumb { margin-bottom:6px; }
- .about-page .page-header h1 { font-size:36px; line-height:1; }
- .about-page .page-header { padding-bottom:8px; }
- .about-page .about-skill-chips { gap:6px; }
- .about-skill-chips li span { padding:4px 6px; }
- .about-skills { gap:10px; }
- .about-skills .ui-header-plate { font-size:22px; }
+ .about-page .about-capabilities { --ui-surface-padding:6px; }
+ .about-skill-chips li span { padding:2px 7px; min-height:30px; }
 }
 @media(max-width:600px) {
  .games-shell .about-page { --about-pad:16px; --about-body:15px; padding:18px; }
  .about-profile { grid-template-columns:1fr; }
  .about-photo { width:132px; height:176px; }
  .about-profile-copy { display:flex; flex-direction:column; }
- .about-page .about-positioning { line-height:1.6; }
  .about-page .ui-header-plate { font-size:26px; }
  .games-shell .about-page .about-name { font-size:25px; }
  .about-band-heading { flex-wrap:wrap; gap:8px; }
- .trajectory-carousel { --career-visible:1; grid-template-columns:30px minmax(0,1fr) 30px; gap:10px 6px; min-height:300px; }
+ .about-band-heading::after { display:none; }
+ .trajectory-carousel { --career-visible:1; grid-template-columns:30px minmax(0,1fr) 30px; grid-template-rows:minmax(0,1fr) auto; gap:10px 6px; min-height:430px; }
  .about-page .trajectory-carousel > .ui-carousel-arrow { width:30px; }
  .trajectory-card > div { padding:14px; }
- .about-skills { flex-direction:column; gap:16px; }
+ .about-page .trajectory-card h3 { font-size:22px; }
+ .about-page .trajectory-role { font-size:15px; }
+ .trajectory-navigation { gap:8px; flex-wrap:wrap; }
+ .trajectory-navigation::before,.trajectory-navigation::after { display:none; }
+ .trajectory-count { font-size:12px; padding:3px 12px; }
+ .games-shell .about-page .trajectory-positions button { width:20px; min-width:20px; padding:4px; }
+ .about-skills { grid-template-columns:1fr; gap:16px; }
+ .about-page .about-skill-chips { grid-template-columns:repeat(2,minmax(0,1fr)); }
  .about-skill-chips li span { font-size:12px; }
 }
-@media(prefers-reduced-motion:reduce) {
- .trajectory-track { scroll-behavior:auto; }
-}
+@media(prefers-reduced-motion:reduce) { .trajectory-track { scroll-behavior:auto; } }

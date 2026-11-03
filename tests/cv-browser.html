@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>CV document checks</title><style>body{font:13px monospace}pre{white-space:pre-wrap}iframe{display:block;border:0}</style><pre id="report">Running…</pre><iframe title="CV verification"></iframe><script type="module">
+const frame=document.querySelector('iframe'),report=document.querySelector('#report'),results=[];
+const tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+try{for(const [width,height] of [[1280,720],[1366,768],[1440,900],[1600,900],[1920,1080],[2560,1440],[768,1024],[390,844]]){
+ frame.width=width;frame.height=height;await new Promise(r=>{frame.onload=r;frame.src='/santiagoperezlosanovscky/?cv-test='+width+'#games/cv';});const d=frame.contentDocument;await d.fonts.ready;await tick();
+ const issues=[],main=d.querySelector('main'),viewer=d.querySelector('.cv-document'),preview=viewer.contentDocument;
+ if(!preview?.querySelector('.document-page'))await new Promise(r=>viewer.addEventListener('load',r,{once:true}));const p=viewer.contentDocument;
+ if(p.querySelectorAll('.document-page').length!==2)issues.push('Wrong page count');
+ const links=[...d.querySelectorAll('.cv-profile a')],download=d.querySelector('a[download]'),response=await fetch(download.href),bytes=await response.arrayBuffer(),digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');
+ if(digest!=='8a6c45177929ce0a74bab9df271d4ea6624d1330a1fcecc7d418d0509dd95ff9'||p.querySelector('main').dataset.sourceSha256!==digest)issues.push('PDF/preview mismatch');
+ if(!response.headers.get('Content-Type').includes('application/pdf')||!links.every(a=>a.href===download.href))issues.push('PDF actions or MIME');
+ for(const image of p.querySelectorAll('svg image')){const probe=new Image();probe.src=new URL(image.getAttribute('href'),viewer.src);await probe.decode();if(!probe.naturalWidth)issues.push('Page image unavailable');}
+ if(!p.documentElement.textContent.includes('Aobscura Games (formerly Fin Del Mundo Games)')||!p.documentElement.textContent.includes('C++ (prototype-level)'))issues.push('Stale preview text');
+ if(d.documentElement.scrollWidth>width||main.scrollWidth>main.clientWidth)issues.push('Horizontal page overflow');
+ if(width>1000&&(d.documentElement.scrollHeight>height||main.scrollHeight>main.clientHeight))issues.push('Vertical site overflow');
+ if(p.documentElement.scrollWidth>viewer.clientWidth+1)issues.push('Document horizontal overflow');
+ p.scrollingElement.scrollTop=p.scrollingElement.scrollHeight;await tick();const last=p.querySelector('.document-page:last-child').getBoundingClientRect();if(last.bottom>viewer.clientHeight+1)issues.push('Second document page unreachable');
+ results.push({width,height,pages:2,pdfHash:digest,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
+}report.textContent=JSON.stringify({passed:results.every(r=>r.passed),results},null,2);}catch(e){report.textContent=JSON.stringify({passed:false,error:e.message,results},null,2);}
+</script></html>

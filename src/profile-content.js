@@ -1,7 +1,7 @@
 // User-supplied professional copy. No imports: initialization cannot create a cycle.
 export const profileContent = {
   "about": {
-    "positioning": "GAME AND SYSTEMS DESIGNER / TECHNICAL DESIGNER / LEVEL DESIGNER",
+    "positioning": "GAME & SYSTEMS DESIGN · LEVEL DESIGN · UNREAL ENGINE",
     "biography": "Game and systems designer with 7+ years of experience in game design, level design and Unreal Engine, bridging creative intent with implementation.",
     "focus": "Systems, level and gameplay design, with a technical and Unreal focus.",
     "currently": "Developing independent Unreal projects and teaching Game Design at Image Campus.",
@@ -55,7 +55,7 @@ export const profileContent = {
       {
         "date": "Jan 2019–Sep 2020",
         "title": "INDEPENDENT GAME STUDIO",
-        "role": "Lead Game Designer / Producer",
+        "role": "Lead Game Designer / Producer / ScrumMaster",
         "body": "Co-founded a six-person Unreal project, leading design, level implementation, documentation and production planning."
       },
       {

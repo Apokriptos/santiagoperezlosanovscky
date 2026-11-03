@@ -20,8 +20,8 @@ export const config = {
   cv: {
     url: 'documentation/cv-technical-game-designer.pdf',
     previewUrl: 'documentation/cv-technical-game-designer.html',
-    source: 'documentation/CV — Technical Game Designer — Santiago Perez Losanovscky.docx',
-    summary: 'Game and systems designer with 7+ years of professional experience across game design, level design, gameplay systems, mobile and VR production, product ownership, and design leadership.',
+    source: 'documentation/cv-technical-game-designer.pdf',
+    summary: 'Game and systems designer with 7+ years of experience across gameplay, systems and level design, mobile and VR production, product ownership, and design leadership.',
   },
   contact: { email: 'santiagolovsky@gmail.com', linkedin: 'https://www.linkedin.com/in/santiago-perez-losanovscky-a91877172/', instagram: 'https://www.instagram.com/capi.gamedev/' },
   about: {

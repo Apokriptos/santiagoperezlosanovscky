@@ -15,9 +15,9 @@ export function aboutComposition(a,name,portrait) {
  const entries=a.trajectory||[];
  const career=entries.length?`<div class="trajectory-carousel" data-trajectory role="region" aria-roledescription="carousel" aria-label="Professional trajectory">
   ${carouselArrow('previous',{label:'Previous career entries',attributes:{'data-career-direction':-1,'aria-controls':'career-track'}})}
-  <ol id="career-track" class="trajectory-track" tabindex="0" aria-label="Career entries; use Left and Right arrow keys">${entries.map((t,i)=>`<li class="trajectory-card" aria-label="${i+1} of ${entries.length}"><div><p class="trajectory-date">${e(t.date)}</p><h3>${e(t.title)}${t.role?` — ${e(t.role)}`:''}</h3><p class="trajectory-description">${e(t.body)}</p></div></li>`).join('')}</ol>
-  ${carouselArrow('next',{label:'Next career entries',attributes:{'data-career-direction':1,'aria-controls':'career-track'}})}
-  <nav class="trajectory-positions" aria-label="Career carousel positions"></nav><p class="visually-hidden trajectory-announcement" aria-live="polite" aria-atomic="true"></p>
+  <ol id="career-track" class="trajectory-track" tabindex="0" aria-label="Career entries; use Left and Right arrow keys">${entries.map((t,i)=>`<li class="trajectory-card" aria-label="${i+1} of ${entries.length}"><div><p class="trajectory-date">${e(t.date)}</p><h3>${e(t.title)}</h3>${t.role?`<p class="trajectory-role">${e(t.role)}</p>`:''}<p class="trajectory-description">${e(t.body)}</p></div></li>`).join('')}</ol>
+  ${carouselArrow('next',{label:'Next career entries',className:'ui-btn--primary',attributes:{'data-career-direction':1,'aria-controls':'career-track'}})}
+  <div class="trajectory-navigation"><span class="trajectory-count" aria-hidden="true"></span><nav class="trajectory-positions" aria-label="Career carousel positions"></nav></div><p class="visually-hidden trajectory-announcement" aria-live="polite" aria-atomic="true"></p>
  </div>`:'<p class="about-career-empty">Professional trajectory forthcoming.</p>';
  return `<div class="about-profile"><div class="about-photo">${surface(photo,{className:'about-portrait-frame',accent:true})}</div><div class="about-profile-copy">
  ${surface(`${plate(name,'about-name')}<p class="about-positioning">${e(a.positioning)}</p><p class="about-biography">${e(a.biography)}</p>`,{accent:true,className:'about-identity'})}
@@ -28,7 +28,7 @@ export function aboutComposition(a,name,portrait) {
 
 export function bindAboutUI(root) {
  const carousel=root.querySelector('[data-trajectory]');if(!carousel)return;
- const track=carousel.querySelector('.trajectory-track'),cards=[...track.children],positions=carousel.querySelector('.trajectory-positions'),status=carousel.querySelector('.trajectory-announcement');
+ const track=carousel.querySelector('.trajectory-track'),cards=[...track.children],positions=carousel.querySelector('.trajectory-positions'),status=carousel.querySelector('.trajectory-announcement'),counter=carousel.querySelector('.trajectory-count');
  const previous=carousel.querySelector('[data-career-direction="-1"]'),next=carousel.querySelector('[data-career-direction="1"]');
  let index=0,max=0,positionCount=0,frame=0,motion=0;
  const reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -39,6 +39,7 @@ export function bindAboutUI(root) {
   if(positionCount!==max+1){positions.innerHTML=Array.from({length:max+1},(_,i)=>`<button type="button" data-career-position="${i}" aria-label="Show career entries starting at ${i+1}" aria-controls="career-track"><span></span></button>`).join('');positionCount=max+1;}
   previous.disabled=index===0;next.disabled=index===max;
   positions.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
+  counter.textContent=`${String(index+1).padStart(2,'0')} / ${String(cards.length).padStart(2,'0')}`;
   const text=`Career entries ${index+1}–${Math.min(cards.length,index+cards.length-max)} of ${cards.length}`;
   if(status.textContent!==text)status.textContent=text;
  }

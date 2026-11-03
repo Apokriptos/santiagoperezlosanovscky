@@ -3,6 +3,8 @@ import {aboutComposition} from '../src/about-ui.js';
 import {config} from '../src/data.js';
 const html=aboutComposition(config.about,config.name,null);
 assert.ok(html.includes('bridging creative intent with implementation.'));
+assert.equal(config.about.positioning,'GAME & SYSTEMS DESIGN · LEVEL DESIGN · UNREAL ENGINE');
+assert.ok(html.includes('<h3>AOBSCURA GAMES</h3><p class="trajectory-role">Creative Director</p>'));
 assert.ok(html.includes('Portrait placeholder; final photograph to be supplied'));
 assert.ok(!html.includes('MEDIA FORTHCOMING'));
 assert.equal((html.match(/class="trajectory-card"/g)||[]).length,config.about.trajectory.length);
@@ -12,7 +14,7 @@ assert.deepEqual(config.about.trajectory.map(t=>[t.title,t.role,t.date]),[
  ['ACONCAGUA GAMES','Product Owner / Lead Game Designer','May 2022–Sep 2024'],
  ['PIXOWL — MATCH ISLAND','Game Designer / Level Designer','Sep 2020–Jan 2022'],
  ['VR HEALTH','Lead Game Designer','Oct 2020–Jun 2021'],
- ['INDEPENDENT GAME STUDIO','Lead Game Designer / Producer','Jan 2019–Sep 2020'],
+ ['INDEPENDENT GAME STUDIO','Lead Game Designer / Producer / ScrumMaster','Jan 2019–Sep 2020'],
  ['COTO CICSA','Game Designer','Apr 2019–Nov 2019'],
  ['INDEPENDENT AUTHOR','Author & Writer','2009–Present']
 ]);

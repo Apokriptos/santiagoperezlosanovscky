@@ -130,7 +130,7 @@ try {
   results.push({test:'Global desktop fit for every required Games page family and configured detail route',passed:true,measurements:desktopMeasurements});
   await load('#games/about',1434,913,'tests/stress.html?about=populated');desktopFrame('Populated About fixture');
   assert(getComputedStyle(doc().querySelector('.trajectory-track')).gridAutoFlow==='column','Horizontal desktop trajectory');
-  assert(getComputedStyle(doc().querySelector('.about-skill-chips')).flexWrap==='wrap','Readable wrapping skills band');
+  assert(getComputedStyle(doc().querySelector('.about-skill-chips')).gridTemplateColumns.split(' ').length===5,'Five-column aligned skills band');
   await load('#games/case-studies');
   assert(doc().querySelectorAll('.case-index-card').length===CaseStudies.length,'Overview case cards from data');
   assert(doc().querySelector('.case-carousel-controls').hidden,'No redundant controls when current cases fit');

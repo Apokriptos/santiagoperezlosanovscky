@@ -123,3 +123,11 @@ About now displays `assets/ui/identity/about-portrait-v1.png`, a photographic 3:
 
 The existing About carousel now displays all eight supplied professional/creative appointments, preserving exact order and overlapping dates. Employer, role, date and concise description remain centralized in `profileContent.about.trajectory`. Separate Pixowl and VR Health cards replace the combined record. See docs/complete-trajectory-17.md and tests/about-browser-results.json.
 
+## Supplied CV update — Pass 18
+
+The current supplied two-page PDF now powers View CV, Download PDF and a faithful PDF-derived selectable preview. The original file is preserved byte-for-byte. `config.cv.source` points to the PDF; the old Word file is historical. See docs/cv-update-18.md and tests/cv-browser-results.json.
+
+## About final polish — Pass 19
+
+About now uses two wide trajectory cards on all supported desktops, separate organization/position hierarchy, integrated first-visible count and accurate position dots. Ten equal-height skill chips occupy two aligned rows, with red-accented metadata beside them. Portrait and surrounding site are retained. See docs/about-final-polish-19.md.
+

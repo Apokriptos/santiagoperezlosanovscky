@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {config} from '../src/data.js';
+const pdf=await readFile(new URL('../'+config.cv.url,import.meta.url));
+const digest=createHash('sha256').update(pdf).digest('hex');
+assert.equal(digest,'8a6c45177929ce0a74bab9df271d4ea6624d1330a1fcecc7d418d0509dd95ff9','Current supplied PDF retained byte-for-byte');
+assert.equal(config.cv.source,config.cv.url,'Current PDF is authoritative');
+const html=await readFile(new URL('../'+config.cv.previewUrl,import.meta.url),'utf8');
+assert.ok(html.includes('data-source-sha256="'+digest+'"'));
+assert.equal((html.match(/class="document-page"/g)||[]).length,2);
+assert.ok(html.includes('Aobscura Games (formerly Fin Del Mundo Games)'));
+assert.ok(html.includes('C++ (prototype-level)'));
+assert.ok(html.includes('Unreal Engine Dark-Fantasy Action Roguelite Prototype'));
+for(let i=1;i<=2;i++)assert.ok((await readFile(new URL('../documentation/cv-preview-page-'+i+'.png',import.meta.url))).length>10000);
+console.log('CV: exact supplied PDF hash, authoritative source, synchronized two-page preview and page assets passed.');

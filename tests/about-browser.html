@@ -12,13 +12,22 @@ try{for(const [width,height] of [[1280,720],[1366,768],[1440,900],[1600,900],[19
  if(cards.length!==config.about.trajectory.length)issues.push('Career array mismatch');
  if(d.querySelectorAll('.about-skill-chips li').length!==config.about.skills.length)issues.push('Skills mismatch');
  const visible=Number(w.getComputedStyle(d.querySelector('[data-trajectory]')).getPropertyValue('--career-visible'));
- if(visible!==(width>=1500?3:width>600?2:1))issues.push('Responsive visible count');
+ if(visible!==(width>600?2:1))issues.push('Responsive visible count');
+ const chips=[...d.querySelectorAll('.about-skill-chips li')],chipGrid=w.getComputedStyle(d.querySelector('.about-skill-chips'));
+ if(width>600&&(chipGrid.gridTemplateColumns.split(' ').length!==5||new Set(chips.map(c=>Math.round(c.getBoundingClientRect().top))).size!==2))issues.push('Skills are not two aligned five-column rows');
+ for(const chip of chips){if(chip.scrollWidth>chip.clientWidth+1)issues.push('Skill text clipped');}
+ if(Math.max(...chips.map(c=>c.getBoundingClientRect().height))-Math.min(...chips.map(c=>c.getBoundingClientRect().height))>1)issues.push('Unequal skill chip heights');
+ if(width>1000){const skillBox=d.querySelector('.about-skills').getBoundingClientRect(),meta=d.querySelector('.about-metadata').getBoundingClientRect();if(skillBox.right>meta.left+1)issues.push('Skills and metadata overlap');}
+ for(const n of d.querySelectorAll('.about-identity p,.about-fact p,.about-identity h2,.about-fact h2')){const b=n.getBoundingClientRect(),panel=n.closest('.ui-surface__body').getBoundingClientRect();if(b.top<panel.top-1||b.bottom>panel.bottom+1)issues.push('Profile text exceeds panel '+n.className);}
+ if(!d.querySelector('.about-positioning').textContent.includes('GAME & SYSTEMS DESIGN · LEVEL DESIGN · UNREAL ENGINE'))issues.push('Positioning copy');
+ const count=d.querySelector('.trajectory-count');if(count.textContent!=='01 / 08')issues.push('Initial first-visible counter');
  if(track.scrollHeight>track.clientHeight+1)issues.push('Career text vertically clipped '+track.scrollHeight+'/'+track.clientHeight);
  for(const c of cards){const inner=c.firstElementChild,b=inner.getBoundingClientRect();if(inner.scrollHeight>inner.clientHeight+1)issues.push('Card body overflow '+c.textContent.slice(0,35));for(const n of inner.children){if(n.getBoundingClientRect().bottom>b.bottom-3)issues.push('Card text exceeds padding');}}
  for(const n of page.querySelectorAll('h1,h2,.about-biography,.about-positioning,.about-fact-copy p,.about-skill-chips,.about-metadata')){const b=n.getBoundingClientRect();if(width>1000&&(b.bottom>height+1||b.top<0))issues.push('Content outside viewport '+n.className);if(b.right>width+1)issues.push('Text outside width '+n.className);}
  if(!previous.disabled||next.disabled)issues.push('Initial arrow state');next.click();await settle();await tick();
  if(track.scrollLeft<10||previous.disabled)issues.push('Next failed');
  track.focus();track.dispatchEvent(new KeyboardEvent('keydown',{key:'End',bubbles:true}));await settle();await tick();if(!next.disabled||previous.disabled)issues.push('End key failed');
+ if(count.textContent!==String(cards.length-visible+1).padStart(2,'0')+' / 08')issues.push('Final first-visible counter');
  track.dispatchEvent(new KeyboardEvent('keydown',{key:'Home',bubbles:true}));await settle();await tick();if(!previous.disabled||track.scrollLeft>1)issues.push('Home key failed');
  track.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));await settle();await tick();if(track.scrollLeft<10)issues.push('Right arrow key failed');
  track.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));await settle();await tick();if(track.scrollLeft>1)issues.push('Left arrow key failed');
@@ -30,7 +39,8 @@ try{for(const [width,height] of [[1280,720],[1366,768],[1440,900],[1600,900],[19
  const reachable=new Set();for(const dot of dots){dot.click();await tick();const bounds=track.getBoundingClientRect();cards.forEach((card,i)=>{const b=card.getBoundingClientRect();if(b.left>=bounds.left-1&&b.right<=bounds.right+1)reachable.add(i);});}
  w.matchMedia=nativeMatch;if(reachable.size!==cards.length)issues.push('Not all career cards reachable');
  if(w.getComputedStyle(track).scrollbarWidth!=='none'||w.getComputedStyle(track).scrollSnapType!=='x mandatory')issues.push('Snap/scrollbar treatment');
- results.push({width,height,visible,reachable:reachable.size,finalCardVisible,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
+ if(width>1000&&(w.scrollY!==0||main.scrollTop!==0))issues.push('Carousel moved surrounding page vertically');
+ results.push({width,height,visible,reachable:reachable.size,finalCardVisible,skillsColumns:chipGrid.gridTemplateColumns.split(' ').length,passed:!issues.length,issues});report.textContent=JSON.stringify({running:true,results},null,2);
 }report.textContent=JSON.stringify({passed:results.every(r=>r.passed),results},null,2);
 }catch(e){report.textContent=JSON.stringify({passed:false,error:e.message,results},null,2);}
 </script></html>
